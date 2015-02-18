@@ -13,39 +13,45 @@ static NSString *tableCellIndentifier = @"tableCellIndentifier";
 @implementation BookShelfTableView
 
 - (id) init {
-    if((self = [super init])) {
-        self.frame = [[UIScreen mainScreen] bounds];
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake([PYUtils screenWidth], 50);
+    layout.sectionInset = UIEdgeInsetsMake(64 + 5, 0, 0, 0);
+    layout.minimumInteritemSpacing = layout.minimumLineSpacing = 0;
+    
+    if((self = [super initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:layout])) {
         self.autoresizingMask = AUTORESIZING_WIDTH_AND_HEIGHT;
         self.backgroundColor = [UIColor brownColor];
+        self.alwaysBounceVertical = YES;
+        self.alwaysBounceHorizontal = NO;
         self.delegate = self;
         self.dataSource = self;
         
-        [self registerClass:[TableCell class] forCellReuseIdentifier:tableCellIndentifier];
+        [self registerClass:[TableCell class] forCellWithReuseIdentifier:tableCellIndentifier];
     }
     return self;
 }
 
-#pragma mark - tableView delegate & dateSource
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+#pragma mark - collectionView delegate & dateSource
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [[BookSource shareInstance] count];
 }
 
-- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row >= [[BookSource shareInstance] count]) {
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.item >= [[BookSource shareInstance] count]) {
         return nil;
     }
     Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.row];
-    
-    TableCell* cell = (TableCell*)[tableView dequeueReusableCellWithIdentifier:tableCellIndentifier forIndexPath:indexPath];
+    NSLog(@"fa");
+    TableCell* cell = (TableCell*)[collectionView dequeueReusableCellWithReuseIdentifier:tableCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
 }
 

@@ -15,7 +15,7 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 - (id) init {
     PYCollectionViewFlowLayout *layout = [PYCollectionViewFlowLayout new];
     [layout registerNib:[UINib nibWithNibName:@"PYBookShelfDecorationView" bundle:nil] forDecorationViewOfKind:PYCollectionViewLayoutDecorationViewKind];
-    
+
     if((self = [super initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:layout])) {
         self.autoresizingMask = AUTORESIZING_WIDTH_AND_HEIGHT;
         self.backgroundColor = [UIColor brownColor];

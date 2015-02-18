@@ -69,7 +69,7 @@ UIGestureRecognizerDelegate
 - (void) _setup {
     _oldScrollDir = PYScroll_UNKNOWN;
     _scrollSpeed = 300.f;
-    _scrollingTriggerEdgeInsets = UIEdgeInsetsMake(50.0f, 50.0f, 50.0f, 50.0f);
+    _scrollingTriggerEdgeInsets = UIEdgeInsetsMake(10.0f, 50.0f, 50.0f, 40.0f);
     
     self.itemSize = CGSizeMake(60, 80);
     self.sectionInset = _scrollingTriggerEdgeInsets;

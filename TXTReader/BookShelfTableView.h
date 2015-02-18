@@ -11,10 +11,10 @@
 #import "TableCell.h"
 #import "PYUtils.h"
 
-@interface BookShelfTableView : UITableView
+@interface BookShelfTableView : UICollectionView
 <
-UITableViewDataSource,
-UITableViewDelegate
+UICollectionViewDataSource,
+UICollectionViewDelegate
 >
 
 

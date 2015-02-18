@@ -26,8 +26,10 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setupNavigationItem];
+
+    self.view.backgroundColor = [UIColor redColor];
     
     self.collectionView = [[BookShelfCollectionView alloc] init];
     [self.view addSubview:self.collectionView];
