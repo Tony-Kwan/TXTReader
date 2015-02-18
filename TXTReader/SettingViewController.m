@@ -13,8 +13,6 @@
     
 }
 
-@property (nonatomic, strong) UIView *naviBar;
-
 @end
 
 @implementation SettingViewController
@@ -23,15 +21,39 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    self.naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [PYUtils screenWidth], 44)];
-    self.naviBar.backgroundColor = [UIColor cyanColor];
-    [self.view addSubview:self.naviBar];
+    self.view.tintColor = [UIColor redColor];
     
     UIButton *btnDone = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnDone.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     [btnDone setTitle:@"Done" forState:UIControlStateNormal];
     [btnDone addTarget:self action:@selector(clickDone) forControlEvents:UIControlEventTouchUpInside];
-    [self.naviBar addSubview:btnDone];
+    [btnDone setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    btnDone.backgroundColor = [UIColor clearColor];
+    [btnDone sizeToFit];
+    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnDone];
+    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    
+    UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnCancel.titleLabel.font = [UIFont systemFontOfSize:17];
+    [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
+    [btnCancel setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    [btnCancel addTarget:self action:@selector(clickCancel) forControlEvents:UIControlEventTouchUpInside];
+    btnCancel.backgroundColor = [UIColor clearColor];
+    [btnCancel sizeToFit];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnCancel];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    
+//    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(clickDone)];
+//    self.navigationItem.rightBarButtonItem = rightButtonItem;
+}
+
+#pragma mark - event
+- (void) clickDone {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) clickCancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

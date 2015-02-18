@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableCell : UICollectionViewCell
+@interface TableCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *titleLabel;
 

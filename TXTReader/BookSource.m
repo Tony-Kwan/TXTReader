@@ -16,6 +16,16 @@
 
 @implementation BookSource
 
++ (id) shareInstance {
+    static dispatch_once_t once;
+    static BookSource* source;
+    dispatch_once(&once, ^{
+        source = [BookSource new];
+        [source loadBooks];
+    });
+    return source;
+}
+
 - (id) init {
     if((self = [super init])) {
         self.books = [NSMutableArray array];
@@ -28,8 +38,8 @@
     NSString* str;
     
     [self.books removeAllObjects];
-    for(int i = 0; i < 3; i++) {
-        str = [NSString stringWithFormat:@"%d", i];
+    for(int i = 0; i < 30; i++) {
+        str = [NSString stringWithFormat:@"%d", i%3];
         NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
         Book *book = [[Book alloc] initWithPath:bookPath];
         [self.books addObject:book];

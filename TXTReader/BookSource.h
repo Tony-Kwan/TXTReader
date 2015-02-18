@@ -11,6 +11,8 @@
 
 @interface BookSource : NSObject
 
++ (id) shareInstance;
+
 - (void) loadBooks;
 - (NSInteger) count;
 - (Book*) bookAtIndex:(NSUInteger)index;
