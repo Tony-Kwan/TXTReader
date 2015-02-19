@@ -10,13 +10,15 @@
 #import "BookSource.h"
 #import "TableCell.h"
 #import "PYUtils.h"
+#import "BookShelfDelegate.h"
 
 @interface BookShelfTableView : UICollectionView
 <
 UICollectionViewDataSource,
-UICollectionViewDelegate
+UICollectionViewDelegate,
+BookShelfDelegate
 >
 
-
+@property (nonatomic, weak) id<BookShelfDelegate> bookShelfDelegate;
 
 @end

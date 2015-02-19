@@ -8,12 +8,18 @@
 
 #import "RootViewController.h"
 #import "PYUtils.h"
+#import "FileUtils.h"
 #import "SettingViewController.h"
 #import "BookShelfCollectionView.h"
 #import "BookShelfTableView.h"
+#import "BookShelfDelegate.h"
 
 @interface RootViewController()
+<
+BookShelfDelegate
+>
 {
+    UILabel *testLabel;
 }
 
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;
@@ -37,6 +43,8 @@
     self.tableView = [[BookShelfTableView alloc] init];
     self.tableView.hidden = YES;
     [self.view addSubview:self.tableView];
+    
+    self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
 }
 
 - (void) setupNavigationItem {
@@ -75,6 +83,14 @@
 - (void) segmentControlValueDidChange:(UISegmentedControl*)segmentControl {
     self.collectionView.hidden = segmentControl.selectedSegmentIndex;
     self.tableView.hidden = !self.collectionView.hidden;
+}
+
+#pragma mark - BookShelfDelegate
+- (void) openBook:(Book *)book {
+    NSLog(@"START decode");
+    NSData *data = [NSData dataWithContentsOfFile:book.path options:NSDataReadingMappedAlways error:nil];
+    NSString *str = [[NSString alloc] initWithData:data encoding:[FileUtils recognizeEncodingWithPath:book.path]];
+    NSLog(@"END decode | string length = %@ %@", @(str.length), str);
 }
 
 @end

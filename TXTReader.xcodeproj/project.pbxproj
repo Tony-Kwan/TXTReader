@@ -30,6 +30,7 @@
 		E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E94506781A94D8240017FDD1 /* SettingViewController.m */; };
 		E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */; };
 		E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */; };
+		E95FAA571A96023300D30017 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA561A96023300D30017 /* FileUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,9 @@
 		E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfCollectionView.m; sourceTree = "<group>"; };
 		E95FAA4C1A94EA2500D30017 /* BookShelfTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfTableView.h; sourceTree = "<group>"; };
 		E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfTableView.m; sourceTree = "<group>"; };
+		E95FAA511A95FE8000D30017 /* BookShelfDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfDelegate.h; sourceTree = "<group>"; };
+		E95FAA551A96023300D30017 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
+		E95FAA561A96023300D30017 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
 		F4A39D49ED309E0E179B3E7E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -151,6 +155,7 @@
 				E94506771A94D8240017FDD1 /* SettingViewController.h */,
 				E94506781A94D8240017FDD1 /* SettingViewController.m */,
 				E94506611A94B84D0017FDD1 /* TXT */,
+				E95FAA541A96015600D30017 /* Core */,
 				E945065D1A94B7840017FDD1 /* View */,
 				E945066A1A94C1C10017FDD1 /* Modal */,
 				E945064D1A94B4260017FDD1 /* Helper */,
@@ -208,6 +213,7 @@
 			children = (
 				E95FAA4F1A94EA3900D30017 /* CollectionView */,
 				E95FAA501A94EA4500D30017 /* TableView */,
+				E95FAA511A95FE8000D30017 /* BookShelfDelegate.h */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -256,6 +262,15 @@
 				E94506751A94CF400017FDD1 /* TableCell.m */,
 			);
 			name = TableView;
+			sourceTree = "<group>";
+		};
+		E95FAA541A96015600D30017 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E95FAA551A96023300D30017 /* FileUtils.h */,
+				E95FAA561A96023300D30017 /* FileUtils.m */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +418,7 @@
 				E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */,
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,
 				E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */,
+				E95FAA571A96023300D30017 /* FileUtils.m in Sources */,
 				E94506571A94B48B0017FDD1 /* UIImage+ImageEffects.m in Sources */,
 				E94506701A94C1ED0017FDD1 /* BookSource.m in Sources */,
 				E945064B1A94AAEA0017FDD1 /* RootViewController.m in Sources */,
@@ -478,7 +494,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -513,7 +529,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

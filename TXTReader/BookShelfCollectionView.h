@@ -11,12 +11,16 @@
 #import "BookCell.h"
 #import "PYCollectionViewFlowLayout.h"
 #import "BookSource.h"
+#import "BookShelfDelegate.h"
 
 @interface BookShelfCollectionView : UICollectionView
 <
 UICollectionViewDelegate,
 PYCollectionVieDelegateFlowLayout,
-PYCollectionViewDateSource
+PYCollectionViewDateSource,
+BookShelfDelegate
 >
+
+@property (nonatomic, weak) id<BookShelfDelegate> bookShelfDelegate;
 
 @end

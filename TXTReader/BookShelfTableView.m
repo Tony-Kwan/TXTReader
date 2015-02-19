@@ -45,14 +45,16 @@ static NSString *tableCellIndentifier = @"tableCellIndentifier";
         return nil;
     }
     Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.row];
-    NSLog(@"fa");
     TableCell* cell = (TableCell*)[collectionView dequeueReusableCellWithReuseIdentifier:tableCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
     return cell;
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if(self.bookShelfDelegate && [self.bookShelfDelegate respondsToSelector:@selector(openBook:)]) {
+        Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
+        [self.bookShelfDelegate openBook:book];
+    }
 }
 
 @end
