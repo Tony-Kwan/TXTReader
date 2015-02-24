@@ -28,6 +28,7 @@
 		E94506701A94C1ED0017FDD1 /* BookSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E945066F1A94C1ED0017FDD1 /* BookSource.m */; };
 		E94506761A94CF400017FDD1 /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E94506751A94CF400017FDD1 /* TableCell.m */; };
 		E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E94506781A94D8240017FDD1 /* SettingViewController.m */; };
+		E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D48541A977E9200CB1723 /* ReadViewController.m */; };
 		E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */; };
 		E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */; };
 		E95FAA571A96023300D30017 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA561A96023300D30017 /* FileUtils.m */; };
@@ -81,6 +82,8 @@
 		E94506751A94CF400017FDD1 /* TableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCell.m; sourceTree = "<group>"; };
 		E94506771A94D8240017FDD1 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		E94506781A94D8240017FDD1 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		E95D48531A977E9200CB1723 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
+		E95D48541A977E9200CB1723 /* ReadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadViewController.m; sourceTree = "<group>"; };
 		E95FAA491A94E5C000D30017 /* BookShelfCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfCollectionView.h; sourceTree = "<group>"; };
 		E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfCollectionView.m; sourceTree = "<group>"; };
 		E95FAA4C1A94EA2500D30017 /* BookShelfTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfTableView.h; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 			children = (
 				E94506491A94AAEA0017FDD1 /* RootViewController.h */,
 				E945064A1A94AAEA0017FDD1 /* RootViewController.m */,
+				E95D48531A977E9200CB1723 /* ReadViewController.h */,
+				E95D48541A977E9200CB1723 /* ReadViewController.m */,
 				E94506771A94D8240017FDD1 /* SettingViewController.h */,
 				E94506781A94D8240017FDD1 /* SettingViewController.m */,
 				E94506611A94B84D0017FDD1 /* TXT */,
@@ -414,6 +419,7 @@
 				E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */,
 				E94506761A94CF400017FDD1 /* TableCell.m in Sources */,
 				E945066D1A94C1D50017FDD1 /* Book.m in Sources */,
+				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,
 				E94506261A94A96E0017FDD1 /* AppDelegate.m in Sources */,
 				E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */,
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,

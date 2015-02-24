@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>04B4DD10-C7CB-4F89-9F6D-F03BF4C4A333</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TXTReader</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3EC6F2F2E11E74E1E43C6D632705F63EE6456BF1</key>
+		<string>https://github.com/Tony-Kwan/TXTReader.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TXTReader.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3EC6F2F2E11E74E1E43C6D632705F63EE6456BF1</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Tony-Kwan/TXTReader.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3EC6F2F2E11E74E1E43C6D632705F63EE6456BF1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3EC6F2F2E11E74E1E43C6D632705F63EE6456BF1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TXTReader</string>
+		</dict>
+	</array>
+</dict>
+</plist>
