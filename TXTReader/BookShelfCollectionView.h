@@ -17,8 +17,7 @@
 <
 UICollectionViewDelegate,
 PYCollectionVieDelegateFlowLayout,
-PYCollectionViewDateSource,
-BookShelfDelegate
+PYCollectionViewDateSource
 >
 
 @property (nonatomic, weak) id<BookShelfDelegate> bookShelfDelegate;

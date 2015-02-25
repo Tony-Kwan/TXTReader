@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 //MACRO
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
@@ -12,6 +13,9 @@
 #define PrintCGSize(size) NSLog(@"%s %f %f", __PRETTY_FUNCTION__, size.width, size.height)
 #define DegreesToRadians(x) (M_PI*(x)/180.0)
 #define AUTORESIZING_WIDTH_AND_HEIGHT UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
+#define BLACK_COLOR [UIColor blackColor]
+#define WHITE_COLOR [UIColor whiteColor]
+#define SYSTEM_FONT(fontSize) [UIFont systemFontOfSize:fontSize]
 
 CG_INLINE CGPoint CGPointAdd(CGPoint p1, CGPoint p2) {
     return CGPointMake(p1.x+p2.x, p1.y+p2.y);

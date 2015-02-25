@@ -9,7 +9,10 @@
 #import "RootViewController.h"
 #import "PYUtils.h"
 #import "FileUtils.h"
+
 #import "SettingViewController.h"
+#import "ReadViewController.h"
+
 #import "BookShelfCollectionView.h"
 #import "BookShelfTableView.h"
 #import "BookShelfDelegate.h"
@@ -45,6 +48,11 @@ BookShelfDelegate
     [self.view addSubview:self.tableView];
     
     self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
+    
+//    NSString *str = @"BookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionView";
+//    CGRect rect = [str boundingRectWithSize:CGSizeMake([PYUtils screenWidth], 30000.f) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
+//    PrintCGRect(rect);
+//    NSLog(@"%f %f", [PYUtils screenWidth], [PYUtils screenHeight]);
 }
 
 - (void) setupNavigationItem {
@@ -87,10 +95,19 @@ BookShelfDelegate
 
 #pragma mark - BookShelfDelegate
 - (void) openBook:(Book *)book {
-    NSLog(@"START decode");
-    NSData *data = [NSData dataWithContentsOfFile:book.path options:NSDataReadingMappedAlways error:nil];
-    NSString *str = [[NSString alloc] initWithData:data encoding:[FileUtils recognizeEncodingWithPath:book.path]];
-    NSLog(@"END decode | string length = %@ %@", @(str.length), str);
+//    NSLog(@"START decode");
+//    NSData *data = [NSData dataWithContentsOfFile:book.path options:NSDataReadingMappedAlways error:nil];
+//    NSString *str = [[NSString alloc] initWithData:data encoding:[FileUtils recognizeEncodingWithPath:book.path]];
+//    NSLog(@"END decode | string length = %@ %@", @(str.length), str);
+    
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
+    [book paging];
+    ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
+    UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
+    [self.navigationController presentViewController:naviC animated:YES completion:nil];
 }
+
+
+
 
 @end

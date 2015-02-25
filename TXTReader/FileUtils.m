@@ -21,7 +21,11 @@ const NSStringEncoding kUnknownStringEncoding = -1;
     if([data length] != 3) {
         return kUnknownStringEncoding;
     }
-    
+    [fileHandle closeFile];
+    return [FileUtils recognizeEncodingWithData:data];
+}
+
++ (NSStringEncoding) recognizeEncodingWithData:(NSData*)data {
     NSStringEncoding encoding = kUnknownStringEncoding;
     const unsigned char* bytes = [data bytes];
     if(RECOGNIZE_ENCODING(bytes, 0xff, 0xfe)) {
@@ -37,7 +41,6 @@ const NSStringEncoding kUnknownStringEncoding = -1;
         encoding = NSUTF16LittleEndianStringEncoding;
     }
     
-    [fileHandle closeFile];
     return encoding;
 }
 

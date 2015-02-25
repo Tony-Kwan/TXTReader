@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "TextViewController.h"
+#import "PYUtils.h"
 
 @interface AppDelegate ()
 

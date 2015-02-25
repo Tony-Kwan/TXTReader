@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef enum {
     Book_TXT
@@ -20,7 +21,12 @@ typedef enum {
 @property (nonatomic, assign) BookType type;
 @property (nonatomic, strong) NSString* path;
 @property (nonatomic, strong) NSDate *lastUpdate;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) UIColor *textColor;
 
 - (id) initWithPath:(NSString*)path;
+- (NSString*) textAtPage:(NSInteger)index;
+- (BOOL) paging;
 
 @end

@@ -11,5 +11,6 @@
 @interface FileUtils : NSObject
 
 + (NSStringEncoding) recognizeEncodingWithPath:(NSString*)path;
++ (NSStringEncoding) recognizeEncodingWithData:(NSData*)data;
 
 @end

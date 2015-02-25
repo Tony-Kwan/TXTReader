@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BookSource.h"
+#import "TextViewController.h"
+#import "PYUtils.h"
 
 @interface ReadViewController : UIViewController
+
+@property (nonatomic, strong) Book* book;
+@property (nonatomic, assign) NSInteger currentPageIndex;
+
+- (id) initWithBook:(Book*)book;
 
 @end

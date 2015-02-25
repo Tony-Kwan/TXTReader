@@ -37,9 +37,11 @@
 - (void) loadBooks {
     NSString* str;
     
+    const int bookCount = 6;
+    
     [self.books removeAllObjects];
-    for(int i = 0; i < 30; i++) {
-        str = [NSString stringWithFormat:@"%d", i%3];
+    for(int i = 0; i < bookCount; i++) {
+        str = [NSString stringWithFormat:@"%d", i%bookCount];
         NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
         Book *book = [[Book alloc] initWithPath:bookPath];
         [self.books addObject:book];
