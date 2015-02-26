@@ -18,4 +18,6 @@
 
 @interface SettingView : UIView
 
+@property (nonatomic, weak) id<SettingViewDelegate> delegate;
+
 @end
