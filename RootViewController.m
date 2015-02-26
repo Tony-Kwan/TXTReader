@@ -17,6 +17,8 @@
 #import "BookShelfTableView.h"
 #import "BookShelfDelegate.h"
 
+
+
 @interface RootViewController()
 <
 BookShelfDelegate
@@ -48,11 +50,6 @@ BookShelfDelegate
     [self.view addSubview:self.tableView];
     
     self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
-    
-//    NSString *str = @"BookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionViewBookShelfCollectionView";
-//    CGRect rect = [str boundingRectWithSize:CGSizeMake([PYUtils screenWidth], 30000.f) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
-//    PrintCGRect(rect);
-//    NSLog(@"%f %f", [PYUtils screenWidth], [PYUtils screenHeight]);
 }
 
 - (void) setupNavigationItem {

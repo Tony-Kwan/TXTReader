@@ -14,4 +14,11 @@
     return [UIScreen mainScreen].bounds.size.width;
 }
 
++ (UIButton*) customButtonWith:(NSString *)title target:(id)obj andAction:(SEL)selector {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn addTarget:obj action:selector forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
 @end

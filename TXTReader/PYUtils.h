@@ -30,4 +30,6 @@ CG_INLINE CGRect CGRectMultiplied(CGRect rect, CGFloat m) {
 + (CGFloat) screenHeight;
 + (CGFloat) screenWidth;
 
++ (UIButton*) customButtonWith:(NSString*)title target:(id)obj andAction:(SEL)selector;
+
 @end
