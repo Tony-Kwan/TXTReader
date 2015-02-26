@@ -16,7 +16,7 @@
 
 + (UIButton*) customButtonWith:(NSString *)title target:(id)obj andAction:(SEL)selector {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = [UIColor clearColor];
+    btn.backgroundColor = [UIColor blackColor];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn addTarget:obj action:selector forControlEvents:UIControlEventTouchUpInside];
     return btn;

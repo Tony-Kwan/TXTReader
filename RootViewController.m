@@ -17,15 +17,12 @@
 #import "BookShelfTableView.h"
 #import "BookShelfDelegate.h"
 
-#import "ToolBarView.h"
-
 @interface RootViewController()
 <
 BookShelfDelegate
 >
 {
     UILabel *testLabel;
-    ToolBarView *tv;
 }
 
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;
@@ -51,9 +48,6 @@ BookShelfDelegate
     [self.view addSubview:self.tableView];
     
     self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
-    
-    tv = [[ToolBarView alloc] initWithFrame:CGRectMake(0, 400, self.view.bounds.size.width, 88)];
-    [self.view addSubview:tv];
 }
 
 - (void) setupNavigationItem {

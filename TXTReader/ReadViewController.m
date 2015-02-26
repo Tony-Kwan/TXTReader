@@ -7,17 +7,24 @@
 //
 
 #import "ReadViewController.h"
+#import "ToolBarView.h"
+#import "SettingView.h"
 
 @interface ReadViewController()
 <
 UIPageViewControllerDataSource,
-UIPageViewControllerDelegate
+UIPageViewControllerDelegate,
+ToolBarViewDelegate,
+SettingViewDelegate
 >
 {
     NSTimer *_barHideTimer;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
+
+@property (nonatomic, strong) ToolBarView *toolBar;
+@property (nonatomic, strong) SettingView *settingView;
 
 @end
 
@@ -46,6 +53,17 @@ UIPageViewControllerDelegate
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
+    
+    CGFloat h = [PYUtils screenHeight];
+    CGFloat w = [PYUtils screenWidth];
+    
+    self.toolBar = [[ToolBarView alloc] initWithFrame:CGRectMake(0, h, w, 88)];
+    self.toolBar.delegate = self;
+    [self.view addSubview:self.toolBar];
+    
+    self.settingView = [[SettingView alloc] initWithFrame:CGRectMake(0, h, w, h/2)];
+    self.settingView.delegate = self;
+    [self.view addSubview:self.settingView];
 }
 
 - (void) setupNavigationItem {
@@ -74,12 +92,18 @@ UIPageViewControllerDelegate
 }
 
 - (void) handleBarHideOnTap:(UITapGestureRecognizer*)tap {
+    if(![self isSettingViewHidden]) {
+        [self showSettingView:NO];
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        return ;
+    }
     if(!self.navigationController.navigationBarHidden) {
         if(_barHideTimer) {
             [_barHideTimer invalidate];
         }
         _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
     }
+    [self showToolBar:!self.navigationController.navigationBarHidden];
 }
 
 - (void) hideNavigationBar {
@@ -87,7 +111,42 @@ UIPageViewControllerDelegate
     _barHideTimer = nil;
     if(!self.navigationController.navigationBarHidden) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self showToolBar:NO];
     }
+}
+
+#pragma mark - private
+- (void) showToolBar:(BOOL)flag {
+    CGRect frame = self.toolBar.frame;
+    CGRect frame2;
+    if(flag) {
+        frame.origin.y = [PYUtils screenHeight] - frame.size.height;
+    }
+    else {
+        frame.origin.y = [PYUtils screenHeight];
+        frame2 = self.settingView.frame;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        self.toolBar.frame = frame;
+    }];
+}
+
+- (void) showSettingView:(BOOL)flag {
+//    NSLog(@"%s %d", __PRETTY_FUNCTION__, flag);
+    CGRect frame = self.settingView.frame;
+    if(flag) {
+        frame.origin.y = [PYUtils screenHeight] - frame.size.height;
+    }
+    else {
+        frame.origin.y = [PYUtils screenHeight];
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        self.settingView.frame = frame;
+    }];
+}
+
+- (BOOL) isSettingViewHidden {
+    return self.settingView.frame.origin.y >= [PYUtils screenHeight];
 }
 
 #pragma mark - UIPageViewControllerDataSource
@@ -103,6 +162,23 @@ UIPageViewControllerDelegate
     _currentPageIndex ++;
     return [self createTextViewControllerWithPage];
 }
+
+#pragma mark - ToolBarViewDelegate
+- (void) toolBarDidClickSetting {
+    [self showSettingView:YES];
+}
+
+- (void) toolBarSliderValueChangingTo:(CGFloat)value {
+    [_barHideTimer invalidate];
+    _barHideTimer = nil;
+}
+
+- (void) toolBarSliderValueChangedTo:(CGFloat)value {
+    _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
+}
+
+#pragma mark - SettingViewDelegate
+
 
 #pragma mark - private
 - (TextViewController*) createTextViewControllerWithPage {

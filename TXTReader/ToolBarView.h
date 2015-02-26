@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @protocol ToolBarViewDelegate <NSObject>
-
+@required
+- (void) toolBarDidClickSetting;
+- (void) toolBarSliderValueChangingTo:(CGFloat)value;
+- (void) toolBarSliderValueChangedTo:(CGFloat)value;
 
 @end
 

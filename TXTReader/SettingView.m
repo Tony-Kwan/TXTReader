@@ -64,6 +64,7 @@ UICollectionViewDelegate
     [self.contentView addSubview:self.fontSizeStepper];
     
     self.fontSizeLabel = [[UILabel alloc] init];
+    self.fontSizeLabel.backgroundColor = BLACK_COLOR;
     self.fontSizeLabel.text = [NSString stringWithFormat:@"%ld", (long)self.fontSizeStepper.value];
     self.fontSizeLabel.textColor = [UIColor lightTextColor];
     self.fontSizeLabel.textAlignment = NSTextAlignmentCenter;
@@ -116,6 +117,7 @@ UICollectionViewDelegate
         make.right.equalTo(weakSelf.contentView);
         make.top.equalTo(weakSelf.btnNight.mas_bottom);
         make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
+        make.width.equalTo(weakSelf.fontSizeLabel.mas_height);
     }];
     [_skinSelector mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
