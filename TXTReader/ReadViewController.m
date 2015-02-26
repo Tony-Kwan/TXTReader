@@ -22,9 +22,9 @@ SettingViewDelegate
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
-
 @property (nonatomic, strong) ToolBarView *toolBar;
 @property (nonatomic, strong) SettingView *settingView;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @end
 
@@ -54,6 +54,11 @@ SettingViewDelegate
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
+    UIView* tapView = [[UIView alloc] initWithFrame:self.view.bounds];
+    tapView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:tapView];
+    [tapView addGestureRecognizer:_tap];
+    
     CGFloat h = [PYUtils screenHeight];
     CGFloat w = [PYUtils screenWidth];
     
@@ -70,11 +75,12 @@ SettingViewDelegate
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setTranslucent:YES];
     
-    self.navigationController.hidesBarsOnTap = YES;
-    self.navigationController.hidesBarsOnSwipe = YES;
+//    self.navigationController.hidesBarsOnTap = YES;
     [self.navigationController setNavigationBarHidden:YES];
     
-    [self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(handleBarHideOnTap:)];
+//    [self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(handleBarHideOnTap:)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBarHideOnTap:)];
+//    [self.view addGestureRecognizer:_tap];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(clickBack:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
@@ -94,23 +100,22 @@ SettingViewDelegate
 - (void) handleBarHideOnTap:(UITapGestureRecognizer*)tap {
     if(![self isSettingViewHidden]) {
         [self showSettingView:NO];
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        [self showToolBar:NO];
         return ;
     }
-    if(!self.navigationController.navigationBarHidden) {
+    if(self.navigationController.navigationBarHidden) {
         if(_barHideTimer) {
             [_barHideTimer invalidate];
         }
         _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
     }
-    [self showToolBar:!self.navigationController.navigationBarHidden];
+    [self showToolBar:self.navigationController.navigationBarHidden];
 }
 
 - (void) hideNavigationBar {
     [_barHideTimer invalidate];
     _barHideTimer = nil;
     if(!self.navigationController.navigationBarHidden) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
         [self showToolBar:NO];
     }
 }
@@ -129,6 +134,7 @@ SettingViewDelegate
     [UIView animateWithDuration:0.3 animations:^{
         self.toolBar.frame = frame;
     }];
+    [self.navigationController setNavigationBarHidden:!flag animated:YES];
 }
 
 - (void) showSettingView:(BOOL)flag {
@@ -136,6 +142,7 @@ SettingViewDelegate
     CGRect frame = self.settingView.frame;
     if(flag) {
         frame.origin.y = [PYUtils screenHeight] - frame.size.height;
+        [self showToolBar:NO];
     }
     else {
         frame.origin.y = [PYUtils screenHeight];
@@ -178,7 +185,17 @@ SettingViewDelegate
 }
 
 #pragma mark - SettingViewDelegate
+- (void) changeRowSpaceTo:(CGFloat)rowSpace {
+    
+}
 
+- (void) changeToNight:(BOOL)isNight {
+    
+}
+
+- (void) changeFontSizeTO:(CGFloat)fontSize {
+    
+}
 
 #pragma mark - private
 - (TextViewController*) createTextViewControllerWithPage {

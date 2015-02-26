@@ -35,6 +35,7 @@
 		E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3E91A9EFA360084E28A /* SettingView.m */; };
 		E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */; };
 		E9ACD3EF1A9F12190084E28A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9ACD3EE1A9F12190084E28A /* QuartzCore.framework */; };
+		E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */; };
 		E9B854EE1A9D6588003855D1 /* 3.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854EC1A9D6588003855D1 /* 3.txt */; };
 		E9B854EF1A9D6588003855D1 /* 4.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854ED1A9D6588003855D1 /* 4.txt */; };
 		E9B854F11A9D68C6003855D1 /* 5.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854F01A9D68C6003855D1 /* 5.txt */; };
@@ -103,6 +104,8 @@
 		E9ACD3EB1A9F0D0C0084E28A /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
 		E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
 		E9ACD3EE1A9F12190084E28A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E9ACD3F01A9F25DF0084E28A /* SkinSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinSelectorCell.h; sourceTree = "<group>"; };
+		E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinSelectorCell.m; sourceTree = "<group>"; };
 		E9B854EC1A9D6588003855D1 /* 3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 3.txt; sourceTree = "<group>"; };
 		E9B854ED1A9D6588003855D1 /* 4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 4.txt; sourceTree = "<group>"; };
 		E9B854F01A9D68C6003855D1 /* 5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5.txt; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				E9ACD3E91A9EFA360084E28A /* SettingView.m */,
 				E9ACD3EB1A9F0D0C0084E28A /* ToolBarView.h */,
 				E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */,
+				E9ACD3F01A9F25DF0084E28A /* SkinSelectorCell.h */,
+				E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */,
 			);
 			name = ToolView;
 			sourceTree = "<group>";
@@ -467,6 +472,7 @@
 				E94506761A94CF400017FDD1 /* TableCell.m in Sources */,
 				E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */,
 				E945066D1A94C1D50017FDD1 /* Book.m in Sources */,
+				E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */,
 				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,
 				E94506261A94A96E0017FDD1 /* AppDelegate.m in Sources */,
 				E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */,

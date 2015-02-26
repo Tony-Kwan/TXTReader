@@ -54,7 +54,6 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
         Book* book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
         [self.bookShelfDelegate openBook:book];
     }
-    NSLog(@"fa");
 }
 
 - (CGSize) collectionView:(UICollectionView *)collectionView layout:(PYCollectionViewFlowLayout *)layout referenceSizeForDecorationViewForRow:(NSInteger)row inSection:(NSInteger)section {

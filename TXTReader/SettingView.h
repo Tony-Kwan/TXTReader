@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol SettingViewDelegate <NSObject>
-
+@required
 - (void) changeRowSpaceTo:(CGFloat)rowSpace;
 - (void) changeToNight:(BOOL)isNight;
 - (void) changeFontSizeTO:(CGFloat)fontSize;

@@ -72,7 +72,7 @@
     else {
         text = [_content substringWithRange:NSMakeRange((index - 1) * charsPerPage_, charsPerPage_)];
     }
-    NSLog(@"\n====================\n%@\n======================\n", text);
+//    NSLog(@"\n====================\n%@\n======================\n", text);
     return text;
 }
 

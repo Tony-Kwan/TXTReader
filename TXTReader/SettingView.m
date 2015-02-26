@@ -8,10 +8,12 @@
 
 #import "SettingView.h"
 #import "PYUtils.h"
+#import "SkinSelectorCell.h"
 
 #define SUBVIEW_HEIGHT_FACTOR 0.25f
 
 static NSString *skinSelectorCellIndentifier = @"skinSelectorCell";
+static const NSArray *skins;
 
 @interface SettingView()
 <
@@ -39,6 +41,15 @@ UICollectionViewDelegate
 }
 
 - (void) setup {
+    skins = @[@[BLACK_COLOR, WHITE_COLOR],
+              @[WHITE_COLOR, BLACK_COLOR],
+              @[[UIColor greenColor], [UIColor redColor]],
+              @[[UIColor blueColor], [UIColor yellowColor]],
+              @[[UIColor cyanColor], [UIColor redColor]],
+              @[[UIColor yellowColor], [UIColor redColor]],
+              @[[UIColor redColor], [UIColor whiteColor]]];
+    
+    
     self.backgroundColor = [BLACK_COLOR colorWithAlphaComponent:0.8];
     
     self.contentView = [[UIView alloc] init];
@@ -56,6 +67,7 @@ UICollectionViewDelegate
     [self.contentView addSubview:self.btnNight];
     
     self.fontSizeStepper = [[UIStepper alloc] init];
+    self.fontSizeStepper.backgroundColor = [UIColor whiteColor];
     self.fontSizeStepper.tintColor = [UIColor redColor];
     self.fontSizeStepper.minimumValue = 15;
     self.fontSizeStepper.maximumValue = 22;
@@ -80,11 +92,13 @@ UICollectionViewDelegate
     self.skinSelector = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, collectionViewHeight) collectionViewLayout:layout];
     self.skinSelector.delegate = self;
     self.skinSelector.dataSource = self;
+    self.skinSelector.userInteractionEnabled = YES;
     self.skinSelector.alwaysBounceVertical = NO;
     self.skinSelector.alwaysBounceHorizontal = YES;
     self.skinSelector.showsHorizontalScrollIndicator = NO;
     self.skinSelector.showsVerticalScrollIndicator = NO;
-    [self.skinSelector registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:skinSelectorCellIndentifier];
+    self.skinSelector.backgroundColor = [UIColor clearColor];
+    [self.skinSelector registerClass:[SkinSelectorCell class] forCellWithReuseIdentifier:skinSelectorCellIndentifier];
     [self.contentView addSubview:self.skinSelector];
     
     self.rowSpaceControl = [[UISegmentedControl alloc] initWithItems:@[@"小", @"中", @"大"]];
@@ -92,7 +106,6 @@ UICollectionViewDelegate
     self.rowSpaceControl.selectedSegmentIndex = 1;
     [self.rowSpaceControl addTarget:self action:@selector(rowSpaceValueDidChange:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.rowSpaceControl];
-    
     
     WS(weakSelf);
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,17 +166,18 @@ UICollectionViewDelegate
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return skins.count;
 }
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:skinSelectorCellIndentifier forIndexPath:indexPath];
-    cell.backgroundColor = WHITE_COLOR;
+    SkinSelectorCell *cell = (SkinSelectorCell*)[collectionView dequeueReusableCellWithReuseIdentifier:skinSelectorCellIndentifier forIndexPath:indexPath];
+    cell.textLabel.textColor = [skins objectAtIndex:indexPath.item][0];
+    cell.textLabel.backgroundColor = [skins objectAtIndex:indexPath.item][1];
     return cell;
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 @end
