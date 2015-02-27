@@ -6,8 +6,18 @@
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 #import "FMDB.h"
+#import "GlobalSettingAttrbutes.h"
 
 //MACRO
+#define DEBUG_VERSION 1
+#if DEBUG_VERSION == 1
+#define PYLog(...) NSLog(__VA_ARGS__)
+#else
+#define PYLog(...)
+#endif
+
+#define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
+#define DOCUMENTS_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
 #define PrintCGRect(rect) NSLog(@"%s %f %f %f %f", __PRETTY_FUNCTION__, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
 #define PrintCGPoint(point) NSLog(@"%s %f %f", __PRETTY_FUNCTION__, point.x, point.y)

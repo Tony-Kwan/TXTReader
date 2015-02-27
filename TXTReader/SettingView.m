@@ -13,7 +13,6 @@
 #define SUBVIEW_HEIGHT_FACTOR 0.25f
 
 static NSString *skinSelectorCellIndentifier = @"skinSelectorCell";
-static const NSArray *skins;
 
 @interface SettingView()
 <
@@ -41,15 +40,6 @@ UICollectionViewDelegate
 }
 
 - (void) setup {
-    skins = @[@[BLACK_COLOR, WHITE_COLOR],
-              @[WHITE_COLOR, BLACK_COLOR],
-              @[[UIColor greenColor], UIColorFromRGB(0x282b35)],
-              @[[UIColor blueColor], [UIColor yellowColor]],
-              @[[UIColor cyanColor], UIColorFromRGB(0x282b35)],
-              @[[UIColor yellowColor], [UIColor redColor]],
-              @[[UIColor redColor], [UIColor whiteColor]]];
-    
-    
     self.backgroundColor = [UIColorFromRGB(0x282b35) colorWithAlphaComponent:0.9];
     
     self.contentView = [[UIView alloc] init];
@@ -64,6 +54,7 @@ UICollectionViewDelegate
     [self.contentView addSubview:self.slider];
     
     self.btnNight = [PYUtils customButtonWith:@"夜" target:self andAction:@selector(clickNight:)];
+    [self.btnNight setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [self.contentView addSubview:self.btnNight];
     
     self.fontSizeStepper = [[UIStepper alloc] init];
@@ -143,13 +134,20 @@ UICollectionViewDelegate
     }];
 }
 
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    [self.skinSelector selectItemAtIndexPath:[NSIndexPath indexPathForItem:[[GlobalSettingAttrbutes shareSetting] skinIndex] inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+}
+
 #pragma mark - Event
 - (void) sliderValueChange:(UISlider*)slider {
     [[UIScreen mainScreen] setBrightness:slider.value];
 }
 
 - (void) clickNight:(UIButton*)btn {
-    
+    if(btn.state != UIControlStateNormal) {
+        
+    }
 }
 
 - (void) fontSizeDidChange:(UIStepper*)stepper {
@@ -166,18 +164,18 @@ UICollectionViewDelegate
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return skins.count;
+    return [[[GlobalSettingAttrbutes shareSetting] skins] count];
 }
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SkinSelectorCell *cell = (SkinSelectorCell*)[collectionView dequeueReusableCellWithReuseIdentifier:skinSelectorCellIndentifier forIndexPath:indexPath];
-    cell.textLabel.textColor = [skins objectAtIndex:indexPath.item][0];
-    cell.textLabel.backgroundColor = [skins objectAtIndex:indexPath.item][1];
+    cell.textLabel.textColor = [[[GlobalSettingAttrbutes shareSetting] skins] objectAtIndex:indexPath.item][0];
+    cell.textLabel.backgroundColor = [[[GlobalSettingAttrbutes shareSetting] skins] objectAtIndex:indexPath.item][1];
     return cell;
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [self.delegate changeSkinTo:indexPath.item];
 }
 
 @end

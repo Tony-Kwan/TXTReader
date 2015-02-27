@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UILabel *textLabel;
 
-- (id) initWithText:(NSString*)text color:(UIColor*)color andFont:(UIFont*)font;
+- (id) initWithText:(NSAttributedString*)text color:(UIColor*)color andFont:(UIFont*)font;
+- (void) setTextColor:(UIColor*)textColor andBackgoundColor:(UIColor*)bgColor;
 
 @end

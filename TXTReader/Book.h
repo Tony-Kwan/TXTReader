@@ -17,16 +17,17 @@ typedef enum {
 
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, assign) NSUInteger length; //byte
-@property (nonatomic, assign) NSInteger pageCount;
+@property (nonatomic, assign) int pageCount;
 @property (nonatomic, assign) BookType type;
 @property (nonatomic, strong) NSString* path;
 @property (nonatomic, strong) NSDate *lastUpdate;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) NSMutableParagraphStyle *paraStyle;
 
 - (id) initWithPath:(NSString*)path;
-- (NSString*) textAtPage:(NSInteger)index;
+- (NSAttributedString*) textAtPage:(NSInteger)index;
 - (BOOL) paging;
 
 @end

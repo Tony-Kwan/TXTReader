@@ -12,8 +12,8 @@
 @required
 - (void) changeRowSpaceTo:(CGFloat)rowSpace;
 - (void) changeToNight:(BOOL)isNight;
-- (void) changeFontSizeTO:(CGFloat)fontSize;
-- (void) changeTextColorTo:(UIColor*)textColor backgoundColorTo:(UIColor*)bgColor;
+- (void) changeFontSizeTo:(CGFloat)fontSize;
+- (void) changeSkinTo:(NSInteger)index;
 
 @end
 

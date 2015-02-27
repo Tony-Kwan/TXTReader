@@ -25,6 +25,7 @@ SettingViewDelegate
 @property (nonatomic, strong) ToolBarView *toolBar;
 @property (nonatomic, strong) SettingView *settingView;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UILabel *messageLabel;
 
 @end
 
@@ -72,6 +73,19 @@ SettingViewDelegate
     self.settingView = [[SettingView alloc] initWithFrame:CGRectMake(0, h, w, h/2)];
     self.settingView.delegate = self;
     [self.view addSubview:self.settingView];
+    
+    self.messageLabel = [[UILabel alloc] init];
+    self.messageLabel.layer.masksToBounds = YES;
+    self.messageLabel.layer.cornerRadius = 5.0f;
+    self.messageLabel.backgroundColor = [BLACK_COLOR colorWithAlphaComponent:0.5];
+    [self.view addSubview:self.messageLabel];
+    
+    WS(weakSelf);
+    [_messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(weakSelf.view);
+        make.width.equalTo(weakSelf.view).multipliedBy(0.4);
+        make.height.mas_equalTo(50);
+    }];
 }
 
 - (void) setupNavigationItem {
@@ -171,6 +185,9 @@ SettingViewDelegate
 }
 
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    if(_currentPageIndex >= _book.pageCount) {
+        return nil;
+    }
     _currentPageIndex ++;
     return [self createTextViewControllerWithPage];
 }
@@ -191,23 +208,38 @@ SettingViewDelegate
 
 #pragma mark - SettingViewDelegate
 - (void) changeRowSpaceTo:(CGFloat)rowSpace {
-    
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.rowSpace = rowSpace;
+    [USER_DEFAULTS setObject:@(rowSpace) forKey:GLOBAL_ROW_SPACE];
 }
 
 - (void) changeToNight:(BOOL)isNight {
-    
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.isNight = isNight;
+    [USER_DEFAULTS setObject:@(isNight) forKey:GLOBAL_NIGHT];
 }
 
-- (void) changeFontSizeTO:(CGFloat)fontSize {
-    
+- (void) changeFontSizeTo:(CGFloat)fontSize {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.fontSize = fontSize;
+    [USER_DEFAULTS setObject:@(fontSize) forKey:GLOBAL_FONT_SIZE];
+}
+
+- (void) changeSkinTo:(NSInteger)index {
+    TextViewController *currentVC = (TextViewController*)[[self.pageViewController viewControllers] firstObject];
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    [st setSkinIndex:index];
+    [currentVC setTextColor:[st skin][0] andBackgoundColor:[st skin][1]];
+    [USER_DEFAULTS setObject:@(index) forKey:GLOBAL_SKIN_INDEX];
 }
 
 #pragma mark - private
 - (TextViewController*) createTextViewControllerWithPage {
-    NSString *text = [_book textAtPage:_currentPageIndex];
+    NSAttributedString *text = [_book textAtPage:_currentPageIndex];
     if(!text) {
         return nil;
     }
+    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
     TextViewController *textVC = [[TextViewController alloc] initWithText:text color:_book.textColor andFont:_book.font];
     return textVC;
 }

@@ -61,7 +61,7 @@
 }
 
 #pragma mark - public
-- (NSString*) textAtPage:(NSInteger)index {
+- (NSAttributedString*) textAtPage:(NSInteger)index {
     if(index > totalPages_) {
         return nil;
     }
@@ -73,11 +73,15 @@
         text = [_content substringWithRange:NSMakeRange((index - 1) * charsPerPage_, charsPerPage_)];
     }
 //    NSLog(@"\n====================\n%@\n======================\n", text);
-    return text;
+    
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:text attributes:st.attributes];
+    return attrText;
 }
 
 /* 判断是否需要分页和进行分页 */
 - (BOOL) paging {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     /* 获取文本内容的string值 */
     NSString *text  = self.content;
 //    NSLog(@"%@", text);
@@ -88,7 +92,7 @@
     CGFloat height = [PYUtils screenHeight] - 40;
     
     /* 计算文本串的总大小尺寸 Deprecated in iOS 7.0 */
-    CGRect textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName : preferredFont_} context:nil];
+    CGRect textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:st.attributes context:nil];
     CGSize totalTextSize = textRect.size;
     PrintCGRect(textRect);
     PrintCGSize(totalTextSize);
@@ -124,7 +128,7 @@
         NSString *pageText  = [text substringWithRange:range];                             // 获取该范围内的文本
 //        NSLog(@"\n------------\n%@ \n----------------", pageText);
         
-        CGRect pageTextRect = [pageText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : preferredFont_} context:nil];
+        CGRect pageTextRect = [pageText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading) attributes:st.attributes context:nil];
         CGSize pageTextSize  = pageTextRect.size;
         NSLog(@"height = %f", height);
         while (pageTextSize.height > height) {
@@ -132,7 +136,7 @@
             referCharactersPerPage -= 2;                                      // 每页字符数减2
             range                   = NSMakeRange(0, referCharactersPerPage); // 重置每页字符的范围
             pageText                = [text substringWithRange:range];        // 重置pageText
-            textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : preferredFont_} context:nil];
+            textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading) attributes:st.attributes context:nil];
             pageTextSize            = textRect.size;
         }
         

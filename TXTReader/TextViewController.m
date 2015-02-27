@@ -19,14 +19,16 @@
 
 @implementation TextViewController
 
-- (id) initWithText:(NSString*)text color:(UIColor *)color andFont:(UIFont *)font {
+- (id) initWithText:(NSAttributedString*)text color:(UIColor *)color andFont:(UIFont *)font {
     if((self = [super init])) {
+        self.view.backgroundColor = [[GlobalSettingAttrbutes shareSetting] skin][1];
+        
         self.textLabel = [[UILabel alloc] init];
-        self.textLabel.textColor = color;
-        self.textLabel.backgroundColor = WHITE_COLOR;//[UIColor yellowColor];
+        self.textLabel.textColor = [[GlobalSettingAttrbutes shareSetting] skin][0];
+        self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
         self.textLabel.font = font;
-        self.textLabel.text = text;
+        self.textLabel.attributedText = text;
         self.textLabel.numberOfLines = 0;
         self.textLabel.textAlignment = NSTextAlignmentNatural;
         self.textLabel.clipsToBounds = NO;
@@ -52,6 +54,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) setTextColor:(UIColor *)textColor andBackgoundColor:(UIColor *)bgColor {
+    [UIView animateWithDuration:1.5 animations:^{
+        self.textLabel.textColor = textColor;
+        self.view.backgroundColor = bgColor;
+    }];
 }
 
 @end
