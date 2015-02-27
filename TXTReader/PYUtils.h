@@ -5,6 +5,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
+#import "FMDB.h"
 
 //MACRO
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
