@@ -24,6 +24,7 @@
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textColor = color;
         self.textLabel.backgroundColor = WHITE_COLOR;//[UIColor yellowColor];
+        self.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
         self.textLabel.font = font;
         self.textLabel.text = text;
         self.textLabel.numberOfLines = 0;
@@ -37,7 +38,7 @@
             make.left.equalTo(weakSelf.view).offset(HORIZONTAL_INSET);
             make.right.equalTo(weakSelf.view).offset(-HORIZONTAL_INSET);
             make.top.equalTo(weakSelf.view).offset(VERTICAL_INSET);
-            make.bottom.equalTo(weakSelf.view).offset(-0);
+            make.bottom.equalTo(weakSelf.view).offset(-VERTICAL_INSET);
         }];
     }
     return self;

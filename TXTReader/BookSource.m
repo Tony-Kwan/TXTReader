@@ -29,6 +29,7 @@
 - (id) init {
     if((self = [super init])) {
         self.books = [NSMutableArray array];
+        _currentReadingBookIndex = -1;
     }
     return self;
 }
@@ -54,6 +55,15 @@
 
 - (Book*) bookAtIndex:(NSUInteger)index {
     return (Book*)[self.books objectAtIndex:index];
+}
+
+- (Book*) currentReadingBook {
+    if(_currentReadingBookIndex < 0 || _currentReadingBookIndex >= _books.count) {
+        return nil;
+    }
+    else {
+        return [_books objectAtIndex:_currentReadingBookIndex];
+    }
 }
 
 @end

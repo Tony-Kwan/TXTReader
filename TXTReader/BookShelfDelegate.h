@@ -10,7 +10,7 @@
 #import "Book.h"
 
 @protocol BookShelfDelegate <NSObject>
-
+@required
 - (void) openBook:(Book*)book;
 
 @end

@@ -17,13 +17,16 @@
 @property (nonatomic, strong) UISlider *slider;
 @property (nonatomic, strong) UIButton *btnSetting, *btnMenu;
 
+@property (nonatomic, strong) UIButton *btnLastReading;
+@property (nonatomic, strong) UILabel *progressLabel;
+
 @end
 
 @implementation ToolBarView
 
 - (void) drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lenghts[2] = {3, 3};
+    CGFloat lenghts[2] = {2, 1};
     CGContextSetShouldAntialias(context, NO);
     CGContextSetLineWidth(context, 0.5);
     CGContextSetStrokeColorWithColor(context, [WHITE_COLOR colorWithAlphaComponent:0.14].CGColor);
@@ -41,7 +44,8 @@
 }
 
 - (void) setup {
-    self.backgroundColor = [BLACK_COLOR colorWithAlphaComponent:0.8];
+    self.backgroundColor = [UIColorFromRGB(0x282b35) colorWithAlphaComponent:0.9];
+    self.clipsToBounds = self.layer.masksToBounds = NO;
     
     self.slider = [[UISlider alloc] init];
     [self.slider addTarget:self action:@selector(sliderValueChanging) forControlEvents:UIControlEventValueChanged];
@@ -56,9 +60,27 @@
     self.btnMenu = [PYUtils customButtonWith:@"Menu" target:self andAction:@selector(clickMenu)];
     [self addSubview:self.btnMenu];
     
+    self.btnLastReading = [PYUtils customButtonWith:@"B" target:self andAction:@selector(clickLastReading)];
+    [self addSubview:self.btnLastReading];
+    
+    self.progressLabel = [[UILabel alloc] init];
+    self.progressLabel.text = @"234/235";
+    [self addSubview:self.progressLabel];
+    
     WS(weakSelf);
+    [_btnLastReading mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.equalTo(weakSelf);
+        make.height.equalTo(weakSelf).multipliedBy(0.5);
+        make.width.equalTo(weakSelf.btnLastReading.mas_height);
+    }];
     [_slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(weakSelf);
+        make.top.equalTo(weakSelf);
+        make.left.equalTo(weakSelf.btnLastReading.mas_right).offset(5);
+        make.right.equalTo(weakSelf.progressLabel.mas_left).offset(-5);
+        make.height.equalTo(weakSelf).multipliedBy(0.5);
+    }];
+    [_progressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.equalTo(weakSelf);
         make.height.equalTo(weakSelf).multipliedBy(0.5);
     }];
     [_btnSetting mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,6 +110,10 @@
 }
 
 - (void) clickMenu {
+    
+}
+
+- (void) clickLastReading {
     
 }
 

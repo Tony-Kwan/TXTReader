@@ -51,10 +51,8 @@ static NSString *tableCellIndentifier = @"tableCellIndentifier";
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(self.bookShelfDelegate && [self.bookShelfDelegate respondsToSelector:@selector(openBook:)]) {
-        Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
-        [self.bookShelfDelegate openBook:book];
-    }
+    Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
+    [self.bookShelfDelegate openBook:book];
 }
 
 @end

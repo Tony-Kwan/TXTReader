@@ -13,6 +13,7 @@
 - (void) changeRowSpaceTo:(CGFloat)rowSpace;
 - (void) changeToNight:(BOOL)isNight;
 - (void) changeFontSizeTO:(CGFloat)fontSize;
+- (void) changeTextColorTo:(UIColor*)textColor backgoundColorTo:(UIColor*)bgColor;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BookSource.h"
 
 @protocol ToolBarViewDelegate <NSObject>
 @required

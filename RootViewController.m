@@ -51,7 +51,9 @@ BookShelfDelegate
 }
 
 - (void) setupNavigationItem {
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navibg"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.navigationController.navigationBar setAlpha:0.2];
     [self.navigationController.navigationBar setTranslucent:YES];
     
     self.navigationItem.title = @"TXT Reader";
@@ -89,12 +91,7 @@ BookShelfDelegate
 }
 
 #pragma mark - BookShelfDelegate
-- (void) openBook:(Book *)book {
-//    NSLog(@"START decode");
-//    NSData *data = [NSData dataWithContentsOfFile:book.path options:NSDataReadingMappedAlways error:nil];
-//    NSString *str = [[NSString alloc] initWithData:data encoding:[FileUtils recognizeEncodingWithPath:book.path]];
-//    NSLog(@"END decode | string length = %@ %@", @(str.length), str);
-    
+- (void) openBook:(Book *)book {   
     NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
     [book paging];
     ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];

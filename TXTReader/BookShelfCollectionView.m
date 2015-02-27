@@ -50,10 +50,9 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(self.bookShelfDelegate && [self.bookShelfDelegate respondsToSelector:@selector(openBook:)]) {
-        Book* book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
-        [self.bookShelfDelegate openBook:book];
-    }
+    Book* book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
+    [self.bookShelfDelegate openBook:book];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (CGSize) collectionView:(UICollectionView *)collectionView layout:(PYCollectionViewFlowLayout *)layout referenceSizeForDecorationViewForRow:(NSInteger)row inSection:(NSInteger)section {

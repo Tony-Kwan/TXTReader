@@ -43,14 +43,14 @@ UICollectionViewDelegate
 - (void) setup {
     skins = @[@[BLACK_COLOR, WHITE_COLOR],
               @[WHITE_COLOR, BLACK_COLOR],
-              @[[UIColor greenColor], [UIColor redColor]],
+              @[[UIColor greenColor], UIColorFromRGB(0x282b35)],
               @[[UIColor blueColor], [UIColor yellowColor]],
-              @[[UIColor cyanColor], [UIColor redColor]],
+              @[[UIColor cyanColor], UIColorFromRGB(0x282b35)],
               @[[UIColor yellowColor], [UIColor redColor]],
               @[[UIColor redColor], [UIColor whiteColor]]];
     
     
-    self.backgroundColor = [BLACK_COLOR colorWithAlphaComponent:0.8];
+    self.backgroundColor = [UIColorFromRGB(0x282b35) colorWithAlphaComponent:0.9];
     
     self.contentView = [[UIView alloc] init];
     self.contentView.backgroundColor = [UIColor clearColor];

@@ -54,7 +54,10 @@ SettingViewDelegate
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
-    UIView* tapView = [[UIView alloc] initWithFrame:self.view.bounds];
+    CGRect tapViewFrame = self.view.bounds;
+    tapViewFrame.origin.x = self.view.bounds.size.width/3;
+    tapViewFrame.size.width = tapViewFrame.origin.x;
+    UIView* tapView = [[UIView alloc] initWithFrame:tapViewFrame];
     tapView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tapView];
     [tapView addGestureRecognizer:_tap];
@@ -72,14 +75,16 @@ SettingViewDelegate
 }
 
 - (void) setupNavigationItem {
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navibg"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.alpha = 0.4;
     
 //    self.navigationController.hidesBarsOnTap = YES;
     [self.navigationController setNavigationBarHidden:YES];
     
 //    [self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(handleBarHideOnTap:)];
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBarHideOnTap:)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBarHideOnTap:)]; //TODO:optimization
 //    [self.view addGestureRecognizer:_tap];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(clickBack:)];

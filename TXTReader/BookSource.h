@@ -11,10 +11,13 @@
 
 @interface BookSource : NSObject
 
+@property (nonatomic, assign) NSInteger currentReadingBookIndex;
+
 + (id) shareInstance;
 
 - (void) loadBooks;
 - (NSInteger) count;
 - (Book*) bookAtIndex:(NSUInteger)index;
+- (Book*) currentReadingBook;
 
 @end

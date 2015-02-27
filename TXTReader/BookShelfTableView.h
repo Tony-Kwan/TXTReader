@@ -15,8 +15,7 @@
 @interface BookShelfTableView : UICollectionView
 <
 UICollectionViewDataSource,
-UICollectionViewDelegate,
-BookShelfDelegate
+UICollectionViewDelegate
 >
 
 @property (nonatomic, weak) id<BookShelfDelegate> bookShelfDelegate;
