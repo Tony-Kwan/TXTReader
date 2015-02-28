@@ -33,14 +33,13 @@
         self.type = Book_TXT;
         self.pageCount = 0;
         self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
-        self.font = SYSTEM_FONT(17);
-        self.textColor = BLACK_COLOR;
+        self.encoding = 0;
     }
     return self;
 }
 
 - (NSString*) description {
-    return [NSString stringWithFormat:@"%@ %@", self.name, @(self.pageCount)];
+    return [NSString stringWithFormat:@"name: %@ count: %@", self.name, @(self.pageCount)];
 }
 
 #pragma mark - property
@@ -52,12 +51,26 @@
             _content = nil;
         }
         else {
-            NSData *subData = [data subdataWithRange:NSMakeRange(0, 3)];
-            _content = [[NSString alloc] initWithData:data encoding:[FileUtils recognizeEncodingWithData:subData]];
+            _content = [[NSString alloc] initWithData:data encoding:self.encoding];
         }
     }
     self.length = _content.length;
     return _content;
+}
+
+- (NSStringEncoding) encoding {
+    if(!_encoding) {
+        NSError *err = nil;
+        NSData *data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingMappedAlways error:&err];
+        if(err) {
+            _encoding = NSUTF8StringEncoding;
+        }
+        else {
+            NSData *subData = [data subdataWithRange:NSMakeRange(0, 3)];
+            _encoding = [FileUtils recognizeEncodingWithData:subData];
+        }
+    }
+    return _encoding;
 }
 
 #pragma mark - public
@@ -86,10 +99,10 @@
     NSString *text  = self.content;
 //    NSLog(@"%@", text);
 
-    preferredFont_ = self.font;
+    preferredFont_ = st.font;
     
-    CGFloat width = [PYUtils screenWidth] - 20;
-    CGFloat height = [PYUtils screenHeight] - 40;
+    CGFloat width = [PYUtils screenWidth] - 2*TEXTVIEW_HORIZONTAL_INSET;
+    CGFloat height = [PYUtils screenHeight] - 2*TEXTVIEW_VERTICAL_INSET;
     
     /* 计算文本串的总大小尺寸 Deprecated in iOS 7.0 */
     CGRect textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:st.attributes context:nil];
@@ -131,6 +144,7 @@
         CGRect pageTextRect = [pageText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:(NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading) attributes:st.attributes context:nil];
         CGSize pageTextSize  = pageTextRect.size;
         NSLog(@"height = %f", height);
+        PrintCGRect(pageTextRect);
         while (pageTextSize.height > height) {
             NSLog(@"pageTextSize.height = %f", pageTextSize.height);
             referCharactersPerPage -= 2;                                      // 每页字符数减2
@@ -156,6 +170,10 @@
         // 分页完成
         return YES;
     }
+}
+
+- (void) paginate {
+    
 }
 
 @end

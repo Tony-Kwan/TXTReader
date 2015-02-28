@@ -255,7 +255,8 @@ SettingViewDelegate
         return nil;
     }
 //    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
-    TextViewController *textVC = [[TextViewController alloc] initWithText:text color:_book.textColor andFont:_book.font];
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    TextViewController *textVC = [[TextViewController alloc] initWithText:text color:st.textColor andFont:st.font];
     return textVC;
 }
 

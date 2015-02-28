@@ -22,11 +22,10 @@
         
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textColor = [[GlobalSettingAttrbutes shareSetting] skin][0];
-        self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.backgroundColor = [UIColor redColor];
         self.textLabel.font = font;
-        self.textLabel.attributedText = text;
         self.textLabel.numberOfLines = 0;
-//        self.textLabel.textAlignment = NSTextAlignmentCenter;
+//        self.textLabel.textAlignment = NSTextAlignmentLeft;
         self.textLabel.clipsToBounds = NO;
         self.textLabel.layer.masksToBounds = NO;
         self.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -39,11 +38,20 @@
 //            make.top.equalTo(weakSelf.view).offset(TEXTVIEW_VERTICAL_INSET);
 //            make.bottom.equalTo(weakSelf.view).offset(-TEXTVIEW_VERTICAL_INSET);
 //        }];
-        CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, [PYUtils screenWidth]-2*TEXTVIEW_HORIZONTAL_INSET, CGFLOAT_MAX);
+        CGFloat labelWidth = [PYUtils screenWidth]-2*TEXTVIEW_HORIZONTAL_INSET;
+        CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, labelWidth, CGFLOAT_MAX);
         CGRect textRect = [text boundingRectWithSize:frame.size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
+//        PrintCGRect(frame);
+        PrintCGRect(textRect);
+//        PYLog(@"=========");
         frame.size = textRect.size;
         self.textLabel.frame = frame;
-        PrintCGRect(frame);
+        if(frame.size.width < labelWidth-TEXTVIEW_HORIZONTAL_INSET) {
+        }
+        else {
+            self.textLabel.center = CGPointMake(self.view.center.x, self.textLabel.center.y);
+        }
+        self.textLabel.attributedText = text;
     }
     return self;
 }

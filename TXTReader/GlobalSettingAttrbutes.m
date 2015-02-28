@@ -66,6 +66,20 @@
     return self.skins[self.skinIndex];
 }
 
+- (UIColor*) textColor {
+    if(_skinIndex < 0 || _skinIndex >= _skins.count) {
+        _skinIndex = 0;
+    }
+    return self.skins[_skinIndex][0];
+}
+
+- (UIColor*) backgoundColor {
+    if(_skinIndex < 0 || _skinIndex >= _skins.count) {
+        _skinIndex = 0;
+    }
+    return self.skins[_skinIndex][1];
+}
+
 - (UIFont*) font {
     return [UIFont systemFontOfSize:self.fontSize];
 }
@@ -86,8 +100,8 @@
     NSMutableParagraphStyle* _paraStyle = [[NSMutableParagraphStyle alloc] init];
     
     _paraStyle.lineSpacing = self.rowSpace;
-    _paraStyle.firstLineHeadIndent = 10;
-    _paraStyle.headIndent = 10;
+    _paraStyle.firstLineHeadIndent = 0;
+    _paraStyle.headIndent = 0;
     _paraStyle.tailIndent = [PYUtils screenWidth] - 10;
     _paraStyle.paragraphSpacing = self.rowSpace * 2 + 1;
     _paraStyle.alignment = NSTextAlignmentLeft;

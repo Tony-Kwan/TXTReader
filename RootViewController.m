@@ -92,6 +92,7 @@ BookShelfDelegate
 #pragma mark - BookShelfDelegate
 - (void) openBook:(Book *)book {   
     NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
+//    [book paginate];
     [book paging];
     ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
     UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];

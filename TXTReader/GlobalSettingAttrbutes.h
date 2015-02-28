@@ -31,6 +31,8 @@
 + (id) shareSetting;
 
 - (NSArray*) skin;
+- (UIColor*) textColor;
+- (UIColor*) backgoundColor;
 - (UIFont*) font;
 - (NSString*) rowSpaceString;
 - (NSMutableParagraphStyle*) paraStyle;

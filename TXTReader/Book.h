@@ -22,12 +22,13 @@ typedef enum {
 @property (nonatomic, strong) NSString* path;
 @property (nonatomic, strong) NSDate *lastUpdate;
 @property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) UIFont *font;
-@property (nonatomic, strong) UIColor *textColor;
-@property (nonatomic, strong) NSMutableParagraphStyle *paraStyle;
+@property (nonatomic, retain) NSMutableArray *pageIndexArray;
+@property (nonatomic, assign) BOOL isPaginate;
+@property (nonatomic, assign) NSStringEncoding encoding;
 
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
 - (BOOL) paging;
+- (void) paginate;
 
 @end
