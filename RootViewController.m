@@ -22,7 +22,6 @@
 BookShelfDelegate
 >
 {
-    UILabel *testLabel;
 }
 
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;

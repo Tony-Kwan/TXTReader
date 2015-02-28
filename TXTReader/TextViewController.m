@@ -10,9 +10,6 @@
 #import "PYUtils.h"
 
 
-#define VERTICAL_INSET 20
-#define HORIZONTAL_INSET 10
-
 @interface TextViewController ()
 
 @end
@@ -26,22 +23,27 @@
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textColor = [[GlobalSettingAttrbutes shareSetting] skin][0];
         self.textLabel.backgroundColor = [UIColor clearColor];
-        self.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
         self.textLabel.font = font;
         self.textLabel.attributedText = text;
         self.textLabel.numberOfLines = 0;
-        self.textLabel.textAlignment = NSTextAlignmentNatural;
+//        self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.clipsToBounds = NO;
         self.textLabel.layer.masksToBounds = NO;
+        self.textLabel.adjustsFontSizeToFitWidth = YES;
         [self.view addSubview:self.textLabel];
         
-        WS(weakSelf);
-        [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakSelf.view).offset(HORIZONTAL_INSET);
-            make.right.equalTo(weakSelf.view).offset(-HORIZONTAL_INSET);
-            make.top.equalTo(weakSelf.view).offset(VERTICAL_INSET);
-            make.bottom.equalTo(weakSelf.view).offset(-VERTICAL_INSET);
-        }];
+//        WS(weakSelf);
+//        [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(weakSelf.view).offset(TEXTVIEW_HORIZONTAL_INSET);
+//            make.right.equalTo(weakSelf.view).offset(-TEXTVIEW_HORIZONTAL_INSET);
+//            make.top.equalTo(weakSelf.view).offset(TEXTVIEW_VERTICAL_INSET);
+//            make.bottom.equalTo(weakSelf.view).offset(-TEXTVIEW_VERTICAL_INSET);
+//        }];
+        CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, [PYUtils screenWidth]-2*TEXTVIEW_HORIZONTAL_INSET, CGFLOAT_MAX);
+        CGRect textRect = [text boundingRectWithSize:frame.size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
+        frame.size = textRect.size;
+        self.textLabel.frame = frame;
+        PrintCGRect(frame);
     }
     return self;
 }

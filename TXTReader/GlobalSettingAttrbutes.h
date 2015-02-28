@@ -15,7 +15,10 @@
 #define GLOBAL_ROW_SPACE @"GLOBAL_ROW_SPACE"
 #define GLOBAL_NIGHT @"GLOBAL_NIGHT"
 
-#define APP_COLOR #import UIColorFromRGB(0x282b35)
+#define TEXTVIEW_VERTICAL_INSET 20
+#define TEXTVIEW_HORIZONTAL_INSET 10
+
+#define APP_COLOR UIColorFromRGB(0x282b35)
 
 
 @interface GlobalSettingAttrbutes : NSObject

@@ -9,6 +9,7 @@
 #import "ReadViewController.h"
 #import "ToolBarView.h"
 #import "SettingView.h"
+#import "VEMessageView.h"
 
 @interface ReadViewController()
 <
@@ -19,13 +20,15 @@ SettingViewDelegate
 >
 {
     NSTimer *_barHideTimer;
+    CGRect tapViewFrame;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) ToolBarView *toolBar;
 @property (nonatomic, strong) SettingView *settingView;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) VEMessageView *messageView;
+@property (nonatomic, strong) UIView *tapView;
 
 @end
 
@@ -55,13 +58,13 @@ SettingViewDelegate
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
-    CGRect tapViewFrame = self.view.bounds;
+    tapViewFrame = self.view.bounds;
     tapViewFrame.origin.x = self.view.bounds.size.width/3;
     tapViewFrame.size.width = tapViewFrame.origin.x;
-    UIView* tapView = [[UIView alloc] initWithFrame:tapViewFrame];
-    tapView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:tapView];
-    [tapView addGestureRecognizer:_tap];
+    self.tapView = [[UIView alloc] initWithFrame:tapViewFrame];
+    self.tapView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tapView];
+    [self.tapView addGestureRecognizer:_tap];
     
     CGFloat h = [PYUtils screenHeight];
     CGFloat w = [PYUtils screenWidth];
@@ -74,17 +77,20 @@ SettingViewDelegate
     self.settingView.delegate = self;
     [self.view addSubview:self.settingView];
     
-    self.messageLabel = [[UILabel alloc] init];
-    self.messageLabel.layer.masksToBounds = YES;
-    self.messageLabel.layer.cornerRadius = 5.0f;
-    self.messageLabel.backgroundColor = [BLACK_COLOR colorWithAlphaComponent:0.5];
-    [self.view addSubview:self.messageLabel];
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    self.messageView = [[VEMessageView alloc] initWithMessage:@"" andOtherMessage:nil];
+    self.messageView.backgroundColor = [st skin][1];
+    self.messageView.messageLabel.textColor = [st skin][0];
+    self.messageView.layer.borderColor = self.messageView.messageLabel.textColor.CGColor;
+    self.messageView.layer.borderWidth = 1.0f;
+    self.messageView.hidden = YES;
+    [self.view addSubview:self.messageView];
     
     WS(weakSelf);
-    [_messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_messageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(weakSelf.view);
-        make.width.equalTo(weakSelf.view).multipliedBy(0.4);
-        make.height.mas_equalTo(50);
+        make.width.equalTo(weakSelf.view).multipliedBy(0.55);
+        make.height.mas_equalTo(80);
     }];
 }
 
@@ -178,6 +184,8 @@ SettingViewDelegate
 #pragma mark - UIPageViewControllerDataSource
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if(_currentPageIndex == 1) {
+        [self.messageView setMessageLabelText:@"已翻到第一页"];
+        [self.messageView show];
         return nil;
     }
     _currentPageIndex --;
@@ -186,6 +194,8 @@ SettingViewDelegate
 
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     if(_currentPageIndex >= _book.pageCount) {
+        [self.messageView setMessageLabelText:@"已翻到最后一页"];
+        [self.messageView show];
         return nil;
     }
     _currentPageIndex ++;
@@ -229,8 +239,13 @@ SettingViewDelegate
     TextViewController *currentVC = (TextViewController*)[[self.pageViewController viewControllers] firstObject];
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     [st setSkinIndex:index];
+    self.messageView.backgroundColor = [st skin][1];
+    self.messageView.messageLabel.textColor = [st skin][0];
+    self.messageView.layer.borderColor = self.messageView.messageLabel.textColor.CGColor;
+    
     [currentVC setTextColor:[st skin][0] andBackgoundColor:[st skin][1]];
     [USER_DEFAULTS setObject:@(index) forKey:GLOBAL_SKIN_INDEX];
+    
 }
 
 #pragma mark - private
@@ -239,7 +254,7 @@ SettingViewDelegate
     if(!text) {
         return nil;
     }
-    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
+//    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
     TextViewController *textVC = [[TextViewController alloc] initWithText:text color:_book.textColor andFont:_book.font];
     return textVC;
 }

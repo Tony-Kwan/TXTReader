@@ -28,6 +28,7 @@
 #define WHITE_COLOR [UIColor whiteColor]
 #define SYSTEM_FONT(fontSize) [UIFont systemFontOfSize:fontSize]
 
+#define PYColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
@@ -54,5 +55,11 @@ CG_INLINE CGRect CGRectMultiplied(CGRect rect, CGFloat m) {
 + (CGFloat) screenWidth;
 
 + (UIButton*) customButtonWith:(NSString*)title target:(id)obj andAction:(SEL)selector;
++ (UILabel *)customLabelWithText:(NSString *)text fontSize:(CGFloat)fontSize color:(UIColor *)color;
+
++ (NSLayoutConstraint *)centerYConstraintWithItem:(id)item toItem:(id)item2;
++ (NSLayoutConstraint *)centerXConstraintWithItem:(id)item toItem:(id)item2;
++ (NSArray *)centerXYConstraintWithItem:(id)item toItem:(id)item2;
++ (NSArray *)centerXYConstraintWithItem:(id)item toItem:(id)item2 withOffsetY:(CGFloat)offsetY;
 
 @end

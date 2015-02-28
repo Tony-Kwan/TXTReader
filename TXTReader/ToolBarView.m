@@ -44,7 +44,7 @@
 }
 
 - (void) setup {
-    self.backgroundColor = [UIColorFromRGB(0x282b35) colorWithAlphaComponent:0.9];
+    self.backgroundColor = [APP_COLOR colorWithAlphaComponent:0.9];
     self.clipsToBounds = self.layer.masksToBounds = NO;
     
     self.slider = [[UISlider alloc] init];
@@ -64,6 +64,7 @@
     [self addSubview:self.btnLastReading];
     
     self.progressLabel = [[UILabel alloc] init];
+    self.progressLabel.textColor = WHITE_COLOR;
     self.progressLabel.text = @"234/235";
     [self addSubview:self.progressLabel];
     

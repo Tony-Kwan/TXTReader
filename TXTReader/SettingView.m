@@ -40,7 +40,7 @@ UICollectionViewDelegate
 }
 
 - (void) setup {
-    self.backgroundColor = [UIColorFromRGB(0x282b35) colorWithAlphaComponent:0.9];
+    self.backgroundColor = [APP_COLOR colorWithAlphaComponent:0.9];
     
     self.contentView = [[UIView alloc] init];
     self.contentView.backgroundColor = [UIColor clearColor];
@@ -152,10 +152,25 @@ UICollectionViewDelegate
 
 - (void) fontSizeDidChange:(UIStepper*)stepper {
     self.fontSizeLabel.text = [NSString stringWithFormat:@"%ld", (long)self.fontSizeStepper.value];
+    [self.delegate changeFontSizeTo:self.fontSizeStepper.value];
 }
 
-- (void) rowSpaceValueDidChange:(UISegmentedControl*)rowSpace {
-    
+- (void) rowSpaceValueDidChange:(UISegmentedControl*)rowSpaceSC {
+    CGFloat rowSpace = 0;
+    switch (rowSpaceSC.selectedSegmentIndex) {
+        case 0:
+            rowSpace = 0;
+            break;
+        case 1:
+            rowSpace = 1;
+            break;
+        case 2:
+            rowSpace = 2;
+            break;
+        default:
+            break;
+    }
+    [self.delegate changeRowSpaceTo:rowSpace];
 }
 
 #pragma mark - CollectionView datasource && delegate

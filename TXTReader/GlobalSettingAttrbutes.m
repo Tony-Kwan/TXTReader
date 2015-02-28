@@ -21,12 +21,12 @@
 
 - (id) init {
     if((self = [super init])) {
-        self.skins = @[@[[UIColor lightTextColor], UIColorFromRGB(0x282b35)],
+        self.skins = @[@[[UIColor lightTextColor], APP_COLOR],
                        @[BLACK_COLOR, WHITE_COLOR],
                        @[WHITE_COLOR, BLACK_COLOR],
-                       @[[UIColor greenColor], UIColorFromRGB(0x282b35)],
+                       @[[UIColor greenColor], APP_COLOR],
                        @[[UIColor blueColor], [UIColor yellowColor]],
-                       @[[UIColor cyanColor], UIColorFromRGB(0x282b35)],
+                       @[[UIColor cyanColor], APP_COLOR],
                        @[[UIColor yellowColor], [UIColor redColor]],
                        @[[UIColor redColor], [UIColor whiteColor]]];
         if([USER_DEFAULTS objectForKey:GLOBAL_SKIN_INDEX]) {
@@ -88,10 +88,14 @@
     _paraStyle.lineSpacing = self.rowSpace;
     _paraStyle.firstLineHeadIndent = 10;
     _paraStyle.headIndent = 10;
-    _paraStyle.tailIndent = 310;
-    _paraStyle.lineBreakMode = NSLineBreakByCharWrapping;    // 换行方式
-    _paraStyle.paragraphSpacingBefore = -2;  // 未知
-    _paraStyle.hyphenationFactor = 30;   // 未知
+    _paraStyle.tailIndent = [PYUtils screenWidth] - 10;
+    _paraStyle.paragraphSpacing = self.rowSpace * 2 + 1;
+    _paraStyle.alignment = NSTextAlignmentLeft;
+    _paraStyle.lineBreakMode = NSLineBreakByWordWrapping;    // 换行方式
+    _paraStyle.paragraphSpacingBefore = 0;  //段落之前的间距
+//    _paraStyle.hyphenationFactor = 30;   // 未知
+    _paraStyle.minimumLineHeight = 10;
+    _paraStyle.maximumLineHeight = 30;
     
     return _paraStyle;
 }
