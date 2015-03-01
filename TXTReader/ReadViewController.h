@@ -14,7 +14,7 @@
 @interface ReadViewController : UIViewController
 
 @property (nonatomic, strong) Book* book;
-@property (nonatomic, assign) NSInteger currentPageIndex;
+@property (nonatomic, assign) NSUInteger currentPageIndex;
 
 - (id) initWithBook:(Book*)book;
 

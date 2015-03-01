@@ -17,7 +17,7 @@ typedef enum {
 
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, assign) NSUInteger length; //byte
-@property (nonatomic, assign) int pageCount;
+@property (nonatomic, assign) NSUInteger pageCount;
 @property (nonatomic, assign) BookType type;
 @property (nonatomic, strong) NSString* path;
 @property (nonatomic, strong) NSDate *lastUpdate;

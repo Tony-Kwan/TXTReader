@@ -7,6 +7,7 @@
 //
 
 #import "BookSource.h"
+#import "PYUtils.h"
 
 @interface BookSource()
 
@@ -46,6 +47,13 @@
         NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
         Book *book = [[Book alloc] initWithPath:bookPath];
         [self.books addObject:book];
+    }
+}
+
+- (void) clearCache {
+    PYLog(@"%s", __PRETTY_FUNCTION__);
+    for (Book* book in _books) {
+        book.content = nil;
     }
 }
 

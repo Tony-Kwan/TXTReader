@@ -14,12 +14,6 @@
     
 }
 
-@property (nonatomic, strong) UISlider *slider;
-@property (nonatomic, strong) UIButton *btnSetting, *btnMenu;
-
-@property (nonatomic, strong) UIButton *btnLastReading;
-@property (nonatomic, strong) UILabel *progressLabel;
-
 @end
 
 @implementation ToolBarView
@@ -65,7 +59,6 @@
     
     self.progressLabel = [[UILabel alloc] init];
     self.progressLabel.textColor = WHITE_COLOR;
-    self.progressLabel.text = @"234/235";
     [self addSubview:self.progressLabel];
     
     WS(weakSelf);

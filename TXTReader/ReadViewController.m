@@ -71,6 +71,8 @@ SettingViewDelegate
     
     self.toolBar = [[ToolBarView alloc] initWithFrame:CGRectMake(0, h, w, 88)];
     self.toolBar.delegate = self;
+    self.toolBar.slider.minimumValue = 1.0;
+    self.toolBar.slider.maximumValue = (float)_book.pageCount;
     [self.view addSubview:self.toolBar];
     
     self.settingView = [[SettingView alloc] initWithFrame:CGRectMake(0, h, w, h/2)];
@@ -111,6 +113,11 @@ SettingViewDelegate
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
     self.navigationItem.title = self.book.name;
+}
+
+- (void) updateToolBar {
+    self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @(_currentPageIndex), @(_book.pageCount)];
+    self.toolBar.slider.value = (float)_currentPageIndex;
 }
 
 - (void) dealloc {
@@ -172,6 +179,8 @@ SettingViewDelegate
     else {
         frame.origin.y = [PYUtils screenHeight];
     }
+    self.pageViewController.view.userInteractionEnabled = !flag;
+    self.tapView.frame = flag ? self.view.bounds : tapViewFrame;
     [UIView animateWithDuration:0.3 animations:^{
         self.settingView.frame = frame;
     }];
@@ -208,12 +217,19 @@ SettingViewDelegate
 }
 
 - (void) toolBarSliderValueChangingTo:(CGFloat)value {
-    [_barHideTimer invalidate];
-    _barHideTimer = nil;
+    if(_barHideTimer) {
+        [_barHideTimer invalidate];
+        _barHideTimer = nil;
+    }
+    self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @((NSUInteger)value), @(_book.pageCount)];
 }
 
 - (void) toolBarSliderValueChangedTo:(CGFloat)value {
     _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
+    
+    _currentPageIndex = (NSUInteger)value;
+    TextViewController *tVC = [self createTextViewControllerWithPage];
+    [self.pageViewController setViewControllers:@[tVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 #pragma mark - SettingViewDelegate
@@ -257,6 +273,7 @@ SettingViewDelegate
 //    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     TextViewController *textVC = [[TextViewController alloc] initWithText:text color:st.textColor andFont:st.font];
+    [self updateToolBar];
     return textVC;
 }
 

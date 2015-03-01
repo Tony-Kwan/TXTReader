@@ -76,6 +76,11 @@ BookShelfDelegate
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 }
 
+- (void) didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[GlobalSettingAttrbutes shareSetting] clearCache];
+}
+
 #pragma mark - event
 - (void) clickSetting:(id)sender {
 //    NSLog(@"%@ %@", @(self.collectionView.alwaysBounceVertical), @(self.collectionView.bounces));
@@ -92,8 +97,8 @@ BookShelfDelegate
 #pragma mark - BookShelfDelegate
 - (void) openBook:(Book *)book {   
     NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
-//    [book paginate];
-    [book paging];
+    [book paginate];
+
     ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
     UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
     [self.navigationController presentViewController:naviC animated:YES completion:nil];

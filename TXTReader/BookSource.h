@@ -16,6 +16,7 @@
 + (id) shareInstance;
 
 - (void) loadBooks;
+- (void) clearCache;
 - (NSInteger) count;
 - (Book*) bookAtIndex:(NSUInteger)index;
 - (Book*) currentReadingBook;

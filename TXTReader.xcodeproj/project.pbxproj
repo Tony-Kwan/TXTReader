@@ -192,7 +192,6 @@
 				E94506771A94D8240017FDD1 /* SettingViewController.h */,
 				E94506781A94D8240017FDD1 /* SettingViewController.m */,
 				E94506611A94B84D0017FDD1 /* TXT */,
-				E95FAA541A96015600D30017 /* Core */,
 				E945065D1A94B7840017FDD1 /* View */,
 				E945066A1A94C1C10017FDD1 /* Modal */,
 				E945064D1A94B4260017FDD1 /* Helper */,
@@ -235,6 +234,8 @@
 		E945064D1A94B4260017FDD1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E95FAA551A96023300D30017 /* FileUtils.h */,
+				E95FAA561A96023300D30017 /* FileUtils.m */,
 				E945064E1A94B48B0017FDD1 /* PYUtils.h */,
 				E945064F1A94B48B0017FDD1 /* PYUtils.m */,
 				E94506501A94B48B0017FDD1 /* UIImage+ImageEffects.h */,
@@ -304,15 +305,6 @@
 				E94506751A94CF400017FDD1 /* TableCell.m */,
 			);
 			name = TableView;
-			sourceTree = "<group>";
-		};
-		E95FAA541A96015600D30017 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				E95FAA551A96023300D30017 /* FileUtils.h */,
-				E95FAA561A96023300D30017 /* FileUtils.m */,
-			);
-			name = Core;
 			sourceTree = "<group>";
 		};
 		E9ACD3E61A9EF9FB0084E28A /* BookShelf */ = {

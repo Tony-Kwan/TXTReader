@@ -22,7 +22,7 @@
         
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textColor = [[GlobalSettingAttrbutes shareSetting] skin][0];
-        self.textLabel.backgroundColor = [UIColor redColor];
+        self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = font;
         self.textLabel.numberOfLines = 0;
 //        self.textLabel.textAlignment = NSTextAlignmentLeft;

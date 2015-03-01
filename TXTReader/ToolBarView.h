@@ -19,6 +19,11 @@
 
 @interface ToolBarView : UIView
 
+@property (nonatomic, strong) UISlider *slider;
+@property (nonatomic, strong) UIButton *btnSetting, *btnMenu;
+
+@property (nonatomic, strong) UIButton *btnLastReading;
+@property (nonatomic, strong) UILabel *progressLabel;
 @property (nonatomic, weak) id<ToolBarViewDelegate> delegate;
 
 @end

@@ -8,6 +8,8 @@
 #import "FMDB.h"
 #import "GlobalSettingAttrbutes.h"
 
+typedef unsigned long long ull;
+
 //MACRO
 #define DEBUG_VERSION 1
 #if DEBUG_VERSION == 1
