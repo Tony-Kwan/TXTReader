@@ -96,6 +96,7 @@
 }
 
 #define PAGINATE_DEVIATION 3
+#define PAGINATE_MIN_CHARS 100
 
 - (void) paginate {
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
@@ -106,18 +107,24 @@
     CGRect textRect;
     NSString *subText = self.content;
     self.pageIndexArray = [NSMutableArray array];
-    NSUInteger length = 600;
+    NSUInteger length = 480;
     NSUInteger offset = 0;
     NSUInteger left, right, mid;
     CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
     
-    PYLog(@"start");
-
+    PYLog(@"start | self.length = %lu", self.length);
+    
     while (offset < self.length) {
         if(offset + length >= self.length) {
             length = self.length - offset;
+            subText = [self.content substringWithRange:NSMakeRange(offset, length)];
+            textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+            if(textRect.size.height <= height) {
+                [self.pageIndexArray addObject:@(offset)];
+                break;
+            }
         }
-        left = 100;
+        left = PAGINATE_MIN_CHARS;
         right = length;
         while (left < right - PAGINATE_DEVIATION) {
             mid = left + (right - left) / 2;
@@ -133,10 +140,35 @@
         }
         [self.pageIndexArray addObject:@(offset)];
         offset += left;
-//        NSLog(@"%lu, %lu, %f %f", offset, left, height, textRect.size.height);
+//        if(left == PAGINATE_MIN_CHARS)
+            NSLog(@"offset = %lu, left = %lu | %f %f | index = %lu", offset, left, height, textRect.size.height, self.pageCount);
     }
     
-    PYLog(@"end");
+    PYLog(@"end | self.pageCount = %lu", self.pageCount);
+}
+
+- (void) testRegular {
+    NSMutableArray *captersRange = [NSMutableArray array];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"7.txt" ofType:nil];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path options:NSDataReadingMappedAlways error:nil];
+    NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString* parten = @"(第.回)";
+    
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *matchs = [reg matchesInString:text options:NSMatchingReportCompletion range:NSMakeRange(0, text.length)];
+    
+    for (NSTextCheckingResult* result in matchs) {
+        NSUInteger len = 0;
+        //        NSLog(@"%@", [text substringWithRange:NSMakeRange(result.range.location, result.range.length)]);
+        while (![[text substringWithRange:NSMakeRange(result.range.location+result.range.length+len, 1)] isEqualToString:@"\n"]) {
+            len++;
+        }
+        NSLog(@"%u %@", len, [text substringWithRange:NSMakeRange(result.range.location, result.range.length+len)]);
+        [captersRange addObject:[NSValue valueWithRange:NSMakeRange(result.range.location, result.range.length+len)]];
+    }
+    NSLog(@"%u", captersRange.count);
 }
 
 @end

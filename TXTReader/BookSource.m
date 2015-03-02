@@ -39,7 +39,7 @@
 - (void) loadBooks {
     NSString* str;
     
-    const int bookCount = 7;
+    const int bookCount = 8;
     
     [self.books removeAllObjects];
     for(int i = 0; i < bookCount; i++) {

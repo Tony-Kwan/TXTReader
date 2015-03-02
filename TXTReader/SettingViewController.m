@@ -8,10 +8,13 @@
 
 #import "SettingViewController.h"
 #import "PYUtils.h"
+#import "GlobalSettingAttrbutes.h"
 
-@interface SettingViewController() {
-    
-}
+static NSString* tableViewCellIndentifier = @"tcid";
+
+@interface SettingViewController()
+
+@property (weak, nonatomic) IBOutlet UISwitch *nightSwitch;
 
 @end
 
@@ -20,40 +23,37 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
     self.view.tintColor = [UIColor redColor];
+    [self setupNavigationBar];
+    [self configure];
+}
+
+- (void) setupNavigationBar {
+    self.navigationItem.title = @"Setting";
     
-    UIButton *btnDone = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnDone.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    [btnDone setTitle:@"Done" forState:UIControlStateNormal];
-    [btnDone addTarget:self action:@selector(clickDone) forControlEvents:UIControlEventTouchUpInside];
-    [btnDone setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-    btnDone.backgroundColor = [UIColor clearColor];
-    [btnDone sizeToFit];
-    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnDone];
-    self.navigationItem.rightBarButtonItem = rightButtonItem;
-    
-    UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnCancel.titleLabel.font = [UIFont systemFontOfSize:17];
-    [btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
-    [btnCancel setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-    [btnCancel addTarget:self action:@selector(clickCancel) forControlEvents:UIControlEventTouchUpInside];
-    btnCancel.backgroundColor = [UIColor clearColor];
-    [btnCancel sizeToFit];
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnCancel];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
-//    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(clickDone)];
-//    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnBack.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    [btnBack setTitle:@"Back" forState:UIControlStateNormal];
+    [btnBack addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+    [btnBack setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    btnBack.backgroundColor = [UIColor clearColor];
+    [btnBack sizeToFit];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
+    self.navigationItem.leftBarButtonItem = left;
+}
+
+- (void) configure {
+    NSNumber *num = [USER_DEFAULTS objectForKey:GLOBAL_NIGHT];
+    self.nightSwitch.on = num && [num isEqualToNumber:@(YES)];
 }
 
 #pragma mark - event
-- (void) clickDone {
+- (void) clickBack {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) clickCancel {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)switchNightMode:(UISwitch*)sender {
+    [USER_DEFAULTS setObject:@(sender.on) forKey:GLOBAL_NIGHT];
 }
 
 @end

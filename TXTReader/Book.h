@@ -28,7 +28,6 @@ typedef enum {
 
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
-- (BOOL) paging;
 - (void) paginate;
 
 @end

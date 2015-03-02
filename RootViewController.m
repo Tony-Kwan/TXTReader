@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "PYUtils.h"
 #import "FileUtils.h"
+#import "UINavigationController+CustomAnimation.h"
 
 #import "SettingViewController.h"
 #import "ReadViewController.h"
@@ -83,10 +84,9 @@ BookShelfDelegate
 
 #pragma mark - event
 - (void) clickSetting:(id)sender {
-//    NSLog(@"%@ %@", @(self.collectionView.alwaysBounceVertical), @(self.collectionView.bounces));
-    SettingViewController *svc = [SettingViewController new];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:svc];
-    [self.navigationController presentViewController:nvc animated:YES completion:nil];
+    UIStoryboard *tableViewStoryboard = [UIStoryboard storyboardWithName:@"Setting" bundle:nil];
+    SettingViewController* settingVC = [tableViewStoryboard instantiateViewControllerWithIdentifier:@"sss"];
+    [self.navigationController presentViewController:settingVC animated:YES completion:nil];
 }
 
 - (void) segmentControlValueDidChange:(UISegmentedControl*)segmentControl {

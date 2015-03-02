@@ -6,6 +6,20 @@
 
 @implementation PYUtils
 
++ (BOOL) iOSVersionGreaterOrEqual_8 { //7.x NO; 8.x YES
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    //    NSLog(@"IOS VERSION = %f", version);
+    if(version  >= 8.0) {
+        return YES;
+    }
+    return NO;
+}
+
++ (NSInteger) getCurrentOrientation {
+    //    return [[UIDevice currentDevice] orientation];
+    return [[UIApplication sharedApplication] statusBarOrientation];
+}
+
 + (CGFloat) screenHeight {
     return  [UIScreen mainScreen].bounds.size.height;
 }

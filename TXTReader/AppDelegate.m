@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "TextViewController.h"
 #import "PYUtils.h"
+#import "KMCGeigerCounter.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,8 @@
     
     [self.window setBackgroundColor:[UIColor clearColor]];
     [self.window makeKeyAndVisible];
+    
+    [KMCGeigerCounter sharedGeigerCounter].enabled = YES;
     
     return YES;
 }

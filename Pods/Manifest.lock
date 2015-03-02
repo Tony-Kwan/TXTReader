@@ -4,14 +4,17 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - KMCGeigerCounter (0.2.0)
   - Masonry (0.6.1)
 
 DEPENDENCIES:
   - FMDB
+  - KMCGeigerCounter
   - Masonry
 
 SPEC CHECKSUMS:
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
+  KMCGeigerCounter: 52e8f442f82e7750870d6b48e05f68086bbe0d8c
   Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
 
 COCOAPODS: 0.34.4

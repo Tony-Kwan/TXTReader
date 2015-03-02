@@ -38,7 +38,7 @@ const NSStringEncoding kUnknownStringEncoding = -1;
         encoding = NSUTF8StringEncoding;
     }
     else {
-        encoding = NSUTF16LittleEndianStringEncoding;
+        encoding = NSUTF8StringEncoding;
     }
     
     return encoding;

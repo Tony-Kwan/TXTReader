@@ -20,14 +20,19 @@
 
 - (void) drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lenghts[2] = {2, 1};
     CGContextSetShouldAntialias(context, NO);
+    
+    CGContextSetStrokeColorWithColor(context, [WHITE_COLOR colorWithAlphaComponent:0.2].CGColor);
+    
+    CGContextMoveToPoint(context, 0, 0);
+    CGContextAddLineToPoint(context, self.bounds.size.width, 0);
+    CGContextStrokePath(context);
     CGContextSetLineWidth(context, 0.5);
-    CGContextSetStrokeColorWithColor(context, [WHITE_COLOR colorWithAlphaComponent:0.14].CGColor);
+    CGFloat lenghts[2] = {2, 1};
     CGContextSetLineDash(context, 0, lenghts, 2);
     CGContextMoveToPoint(context, 0, 44);
     CGContextAddLineToPoint(context, self.bounds.size.width, 44);
-    CGContextStrokePath(context);    
+    CGContextStrokePath(context);
 }
 
 - (id) initWithFrame:(CGRect)frame {

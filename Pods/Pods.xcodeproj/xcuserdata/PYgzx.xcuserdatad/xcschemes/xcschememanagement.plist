@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-KMCGeigerCounter.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1DFE80F283FEA68AF1DDD1AB</key>
+		<key>621E7C060CD023EFB8CFBBEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4055317A6A686F38FC79BEFF</key>
+		<key>98D9777D02379A7AC22ED87E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D39B69CDFE5CD21C217565B4</key>
+		<key>D6CFF90720429C7C9DE40E9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD3882BFDB972ED197503D29</key>
 		<dict>
 			<key>primary</key>
 			<true/>

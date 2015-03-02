@@ -41,6 +41,9 @@
 		E9B854EF1A9D6588003855D1 /* 4.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854ED1A9D6588003855D1 /* 4.txt */; };
 		E9B854F11A9D68C6003855D1 /* 5.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854F01A9D68C6003855D1 /* 5.txt */; };
 		E9B854F41A9D73AF003855D1 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B854F31A9D73AF003855D1 /* TextViewController.m */; };
+		E9E9C9031AA4062A00495116 /* 7.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 7.txt */; };
+		E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9411AA452AE00495116 /* Setting.storyboard */; };
+		E9E9C9451AA4573600495116 /* UINavigationController+CustomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */; };
 		E9EB223B1AA070F500DC01C0 /* GlobalSettingAttrbutes.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB223A1AA070F500DC01C0 /* GlobalSettingAttrbutes.m */; };
 		E9EB223D1AA0821100DC01C0 /* 6.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9EB223C1AA0821100DC01C0 /* 6.txt */; };
 /* End PBXBuildFile section */
@@ -116,6 +119,10 @@
 		E9B854F01A9D68C6003855D1 /* 5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5.txt; sourceTree = "<group>"; };
 		E9B854F21A9D73AF003855D1 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		E9B854F31A9D73AF003855D1 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		E9E9C9021AA4062A00495116 /* 7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 7.txt; sourceTree = "<group>"; };
+		E9E9C9411AA452AE00495116 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		E9E9C9431AA4573600495116 /* UINavigationController+CustomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CustomAnimation.h"; sourceTree = "<group>"; };
+		E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CustomAnimation.m"; sourceTree = "<group>"; };
 		E9EB22391AA070F500DC01C0 /* GlobalSettingAttrbutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSettingAttrbutes.h; sourceTree = "<group>"; };
 		E9EB223A1AA070F500DC01C0 /* GlobalSettingAttrbutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSettingAttrbutes.m; sourceTree = "<group>"; };
 		E9EB223C1AA0821100DC01C0 /* 6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 6.txt; sourceTree = "<group>"; };
@@ -191,6 +198,7 @@
 				E9B854F31A9D73AF003855D1 /* TextViewController.m */,
 				E94506771A94D8240017FDD1 /* SettingViewController.h */,
 				E94506781A94D8240017FDD1 /* SettingViewController.m */,
+				E9E9C9411AA452AE00495116 /* Setting.storyboard */,
 				E94506611A94B84D0017FDD1 /* TXT */,
 				E945065D1A94B7840017FDD1 /* View */,
 				E945066A1A94C1C10017FDD1 /* Modal */,
@@ -242,6 +250,8 @@
 				E94506511A94B48B0017FDD1 /* UIImage+ImageEffects.m */,
 				E94506521A94B48B0017FDD1 /* ImageCache.h */,
 				E94506531A94B48B0017FDD1 /* ImageCache.m */,
+				E9E9C9431AA4573600495116 /* UINavigationController+CustomAnimation.h */,
+				E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -265,6 +275,7 @@
 				E9B854ED1A9D6588003855D1 /* 4.txt */,
 				E9B854F01A9D68C6003855D1 /* 5.txt */,
 				E9EB223C1AA0821100DC01C0 /* 6.txt */,
+				E9E9C9021AA4062A00495116 /* 7.txt */,
 			);
 			name = TXT;
 			sourceTree = "<group>";
@@ -418,12 +429,14 @@
 				E9B854EE1A9D6588003855D1 /* 3.txt in Resources */,
 				E94506661A94B86E0017FDD1 /* 2.txt in Resources */,
 				E9B854F11A9D68C6003855D1 /* 5.txt in Resources */,
+				E9E9C9031AA4062A00495116 /* 7.txt in Resources */,
 				E94506671A94B86E0017FDD1 /* 0.txt in Resources */,
 				E9EB223D1AA0821100DC01C0 /* 6.txt in Resources */,
 				E94506341A94A96E0017FDD1 /* LaunchScreen.xib in Resources */,
 				E94506311A94A96E0017FDD1 /* Images.xcassets in Resources */,
 				E94506691A94BD980017FDD1 /* PYBookShelfDecorationView.xib in Resources */,
 				E9B854EF1A9D6588003855D1 /* 4.txt in Resources */,
+				E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +490,7 @@
 				E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */,
 				E94506761A94CF400017FDD1 /* TableCell.m in Sources */,
 				E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */,
+				E9E9C9451AA4573600495116 /* UINavigationController+CustomAnimation.m in Sources */,
 				E945066D1A94C1D50017FDD1 /* Book.m in Sources */,
 				E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */,
 				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,

@@ -18,6 +18,8 @@ typedef unsigned long long ull;
 #define PYLog(...)
 #endif
 
+#define UIScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define UIScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
 #define DOCUMENTS_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
@@ -53,6 +55,8 @@ CG_INLINE CGRect CGRectMultiplied(CGRect rect, CGFloat m) {
 
 @interface PYUtils : NSObject
 
++ (BOOL) iOSVersionGreaterOrEqual_8;
++ (NSInteger) getCurrentOrientation;
 + (CGFloat) screenHeight;
 + (CGFloat) screenWidth;
 

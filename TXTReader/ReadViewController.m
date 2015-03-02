@@ -211,6 +211,9 @@ SettingViewDelegate
     return [self createTextViewControllerWithPage];
 }
 
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+}
+
 #pragma mark - ToolBarViewDelegate
 - (void) toolBarDidClickSetting {
     [self showSettingView:YES];

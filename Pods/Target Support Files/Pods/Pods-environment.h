@@ -24,6 +24,12 @@
 #define COCOAPODS_VERSION_MINOR_FMDB_standard 5
 #define COCOAPODS_VERSION_PATCH_FMDB_standard 0
 
+// KMCGeigerCounter
+#define COCOAPODS_POD_AVAILABLE_KMCGeigerCounter
+#define COCOAPODS_VERSION_MAJOR_KMCGeigerCounter 0
+#define COCOAPODS_VERSION_MINOR_KMCGeigerCounter 2
+#define COCOAPODS_VERSION_PATCH_KMCGeigerCounter 0
+
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
