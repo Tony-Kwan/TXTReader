@@ -39,7 +39,7 @@
             self.fontSize = [[USER_DEFAULTS objectForKey:GLOBAL_FONT_SIZE] floatValue];
         }
         else {
-            self.fontSize = 17;
+            self.fontSize = 15;
         }
         if([USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE]) {
             self.rowSpace = [[USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE] floatValue];

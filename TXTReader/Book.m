@@ -95,6 +95,13 @@
     return attrText;
 }
 
+- (NSUInteger) offsetOfChapterIndex:(NSUInteger)index {
+    if(index >= self.chaptersTitleRange.count) {
+        return 0;
+    }
+    return [[self.chaptersTitleRange objectAtIndex:index] rangeValue].location;
+}
+
 #define PAGINATE_DEVIATION 3
 #define PAGINATE_MIN_CHARS 100
 
@@ -107,7 +114,7 @@
     CGRect textRect;
     NSString *subText = self.content;
     self.pageIndexArray = [NSMutableArray array];
-    NSUInteger length = 480;
+    NSUInteger length;
     NSUInteger offset = 0;
     NSUInteger left, right, mid;
     CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
@@ -115,7 +122,9 @@
     
     PYLog(@"start | self.length = %lu", self.length);
     
+    [self parseBook];
     while (offset < self.length) {
+        length = 480;
         if(offset + length >= self.length) {
             length = self.length - offset;
             subText = [self.content substringWithRange:NSMakeRange(offset, length)];
@@ -129,6 +138,8 @@
             NSRange range = [[self.chaptersTitleRange objectAtIndex:currentChapterIndex] rangeValue];
             if(offset + length >= range.location) {
                 length = range.location - offset;
+                NSLog(@"%lu %lu %lu", offset, length, range.location);
+                subText = [self.content substringWithRange:NSMakeRange(offset, length)];
                 textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
                 if(textRect.size.height <= height) {
                     [self.pageIndexArray addObject:@(offset)];

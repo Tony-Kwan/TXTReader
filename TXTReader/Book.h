@@ -29,5 +29,6 @@ typedef enum {
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
 - (void) paginate;
+- (NSUInteger) offsetOfChapterIndex:(NSUInteger)index;
 
 @end

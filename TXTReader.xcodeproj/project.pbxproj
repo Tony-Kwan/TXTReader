@@ -44,6 +44,8 @@
 		E9E9C9031AA4062A00495116 /* 7.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 7.txt */; };
 		E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9411AA452AE00495116 /* Setting.storyboard */; };
 		E9E9C9451AA4573600495116 /* UINavigationController+CustomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */; };
+		E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9491AA47B0000495116 /* MenuViewController.m */; };
+		E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */; };
 		E9EB223B1AA070F500DC01C0 /* GlobalSettingAttrbutes.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB223A1AA070F500DC01C0 /* GlobalSettingAttrbutes.m */; };
 		E9EB223D1AA0821100DC01C0 /* 6.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9EB223C1AA0821100DC01C0 /* 6.txt */; };
 /* End PBXBuildFile section */
@@ -123,6 +125,10 @@
 		E9E9C9411AA452AE00495116 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		E9E9C9431AA4573600495116 /* UINavigationController+CustomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CustomAnimation.h"; sourceTree = "<group>"; };
 		E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CustomAnimation.m"; sourceTree = "<group>"; };
+		E9E9C9481AA47B0000495116 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		E9E9C9491AA47B0000495116 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		E9E9C94C1AA47CED00495116 /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
 		E9EB22391AA070F500DC01C0 /* GlobalSettingAttrbutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSettingAttrbutes.h; sourceTree = "<group>"; };
 		E9EB223A1AA070F500DC01C0 /* GlobalSettingAttrbutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSettingAttrbutes.m; sourceTree = "<group>"; };
 		E9EB223C1AA0821100DC01C0 /* 6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 6.txt; sourceTree = "<group>"; };
@@ -199,6 +205,7 @@
 				E94506771A94D8240017FDD1 /* SettingViewController.h */,
 				E94506781A94D8240017FDD1 /* SettingViewController.m */,
 				E9E9C9411AA452AE00495116 /* Setting.storyboard */,
+				E9E9C94B1AA47CC300495116 /* Menu */,
 				E94506611A94B84D0017FDD1 /* TXT */,
 				E945065D1A94B7840017FDD1 /* View */,
 				E945066A1A94C1C10017FDD1 /* Modal */,
@@ -341,6 +348,17 @@
 				E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */,
 			);
 			name = ToolView;
+			sourceTree = "<group>";
+		};
+		E9E9C94B1AA47CC300495116 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9C9481AA47B0000495116 /* MenuViewController.h */,
+				E9E9C9491AA47B0000495116 /* MenuViewController.m */,
+				E9E9C94C1AA47CED00495116 /* MenuTableViewCell.h */,
+				E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,6 +514,7 @@
 				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,
 				E94506261A94A96E0017FDD1 /* AppDelegate.m in Sources */,
 				E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */,
+				E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */,
 				E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */,
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,
 				E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */,
@@ -510,6 +529,7 @@
 				E945065C1A94B71D0017FDD1 /* PYCollectionViewFlowLayout.m in Sources */,
 				E94506561A94B48B0017FDD1 /* PYUtils.m in Sources */,
 				E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */,
+				E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */,
 				E94506581A94B48B0017FDD1 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
