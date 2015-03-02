@@ -21,6 +21,7 @@ SettingViewDelegate
 {
     NSTimer *_barHideTimer;
     CGRect tapViewFrame;
+    BOOL _lastTimeIsBefore;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -198,6 +199,7 @@ SettingViewDelegate
         return nil;
     }
     _currentPageIndex --;
+    _lastTimeIsBefore = YES;
     return [self createTextViewControllerWithPage];
 }
 
@@ -208,10 +210,20 @@ SettingViewDelegate
         return nil;
     }
     _currentPageIndex ++;
+    _lastTimeIsBefore = NO;
     return [self createTextViewControllerWithPage];
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if(!completed) {
+        if(_lastTimeIsBefore) {
+            _currentPageIndex ++;
+        }
+        else {
+            _currentPageIndex --;
+        }
+        [self updateToolBar];
+    }
 }
 
 #pragma mark - ToolBarViewDelegate

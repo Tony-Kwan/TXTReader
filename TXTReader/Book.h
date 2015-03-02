@@ -22,7 +22,7 @@ typedef enum {
 @property (nonatomic, strong) NSString* path;
 @property (nonatomic, strong) NSDate *lastUpdate;
 @property (nonatomic, strong) NSString *content;
-@property (nonatomic, retain) NSMutableArray *pageIndexArray;
+@property (nonatomic, retain) NSMutableArray *pageIndexArray, *chaptersTitleRange;
 @property (nonatomic, assign) BOOL isPaginate;
 @property (nonatomic, assign) NSStringEncoding encoding;
 

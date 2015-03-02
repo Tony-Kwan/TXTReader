@@ -111,6 +111,7 @@
     NSUInteger offset = 0;
     NSUInteger left, right, mid;
     CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+    NSUInteger currentChapterIndex = 0;
     
     PYLog(@"start | self.length = %lu", self.length);
     
@@ -122,6 +123,19 @@
             if(textRect.size.height <= height) {
                 [self.pageIndexArray addObject:@(offset)];
                 break;
+            }
+        }
+        if(self.chaptersTitleRange && currentChapterIndex < self.chaptersTitleRange.count) {
+            NSRange range = [[self.chaptersTitleRange objectAtIndex:currentChapterIndex] rangeValue];
+            if(offset + length >= range.location) {
+                length = range.location - offset;
+                textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+                if(textRect.size.height <= height) {
+                    [self.pageIndexArray addObject:@(offset)];
+                    offset += length;
+                    currentChapterIndex ++;
+                    continue;
+                }
             }
         }
         left = PAGINATE_MIN_CHARS;
@@ -147,28 +161,30 @@
     PYLog(@"end | self.pageCount = %lu", self.pageCount);
 }
 
-- (void) testRegular {
-    NSMutableArray *captersRange = [NSMutableArray array];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"7.txt" ofType:nil];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path options:NSDataReadingMappedAlways error:nil];
-    NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+- (void) parseBook {
+    NSRange range = [self.content rangeOfString:@"第一回"];
+    if(range.length == 0) {
+        self.chaptersTitleRange = nil;
+    }
+    else {
+        self.chaptersTitleRange = [NSMutableArray array];
+    }
     
     NSString* parten = @"(第.回)";
     
     NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *matchs = [reg matchesInString:text options:NSMatchingReportCompletion range:NSMakeRange(0, text.length)];
+    NSArray *matchs = [reg matchesInString:self.content options:NSMatchingReportCompletion range:NSMakeRange(0, self.length)];
     
     for (NSTextCheckingResult* result in matchs) {
         NSUInteger len = 0;
         //        NSLog(@"%@", [text substringWithRange:NSMakeRange(result.range.location, result.range.length)]);
-        while (![[text substringWithRange:NSMakeRange(result.range.location+result.range.length+len, 1)] isEqualToString:@"\n"]) {
+        while (![[self.content substringWithRange:NSMakeRange(result.range.location+result.range.length+len, 1)] isEqualToString:@"\n"]) {
             len++;
         }
-        NSLog(@"%u %@", len, [text substringWithRange:NSMakeRange(result.range.location, result.range.length+len)]);
-        [captersRange addObject:[NSValue valueWithRange:NSMakeRange(result.range.location, result.range.length+len)]];
+//        NSLog(@"%u %@", len, [text substringWithRange:NSMakeRange(result.range.location, result.range.length+len)]);
+        [self.chaptersTitleRange addObject:[NSValue valueWithRange:NSMakeRange(result.range.location, result.range.length+len)]];
     }
-    NSLog(@"%u", captersRange.count);
+//    NSLog(@"%u", self.chaptersTitleRange.count);
 }
 
 @end
