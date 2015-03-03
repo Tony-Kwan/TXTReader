@@ -15,6 +15,8 @@ static NSString* tableViewCellIndentifier = @"tcid";
 @interface SettingViewController()
 
 @property (weak, nonatomic) IBOutlet UISwitch *nightSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *fontSizeLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *fontSizeStepper;
 
 @end
 
@@ -45,6 +47,11 @@ static NSString* tableViewCellIndentifier = @"tcid";
 - (void) configure {
     NSNumber *num = [USER_DEFAULTS objectForKey:GLOBAL_NIGHT];
     self.nightSwitch.on = num && [num isEqualToNumber:@(YES)];
+    
+    num = [USER_DEFAULTS objectForKey:GLOBAL_FONT_SIZE];
+    self.fontSizeStepper.value = num ? (float)[num floatValue] : 17.0;
+    self.fontSizeLabel.text = [NSString stringWithFormat:@"%d", (int)self.fontSizeStepper.value];
+    
 }
 
 #pragma mark - event
@@ -54,6 +61,11 @@ static NSString* tableViewCellIndentifier = @"tcid";
 
 - (IBAction)switchNightMode:(UISwitch*)sender {
     [USER_DEFAULTS setObject:@(sender.on) forKey:GLOBAL_NIGHT];
+}
+
+- (IBAction)fontSizeDidChange:(UIStepper*)sender {
+    self.fontSizeLabel.text = [NSString stringWithFormat:@"%d", (int)sender.value];
+    [USER_DEFAULTS setObject:@(sender.value) forKey:GLOBAL_FONT_SIZE];
 }
 
 @end

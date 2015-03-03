@@ -30,6 +30,7 @@ typedef unsigned long long ull;
 #define AUTORESIZING_WIDTH_AND_HEIGHT UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
 #define BLACK_COLOR [UIColor blackColor]
 #define WHITE_COLOR [UIColor whiteColor]
+#define CLEAR_COLOR [UIColor clearColor]
 #define SYSTEM_FONT(fontSize) [UIFont systemFontOfSize:fontSize]
 
 #define PYColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

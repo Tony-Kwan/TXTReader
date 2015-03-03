@@ -32,6 +32,7 @@
 		E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */; };
 		E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */; };
 		E95FAA571A96023300D30017 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA561A96023300D30017 /* FileUtils.m */; };
+		E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EBDE91AA55A0B0060E25D /* BookCoverView.m */; };
 		E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */; };
 		E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3E91A9EFA360084E28A /* SettingView.m */; };
 		E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */; };
@@ -43,7 +44,6 @@
 		E9B854F41A9D73AF003855D1 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B854F31A9D73AF003855D1 /* TextViewController.m */; };
 		E9E9C9031AA4062A00495116 /* 7.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 7.txt */; };
 		E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9411AA452AE00495116 /* Setting.storyboard */; };
-		E9E9C9451AA4573600495116 /* UINavigationController+CustomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */; };
 		E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9491AA47B0000495116 /* MenuViewController.m */; };
 		E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */; };
 		E9EB223B1AA070F500DC01C0 /* GlobalSettingAttrbutes.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB223A1AA070F500DC01C0 /* GlobalSettingAttrbutes.m */; };
@@ -107,6 +107,8 @@
 		E95FAA511A95FE8000D30017 /* BookShelfDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfDelegate.h; sourceTree = "<group>"; };
 		E95FAA551A96023300D30017 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		E95FAA561A96023300D30017 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
+		E97EBDE81AA55A0B0060E25D /* BookCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCoverView.h; sourceTree = "<group>"; };
+		E97EBDE91AA55A0B0060E25D /* BookCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCoverView.m; sourceTree = "<group>"; };
 		E9AA4B7D1AA156EB0068A147 /* VEMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEMessageView.h; sourceTree = "<group>"; };
 		E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEMessageView.m; sourceTree = "<group>"; };
 		E9ACD3E81A9EFA360084E28A /* SettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingView.h; sourceTree = "<group>"; };
@@ -123,8 +125,6 @@
 		E9B854F31A9D73AF003855D1 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 		E9E9C9021AA4062A00495116 /* 7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 7.txt; sourceTree = "<group>"; };
 		E9E9C9411AA452AE00495116 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		E9E9C9431AA4573600495116 /* UINavigationController+CustomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CustomAnimation.h"; sourceTree = "<group>"; };
-		E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CustomAnimation.m"; sourceTree = "<group>"; };
 		E9E9C9481AA47B0000495116 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		E9E9C9491AA47B0000495116 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		E9E9C94C1AA47CED00495116 /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
@@ -196,17 +196,8 @@
 		E945061F1A94A96E0017FDD1 /* TXTReader */ = {
 			isa = PBXGroup;
 			children = (
-				E94506491A94AAEA0017FDD1 /* RootViewController.h */,
-				E945064A1A94AAEA0017FDD1 /* RootViewController.m */,
-				E95D48531A977E9200CB1723 /* ReadViewController.h */,
-				E95D48541A977E9200CB1723 /* ReadViewController.m */,
-				E9B854F21A9D73AF003855D1 /* TextViewController.h */,
-				E9B854F31A9D73AF003855D1 /* TextViewController.m */,
-				E94506771A94D8240017FDD1 /* SettingViewController.h */,
-				E94506781A94D8240017FDD1 /* SettingViewController.m */,
-				E9E9C9411AA452AE00495116 /* Setting.storyboard */,
-				E9E9C94B1AA47CC300495116 /* Menu */,
 				E94506611A94B84D0017FDD1 /* TXT */,
+				E97EBDED1AA55AA70060E25D /* Controller */,
 				E945065D1A94B7840017FDD1 /* View */,
 				E945066A1A94C1C10017FDD1 /* Modal */,
 				E945064D1A94B4260017FDD1 /* Helper */,
@@ -257,8 +248,6 @@
 				E94506511A94B48B0017FDD1 /* UIImage+ImageEffects.m */,
 				E94506521A94B48B0017FDD1 /* ImageCache.h */,
 				E94506531A94B48B0017FDD1 /* ImageCache.m */,
-				E9E9C9431AA4573600495116 /* UINavigationController+CustomAnimation.h */,
-				E9E9C9441AA4573600495116 /* UINavigationController+CustomAnimation.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -266,6 +255,8 @@
 		E945065D1A94B7840017FDD1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E97EBDE81AA55A0B0060E25D /* BookCoverView.h */,
+				E97EBDE91AA55A0B0060E25D /* BookCoverView.m */,
 				E9ACD3E71A9EFA100084E28A /* ToolView */,
 				E9ACD3E61A9EF9FB0084E28A /* BookShelf */,
 			);
@@ -323,6 +314,47 @@
 				E94506751A94CF400017FDD1 /* TableCell.m */,
 			);
 			name = TableView;
+			sourceTree = "<group>";
+		};
+		E97EBDEB1AA55A8D0060E25D /* Read */ = {
+			isa = PBXGroup;
+			children = (
+				E95D48531A977E9200CB1723 /* ReadViewController.h */,
+				E95D48541A977E9200CB1723 /* ReadViewController.m */,
+				E9B854F21A9D73AF003855D1 /* TextViewController.h */,
+				E9B854F31A9D73AF003855D1 /* TextViewController.m */,
+			);
+			name = Read;
+			sourceTree = "<group>";
+		};
+		E97EBDEC1AA55A990060E25D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E94506771A94D8240017FDD1 /* SettingViewController.h */,
+				E94506781A94D8240017FDD1 /* SettingViewController.m */,
+				E9E9C9411AA452AE00495116 /* Setting.storyboard */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		E97EBDED1AA55AA70060E25D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E97EBDEE1AA55AB60060E25D /* Home */,
+				E97EBDEB1AA55A8D0060E25D /* Read */,
+				E97EBDEC1AA55A990060E25D /* Setting */,
+				E9E9C94B1AA47CC300495116 /* Menu */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		E97EBDEE1AA55AB60060E25D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E94506491A94AAEA0017FDD1 /* RootViewController.h */,
+				E945064A1A94AAEA0017FDD1 /* RootViewController.m */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		E9ACD3E61A9EF9FB0084E28A /* BookShelf */ = {
@@ -508,7 +540,6 @@
 				E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */,
 				E94506761A94CF400017FDD1 /* TableCell.m in Sources */,
 				E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */,
-				E9E9C9451AA4573600495116 /* UINavigationController+CustomAnimation.m in Sources */,
 				E945066D1A94C1D50017FDD1 /* Book.m in Sources */,
 				E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */,
 				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,
@@ -519,6 +550,7 @@
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,
 				E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */,
 				E95FAA571A96023300D30017 /* FileUtils.m in Sources */,
+				E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */,
 				E9B854F41A9D73AF003855D1 /* TextViewController.m in Sources */,
 				E94506571A94B48B0017FDD1 /* UIImage+ImageEffects.m in Sources */,
 				E94506701A94C1ED0017FDD1 /* BookSource.m in Sources */,

@@ -9,7 +9,6 @@
 #import "RootViewController.h"
 #import "PYUtils.h"
 #import "FileUtils.h"
-#import "UINavigationController+CustomAnimation.h"
 
 #import "SettingViewController.h"
 #import "ReadViewController.h"
@@ -35,10 +34,8 @@ BookShelfDelegate
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-
+    
     [self setupNavigationItem];
-
-    self.view.backgroundColor = [UIColor redColor];
     
     self.collectionView = [[BookShelfCollectionView alloc] init];
     [self.view addSubview:self.collectionView];
@@ -58,21 +55,24 @@ BookShelfDelegate
     
     self.navigationItem.title = @"TXT Reader";
     
-    UIButton *btnSetting = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *btnSetting = [[UIButton alloc] init];
     [btnSetting addTarget:self action:@selector(clickSetting:) forControlEvents:UIControlEventTouchUpInside];
-    btnSetting.autoresizingMask = AUTORESIZING_WIDTH_AND_HEIGHT;
-    btnSetting.backgroundColor = self.view.tintColor;
-    [btnSetting setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btnSetting setTitle:@"setting" forState:UIControlStateNormal];
+    btnSetting.backgroundColor = CLEAR_COLOR;
+    btnSetting.tintColor = self.view.tintColor;
+    UIImage *settingImage = [UIImage imageNamed:@"setting_btn"];
+    [btnSetting setImage:settingImage forState:UIControlStateNormal];
+//    [btnSetting setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [btnSetting setTitle:@"setting" forState:UIControlStateNormal];
     [btnSetting sizeToFit];
-    btnSetting.layer.cornerRadius = 3.0f;
+//    btnSetting.layer.cornerRadius = 3.0f;
     UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnSetting];
     self.navigationItem.leftBarButtonItem = leftButtonItem;
     
-    self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Grid", @"Table"]];
+    //[UIImage imageNamed:@"grid_btn"], [UIImage imageNamed:@"list_btn"]
+    self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"网格", @"列表"]];
     [self.segmentControl addTarget:self action:@selector(segmentControlValueDidChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentControl.selectedSegmentIndex = 0;
-    //    segmentControl.momentary = YES;
+    self.segmentControl.tintColor = WHITE_COLOR;
     UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.segmentControl];
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 }

@@ -111,8 +111,8 @@ SettingViewDelegate
 //    [self.view addGestureRecognizer:_tap];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(clickBack:)];
+    backButtonItem.tintColor = WHITE_COLOR;
     self.navigationItem.leftBarButtonItem = backButtonItem;
-    
     self.navigationItem.title = self.book.name;
 }
 
@@ -154,7 +154,7 @@ SettingViewDelegate
 }
 
 #pragma mark - private
-- (void) showToolBar:(BOOL)flag {
+- (void) showToolBar:(BOOL)flag{
     CGRect frame = self.toolBar.frame;
     CGRect frame2;
     if(flag) {

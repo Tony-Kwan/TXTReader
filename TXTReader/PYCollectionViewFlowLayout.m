@@ -71,7 +71,8 @@ UIGestureRecognizerDelegate
     _scrollSpeed = 300.f;
     _scrollingTriggerEdgeInsets = UIEdgeInsetsMake(10.0f, 50.0f, 50.0f, 40.0f);
     
-    self.itemSize = CGSizeMake(60, 80);
+    CGFloat width = 60;
+    self.itemSize = CGSizeMake(width, width/9.0f*16.0f);
     self.sectionInset = _scrollingTriggerEdgeInsets;
     self.minimumLineSpacing = 40;
     self.minimumInteritemSpacing = 20;

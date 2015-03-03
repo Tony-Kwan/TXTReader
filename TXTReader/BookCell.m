@@ -9,6 +9,14 @@
 #import "BookCell.h"
 #import "PYUtils.h"
 
+@interface BookCell() {
+    
+}
+
+@property (nonatomic, strong) UIImageView *coverImageView;
+
+@end
+
 @implementation BookCell
 
 - (id) initWithFrame:(CGRect)frame {
@@ -16,10 +24,18 @@
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        self.coverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookCover"]];
+        self.coverImageView.frame = self.bounds;
+        self.coverImageView.contentMode = UIViewContentModeScaleToFill;
+        [self addSubview:self.coverImageView];
+        
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/7, frame.size.width, 16)];
         self.titleLabel.text = @"no name";
+        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.clipsToBounds = NO;
+        self.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        self.titleLabel.font = [UIFont systemFontOfSize:14];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.autoresizingMask = AUTORESIZING_WIDTH_AND_HEIGHT;
         [self addSubview:self.titleLabel];
     }
     return self;

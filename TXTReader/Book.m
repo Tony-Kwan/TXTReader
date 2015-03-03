@@ -102,7 +102,7 @@
     return [[self.chaptersTitleRange objectAtIndex:index] rangeValue].location;
 }
 
-#define PAGINATE_DEVIATION 3
+#define PAGINATE_DEVIATION 1
 #define PAGINATE_MIN_CHARS 100
 
 - (void) paginate {
@@ -138,7 +138,7 @@
             NSRange range = [[self.chaptersTitleRange objectAtIndex:currentChapterIndex] rangeValue];
             if(offset + length >= range.location) {
                 length = range.location - offset;
-                NSLog(@"%lu %lu %lu", offset, length, range.location);
+//                NSLog(@"%lu %lu %lu", offset, length, range.location);
                 subText = [self.content substringWithRange:NSMakeRange(offset, length)];
                 textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
                 if(textRect.size.height <= height) {
@@ -166,7 +166,7 @@
         [self.pageIndexArray addObject:@(offset)];
         offset += left;
 //        if(left == PAGINATE_MIN_CHARS)
-            NSLog(@"offset = %lu, left = %lu | %f %f | index = %lu", offset, left, height, textRect.size.height, self.pageCount);
+//            NSLog(@"offset = %lu, left = %lu | %f %f | index = %lu", offset, left, height, textRect.size.height, self.pageCount);
     }
     
     PYLog(@"end | self.pageCount = %lu", self.pageCount);
