@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kUnknownStringEncoding -1
+
 @interface FileUtils : NSObject
 
 + (NSStringEncoding) recognizeEncodingWithPath:(NSString*)path;

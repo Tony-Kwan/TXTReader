@@ -97,11 +97,16 @@ BookShelfDelegate
 #pragma mark - BookShelfDelegate
 - (void) openBook:(Book *)book {   
     NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
-    [book paginate];
-
-    ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
-    UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
-    [self.navigationController presentViewController:naviC animated:YES completion:nil];
+    if(book.encoding != kUnknownStringEncoding) {
+        [book paginate];
+        
+        ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
+        UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
+        [self.navigationController presentViewController:naviC animated:YES completion:nil];
+    }
+    else {
+        PYLog(@"nuknowencoding");
+    }
 }
 
 

@@ -10,8 +10,6 @@
 
 #define RECOGNIZE_ENCODING(bytes, a, b) ((bytes[0] == a) && (bytes[1] == b))
 
-const NSStringEncoding kUnknownStringEncoding = -1;
-
 @implementation FileUtils
 
 + (NSStringEncoding) recognizeEncodingWithPath:(NSString *)path {
