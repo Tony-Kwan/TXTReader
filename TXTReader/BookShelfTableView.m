@@ -14,9 +14,9 @@ static NSString *tableCellIndentifier = @"tableCellIndentifier";
 
 - (id) init {
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake([PYUtils screenWidth], 50);
+    layout.itemSize = CGSizeMake([PYUtils screenWidth]-40, 80);
     layout.sectionInset = UIEdgeInsetsMake(64 + 5, 0, 0, 0);
-    layout.minimumInteritemSpacing = layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = layout.minimumLineSpacing = 10;
     
     if((self = [super initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:layout])) {
         self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookShelf_background"]];
@@ -47,7 +47,9 @@ static NSString *tableCellIndentifier = @"tableCellIndentifier";
     }
     Book *book = [[BookSource shareInstance] bookAtIndex:indexPath.row];
     TableCell* cell = (TableCell*)[collectionView dequeueReusableCellWithReuseIdentifier:tableCellIndentifier forIndexPath:indexPath];
-    cell.titleLabel.text = book.name;
+    
+    [cell configureCellWithBook:book];
+    
     return cell;
 }
 

@@ -63,15 +63,21 @@ static NSString* tableViewCellIndentifier = @"tcid";
 }
 
 - (IBAction)switchNightMode:(UISwitch*)sender {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.isNight = sender.on;
     [USER_DEFAULTS setObject:@(sender.on) forKey:GLOBAL_NIGHT];
 }
 
 - (IBAction)fontSizeDidChange:(UIStepper*)sender {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.fontSize = (NSInteger)sender.value;
     self.fontSizeLabel.text = [NSString stringWithFormat:@"%d", (int)sender.value];
     [USER_DEFAULTS setObject:@(sender.value) forKey:GLOBAL_FONT_SIZE];
 }
 
 - (IBAction)rowSpaceDidChange:(UISegmentedControl*)sender {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.rowSpaceIndex = sender.selectedSegmentIndex;
     [USER_DEFAULTS setObject:@(sender.selectedSegmentIndex) forKey:GLOBAL_ROW_SPACE];
 }
 

@@ -20,7 +20,6 @@
 		E94506581A94B48B0017FDD1 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E94506531A94B48B0017FDD1 /* ImageCache.m */; };
 		E945065C1A94B71D0017FDD1 /* PYCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E945065B1A94B71D0017FDD1 /* PYCollectionViewFlowLayout.m */; };
 		E94506601A94B7950017FDD1 /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E945065F1A94B7950017FDD1 /* BookCell.m */; };
-		E94506651A94B86E0017FDD1 /* 1.txt in Resources */ = {isa = PBXBuildFile; fileRef = E94506621A94B86E0017FDD1 /* 1.txt */; };
 		E94506661A94B86E0017FDD1 /* 2.txt in Resources */ = {isa = PBXBuildFile; fileRef = E94506631A94B86E0017FDD1 /* 2.txt */; };
 		E94506671A94B86E0017FDD1 /* 0.txt in Resources */ = {isa = PBXBuildFile; fileRef = E94506641A94B86E0017FDD1 /* 0.txt */; };
 		E94506691A94BD980017FDD1 /* PYBookShelfDecorationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94506681A94BD980017FDD1 /* PYBookShelfDecorationView.xib */; };
@@ -38,11 +37,12 @@
 		E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */; };
 		E9ACD3EF1A9F12190084E28A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9ACD3EE1A9F12190084E28A /* QuartzCore.framework */; };
 		E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */; };
+		E9B004511AA6EAE900120431 /* 7.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B004501AA6EAE900120431 /* 7.txt */; };
 		E9B854EE1A9D6588003855D1 /* 3.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854EC1A9D6588003855D1 /* 3.txt */; };
 		E9B854EF1A9D6588003855D1 /* 4.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854ED1A9D6588003855D1 /* 4.txt */; };
 		E9B854F11A9D68C6003855D1 /* 5.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854F01A9D68C6003855D1 /* 5.txt */; };
 		E9B854F41A9D73AF003855D1 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B854F31A9D73AF003855D1 /* TextViewController.m */; };
-		E9E9C9031AA4062A00495116 /* 7.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 7.txt */; };
+		E9E9C9031AA4062A00495116 /* 1.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 1.txt */; };
 		E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9411AA452AE00495116 /* Setting.storyboard */; };
 		E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9491AA47B0000495116 /* MenuViewController.m */; };
 		E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */; };
@@ -86,7 +86,6 @@
 		E945065B1A94B71D0017FDD1 /* PYCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		E945065E1A94B7950017FDD1 /* BookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
 		E945065F1A94B7950017FDD1 /* BookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
-		E94506621A94B86E0017FDD1 /* 1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 1.txt; sourceTree = "<group>"; };
 		E94506631A94B86E0017FDD1 /* 2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2.txt; sourceTree = "<group>"; };
 		E94506641A94B86E0017FDD1 /* 0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 0.txt; sourceTree = "<group>"; };
 		E94506681A94BD980017FDD1 /* PYBookShelfDecorationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYBookShelfDecorationView.xib; sourceTree = "<group>"; };
@@ -118,12 +117,13 @@
 		E9ACD3EE1A9F12190084E28A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E9ACD3F01A9F25DF0084E28A /* SkinSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinSelectorCell.h; sourceTree = "<group>"; };
 		E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinSelectorCell.m; sourceTree = "<group>"; };
+		E9B004501AA6EAE900120431 /* 7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 7.txt; sourceTree = "<group>"; };
 		E9B854EC1A9D6588003855D1 /* 3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 3.txt; sourceTree = "<group>"; };
 		E9B854ED1A9D6588003855D1 /* 4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 4.txt; sourceTree = "<group>"; };
 		E9B854F01A9D68C6003855D1 /* 5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5.txt; sourceTree = "<group>"; };
 		E9B854F21A9D73AF003855D1 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		E9B854F31A9D73AF003855D1 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
-		E9E9C9021AA4062A00495116 /* 7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 7.txt; sourceTree = "<group>"; };
+		E9E9C9021AA4062A00495116 /* 1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 1.txt; sourceTree = "<group>"; };
 		E9E9C9411AA452AE00495116 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		E9E9C9481AA47B0000495116 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		E9E9C9491AA47B0000495116 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -267,13 +267,13 @@
 			isa = PBXGroup;
 			children = (
 				E94506641A94B86E0017FDD1 /* 0.txt */,
-				E94506621A94B86E0017FDD1 /* 1.txt */,
 				E94506631A94B86E0017FDD1 /* 2.txt */,
 				E9B854EC1A9D6588003855D1 /* 3.txt */,
 				E9B854ED1A9D6588003855D1 /* 4.txt */,
 				E9B854F01A9D68C6003855D1 /* 5.txt */,
 				E9EB223C1AA0821100DC01C0 /* 6.txt */,
-				E9E9C9021AA4062A00495116 /* 7.txt */,
+				E9E9C9021AA4062A00495116 /* 1.txt */,
+				E9B004501AA6EAE900120431 /* 7.txt */,
 			);
 			name = TXT;
 			sourceTree = "<group>";
@@ -475,11 +475,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E94506651A94B86E0017FDD1 /* 1.txt in Resources */,
 				E9B854EE1A9D6588003855D1 /* 3.txt in Resources */,
 				E94506661A94B86E0017FDD1 /* 2.txt in Resources */,
+				E9B004511AA6EAE900120431 /* 7.txt in Resources */,
 				E9B854F11A9D68C6003855D1 /* 5.txt in Resources */,
-				E9E9C9031AA4062A00495116 /* 7.txt in Resources */,
+				E9E9C9031AA4062A00495116 /* 1.txt in Resources */,
 				E94506671A94B86E0017FDD1 /* 0.txt in Resources */,
 				E9EB223D1AA0821100DC01C0 /* 6.txt in Resources */,
 				E94506341A94A96E0017FDD1 /* LaunchScreen.xib in Resources */,
