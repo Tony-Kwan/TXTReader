@@ -156,21 +156,7 @@ UICollectionViewDelegate
 }
 
 - (void) rowSpaceValueDidChange:(UISegmentedControl*)rowSpaceSC {
-    CGFloat rowSpace = 0;
-    switch (rowSpaceSC.selectedSegmentIndex) {
-        case 0:
-            rowSpace = 0;
-            break;
-        case 1:
-            rowSpace = 1;
-            break;
-        case 2:
-            rowSpace = 2;
-            break;
-        default:
-            break;
-    }
-    [self.delegate changeRowSpaceTo:rowSpace];
+    [self.delegate changeRowSpaceIndexTo:rowSpaceSC.selectedSegmentIndex];
 }
 
 #pragma mark - CollectionView datasource && delegate

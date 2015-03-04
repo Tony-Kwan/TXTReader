@@ -29,6 +29,7 @@
                        @[[UIColor cyanColor], APP_COLOR],
                        @[[UIColor yellowColor], [UIColor redColor]],
                        @[[UIColor redColor], [UIColor whiteColor]]];
+        
         if([USER_DEFAULTS objectForKey:GLOBAL_SKIN_INDEX]) {
             self.skinIndex = [[USER_DEFAULTS objectForKey:GLOBAL_SKIN_INDEX] integerValue];
         }
@@ -42,10 +43,10 @@
             self.fontSize = 15;
         }
         if([USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE]) {
-            self.rowSpace = [[USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE] floatValue];
+            self.rowSpaceIndex = [[USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE] integerValue];
         }
         else {
-            self.rowSpace = 5.f;
+            self.rowSpaceIndex = 1;
         }
         if([USER_DEFAULTS objectForKey:GLOBAL_NIGHT]) {
             self.isNight = [[USER_DEFAULTS objectForKey:GLOBAL_NIGHT] boolValue];
@@ -84,15 +85,16 @@
     return [UIFont systemFontOfSize:self.fontSize];
 }
 
-- (NSString*) rowSpaceString {
-    if(self.rowSpace < 5.f) {
-        return @"小";//0
-    }
-    else if(self.rowSpace < 8.0) {
-        return @"中";//5
-    }
-    else {
-        return @"大";//10
+- (CGFloat) rowSpace {
+    switch (self.rowSpaceIndex) {
+        case 0:
+            return 0.f;
+        case 1:
+            return 5.f;
+        case 2:
+            return 10.f;
+        default:
+            return 5.f;
     }
 }
 
@@ -107,7 +109,6 @@
     _paraStyle.alignment = NSTextAlignmentLeft;
     _paraStyle.lineBreakMode = NSLineBreakByWordWrapping;    // 换行方式
     _paraStyle.paragraphSpacingBefore = 0;  //段落之前的间距
-//    _paraStyle.hyphenationFactor = 30;   // 未知
     _paraStyle.minimumLineHeight = 10;
     _paraStyle.maximumLineHeight = 30;
     

@@ -25,7 +25,7 @@
 
 @property (nonatomic, assign) NSInteger fontSize, skinIndex;
 @property (nonatomic, strong) NSArray *skins;
-@property (nonatomic, assign) CGFloat rowSpace;
+@property (nonatomic, assign) NSInteger rowSpaceIndex;
 @property (nonatomic, assign) BOOL isNight;
 
 + (id) shareSetting;
@@ -34,7 +34,6 @@
 - (UIColor*) textColor;
 - (UIColor*) backgoundColor;
 - (UIFont*) font;
-- (NSString*) rowSpaceString;
 - (NSMutableParagraphStyle*) paraStyle;
 - (NSDictionary*) attributes;
 

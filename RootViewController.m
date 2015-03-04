@@ -68,8 +68,8 @@ BookShelfDelegate
     UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnSetting];
     self.navigationItem.leftBarButtonItem = leftButtonItem;
     
-    //[UIImage imageNamed:@"grid_btn"], [UIImage imageNamed:@"list_btn"]
-    self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"网格", @"列表"]];
+    //@"网格", @"列表"
+    self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"grid_btn"], [UIImage imageNamed:@"list_btn"]]];
     [self.segmentControl addTarget:self action:@selector(segmentControlValueDidChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.tintColor = WHITE_COLOR;

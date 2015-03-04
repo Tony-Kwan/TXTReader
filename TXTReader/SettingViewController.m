@@ -17,6 +17,7 @@ static NSString* tableViewCellIndentifier = @"tcid";
 @property (weak, nonatomic) IBOutlet UISwitch *nightSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *fontSizeLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *fontSizeStepper;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *rowSpaceControl;
 
 @end
 
@@ -52,6 +53,8 @@ static NSString* tableViewCellIndentifier = @"tcid";
     self.fontSizeStepper.value = num ? (float)[num floatValue] : 17.0;
     self.fontSizeLabel.text = [NSString stringWithFormat:@"%d", (int)self.fontSizeStepper.value];
     
+    num = [USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE];
+    self.rowSpaceControl.selectedSegmentIndex = num ? [num integerValue] : 1;
 }
 
 #pragma mark - event
@@ -66,6 +69,10 @@ static NSString* tableViewCellIndentifier = @"tcid";
 - (IBAction)fontSizeDidChange:(UIStepper*)sender {
     self.fontSizeLabel.text = [NSString stringWithFormat:@"%d", (int)sender.value];
     [USER_DEFAULTS setObject:@(sender.value) forKey:GLOBAL_FONT_SIZE];
+}
+
+- (IBAction)rowSpaceDidChange:(UISegmentedControl*)sender {
+    [USER_DEFAULTS setObject:@(sender.selectedSegmentIndex) forKey:GLOBAL_ROW_SPACE];
 }
 
 @end

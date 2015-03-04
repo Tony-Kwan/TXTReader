@@ -248,10 +248,10 @@ SettingViewDelegate
 }
 
 #pragma mark - SettingViewDelegate
-- (void) changeRowSpaceTo:(CGFloat)rowSpace {
+- (void) changeRowSpaceIndexTo:(NSInteger)rowSpaceIndex {
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
-    st.rowSpace = rowSpace;
-    [USER_DEFAULTS setObject:@(rowSpace) forKey:GLOBAL_ROW_SPACE];
+    st.rowSpaceIndex = rowSpaceIndex;
+    [USER_DEFAULTS setObject:@(rowSpaceIndex) forKey:GLOBAL_ROW_SPACE];
 }
 
 - (void) changeToNight:(BOOL)isNight {

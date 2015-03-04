@@ -10,7 +10,7 @@
 
 @protocol SettingViewDelegate <NSObject>
 @required
-- (void) changeRowSpaceTo:(CGFloat)rowSpace;
+- (void) changeRowSpaceIndexTo:(NSInteger)rowSpaceIndex;
 - (void) changeToNight:(BOOL)isNight;
 - (void) changeFontSizeTo:(CGFloat)fontSize;
 - (void) changeSkinTo:(NSInteger)index;
