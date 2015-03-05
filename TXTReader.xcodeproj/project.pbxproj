@@ -31,6 +31,7 @@
 		E95FAA4B1A94E5C000D30017 /* BookShelfCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4A1A94E5C000D30017 /* BookShelfCollectionView.m */; };
 		E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */; };
 		E95FAA571A96023300D30017 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA561A96023300D30017 /* FileUtils.m */; };
+		E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */; };
 		E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EBDE91AA55A0B0060E25D /* BookCoverView.m */; };
 		E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */; };
 		E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3E91A9EFA360084E28A /* SettingView.m */; };
@@ -106,6 +107,7 @@
 		E95FAA511A95FE8000D30017 /* BookShelfDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfDelegate.h; sourceTree = "<group>"; };
 		E95FAA551A96023300D30017 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		E95FAA561A96023300D30017 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
+		E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYBookShelfBackgroundView.xib; sourceTree = "<group>"; };
 		E97EBDE81AA55A0B0060E25D /* BookCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCoverView.h; sourceTree = "<group>"; };
 		E97EBDE91AA55A0B0060E25D /* BookCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCoverView.m; sourceTree = "<group>"; };
 		E9AA4B7D1AA156EB0068A147 /* VEMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEMessageView.h; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				E945065E1A94B7950017FDD1 /* BookCell.h */,
 				E945065F1A94B7950017FDD1 /* BookCell.m */,
 				E94506681A94BD980017FDD1 /* PYBookShelfDecorationView.xib */,
+				E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				E9B004511AA6EAE900120431 /* 7.txt in Resources */,
 				E9B854F11A9D68C6003855D1 /* 5.txt in Resources */,
 				E9E9C9031AA4062A00495116 /* 1.txt in Resources */,
+				E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */,
 				E94506671A94B86E0017FDD1 /* 0.txt in Resources */,
 				E9EB223D1AA0821100DC01C0 /* 6.txt in Resources */,
 				E94506341A94A96E0017FDD1 /* LaunchScreen.xib in Resources */,
