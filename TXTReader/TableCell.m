@@ -26,7 +26,7 @@
         
         self.typeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"txt_indicate"]];
         self.typeImageView.contentMode = UIViewContentModeScaleToFill;
-        self.typeImageView.backgroundColor = BLACK_COLOR;
+        self.typeImageView.backgroundColor = CLEAR_COLOR;
         [self.contentView addSubview:self.typeImageView];
         
         self.progressLabel = [[UILabel alloc] init];
@@ -43,8 +43,8 @@
         
         WS(weakSelf);
         [_typeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(weakSelf.contentView).offset(4);
-            make.bottom.equalTo(weakSelf.contentView).offset(-4);
+            make.top.left.equalTo(weakSelf.contentView).offset(10);
+            make.bottom.equalTo(weakSelf.contentView).offset(-10);
             make.width.equalTo(weakSelf.typeImageView.mas_height);
         }];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

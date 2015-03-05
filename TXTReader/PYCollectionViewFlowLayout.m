@@ -50,7 +50,7 @@ UIGestureRecognizerDelegate
 @property (nonatomic, assign) CGPoint panTranslationInCollectionView;
 @property (nonatomic, assign) UIEdgeInsets scrollingTriggerEdgeInsets;
 @property (nonatomic, strong) CADisplayLink *timer;
-@property (nonatomic, strong) NSDictionary *bookShelfRects;
+@property (nonatomic, strong) NSDictionary *bookShelfRects, *bookShelfBgRects;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, assign) PYScrollDirection oldScrollDir;
 
@@ -168,7 +168,7 @@ UIGestureRecognizerDelegate
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super prepareLayout];
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary], *dict2 = [NSMutableDictionary dictionary];
     
     int sectionCount = (int)self.collectionView.numberOfSections;
     
@@ -200,7 +200,17 @@ UIGestureRecognizerDelegate
         y += self.sectionInset.bottom + self.footerReferenceSize.height;
     }
     
+    y = 0.f;
+    NSUInteger idx = 0;
+    while (y < self.collectionViewContentSize.height) {
+        CGRect bookShelfBgRect = CGRectMake(0, y, self.collectionView.frame.size.width, self.collectionView.frame.size.height);
+        y += self.collectionView.frame.size.height;
+        dict2[[NSIndexPath indexPathForItem:idx inSection:0]] = [NSValue valueWithCGRect:bookShelfBgRect];
+        idx++;
+    }
+    
     self.bookShelfRects = [NSDictionary dictionaryWithDictionary:dict];
+    self.bookShelfBgRects = [NSDictionary dictionaryWithDictionary:dict2];
 }
 
 - (NSArray*) layoutAttributesForElementsInRect:(CGRect)rect {
@@ -218,6 +228,12 @@ UIGestureRecognizerDelegate
             [newArray addObject:shelfAttribute];
         }
     }];
+    [self.bookShelfBgRects enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if(CGRectIntersectsRect([obj CGRectValue], rect)) {
+            UICollectionViewLayoutAttributes *shelfBgAttribute = [self layoutAttributesForDecorationViewOfKind:PYCollectionViewLayoutDecorationViewKind atIndexPath:key];
+            [newArray addObject:shelfBgAttribute];
+        }
+    }];
     
     return [newArray copy];
 }
@@ -232,13 +248,20 @@ UIGestureRecognizerDelegate
 }
 
 - (UICollectionViewLayoutAttributes*) layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    id shelfRect = self.bookShelfRects[indexPath];
-    if(!shelfRect) {
-        return nil;
+    UICollectionViewLayoutAttributes *attributes;
+    id rect;
+    if(elementKind == PYCollectionViewLayoutDecorationViewKind) {
+        rect = self.bookShelfRects[indexPath];
+    }
+    else if (elementKind == PYCollectionViewLayoutDecorationBackgroundViewKind) {
+        rect = self.bookShelfBgRects[indexPath];PrintCGRect([rect CGRectValue]);
     }
     
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:elementKind withIndexPath:indexPath];
-    attributes.frame = [shelfRect CGRectValue];
+    if(!rect) {
+        return nil;
+    }
+    attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:elementKind withIndexPath:indexPath];
+    attributes.frame = [rect CGRectValue];
     attributes.zIndex = -1;
     
     return  attributes;

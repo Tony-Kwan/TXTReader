@@ -14,10 +14,11 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 
 - (id) init {
     PYCollectionViewFlowLayout *layout = [PYCollectionViewFlowLayout new];
+    [layout registerNib:[UINib nibWithNibName:@"PYBookShelfBackgroundView" bundle:nil] forDecorationViewOfKind:PYCollectionViewLayoutDecorationBackgroundViewKind];//PYBookShelfBackgroundView
     [layout registerNib:[UINib nibWithNibName:@"PYBookShelfDecorationView" bundle:nil] forDecorationViewOfKind:PYCollectionViewLayoutDecorationViewKind];
 
     if((self = [super initWithFrame:[[UIScreen mainScreen] bounds] collectionViewLayout:layout])) {
-        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookShelf_background"]];
+//        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookShelf_background"]];
         self.autoresizingMask = AUTORESIZING_WIDTH_AND_HEIGHT;
 //        self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
@@ -35,15 +36,11 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[BookSource shareInstance] count];
+    return [[BookSource shareInstance] count]*3;
 }
 
-- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.item >= [[BookSource shareInstance] count]) {
-        return nil;
-    }
-    
-    Book* book = [[BookSource shareInstance] bookAtIndex:indexPath.item];
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {    
+    Book* book = [[BookSource shareInstance] bookAtIndex:(indexPath.item%8)];
     
     BookCell *cell = (BookCell*)[collectionView dequeueReusableCellWithReuseIdentifier:bookCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
@@ -56,7 +53,7 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (CGSize) collectionView:(UICollectionView *)collectionView layout:(PYCollectionViewFlowLayout *)layout referenceSizeForDecorationViewForRow:(NSInteger)row inSection:(NSInteger)section {
-    return CGSizeMake([PYUtils screenWidth], 30);
+    return CGSizeMake(self.frame.size.width, 30);
 }
 
 @end

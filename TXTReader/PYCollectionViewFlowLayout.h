@@ -12,6 +12,7 @@
 #define ZOOM_FACTOR 1.2
 
 static NSString* PYCollectionViewLayoutDecorationViewKind = @"PYCollectionViewLayoutDecorationViewKind";
+static NSString* PYCollectionViewLayoutDecorationBackgroundViewKind = @"PYCollectionViewLayoutDecorationBackgroundViewKind";
 
 @class PYCollectionViewFlowLayout;
 
