@@ -103,6 +103,7 @@ BookShelfDelegate
         ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
         [self.navigationController presentViewController:naviC animated:YES completion:nil];
+        [[BookSource shareInstance] setReadingBook:book];
     }
     else {
         PYLog(@"nuknowencoding");

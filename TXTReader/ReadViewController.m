@@ -10,13 +10,15 @@
 #import "ToolBarView.h"
 #import "SettingView.h"
 #import "VEMessageView.h"
+#import "MenuViewController.h"
 
 @interface ReadViewController()
 <
 UIPageViewControllerDataSource,
 UIPageViewControllerDelegate,
 ToolBarViewDelegate,
-SettingViewDelegate
+SettingViewDelegate,
+MenuViewControllerDelegate
 >
 {
     NSTimer *_barHideTimer;
@@ -127,7 +129,9 @@ SettingViewDelegate
 
 #pragma mark - event
 - (void) clickBack:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[BookSource shareInstance] setReadingBook:nil];
+    }];
 }
 
 - (void) handleBarHideOnTap:(UITapGestureRecognizer*)tap {
@@ -231,6 +235,13 @@ SettingViewDelegate
     [self showSettingView:YES];
 }
 
+- (void) toolBarDidClickMenu {
+    MenuViewController *menuVC = [[MenuViewController alloc] init];
+    menuVC.delegate = self;
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:menuVC];
+    [self.navigationController presentViewController:naviVC animated:YES completion:nil];
+}
+
 - (void) toolBarSliderValueChangingTo:(CGFloat)value {
     if(_barHideTimer) {
         [_barHideTimer invalidate];
@@ -279,6 +290,15 @@ SettingViewDelegate
     
 }
 
+#pragma mark - MenuViewControllerDelegate
+- (void) seekToOffset:(NSUInteger)offset {
+    NSAttributedString *pageContent = [self.book getStringWithOffset:offset];
+    TextViewController *tvc = [self createTextViewControllerWithText:pageContent];
+    [self.pageViewController setViewControllers:@[tvc] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    _currentPageIndex = [self.book getPageIndexByOffset:offset];
+    [self updateToolBar];
+}
+
 #pragma mark - private
 - (TextViewController*) createTextViewControllerWithPage {
     NSAttributedString *text = [_book textAtPage:_currentPageIndex];
@@ -286,6 +306,16 @@ SettingViewDelegate
         return nil;
     }
 //    PYLog(@"%s %@", __PRETTY_FUNCTION__, @(_currentPageIndex));
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    TextViewController *textVC = [[TextViewController alloc] initWithText:text color:st.textColor andFont:st.font];
+    [self updateToolBar];
+    return textVC;
+}
+
+- (TextViewController*) createTextViewControllerWithText:(NSAttributedString*)text {
+    if(!text) {
+        return nil;
+    }
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     TextViewController *textVC = [[TextViewController alloc] initWithText:text color:st.textColor andFont:st.font];
     [self updateToolBar];

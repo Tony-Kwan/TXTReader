@@ -12,6 +12,7 @@
 @protocol ToolBarViewDelegate <NSObject>
 @required
 - (void) toolBarDidClickSetting;
+- (void) toolBarDidClickMenu;
 - (void) toolBarSliderValueChangingTo:(CGFloat)value;
 - (void) toolBarSliderValueChangedTo:(CGFloat)value;
 

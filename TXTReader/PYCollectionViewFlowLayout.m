@@ -200,7 +200,7 @@ UIGestureRecognizerDelegate
         y += self.sectionInset.bottom + self.footerReferenceSize.height;
     }
     
-    y = 0.f;
+    y = -self.collectionView.frame.size.height;
     NSUInteger idx = 0;
     while (y < self.collectionViewContentSize.height) {
         CGRect bookShelfBgRect = CGRectMake(0, y, self.collectionView.frame.size.width, self.collectionView.frame.size.height);
@@ -230,7 +230,7 @@ UIGestureRecognizerDelegate
     }];
     [self.bookShelfBgRects enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if(CGRectIntersectsRect([obj CGRectValue], rect)) {
-            UICollectionViewLayoutAttributes *shelfBgAttribute = [self layoutAttributesForDecorationViewOfKind:PYCollectionViewLayoutDecorationViewKind atIndexPath:key];
+            UICollectionViewLayoutAttributes *shelfBgAttribute = [self layoutAttributesForDecorationViewOfKind:PYCollectionViewLayoutDecorationBackgroundViewKind atIndexPath:key];
             [newArray addObject:shelfBgAttribute];
         }
     }];
@@ -250,19 +250,21 @@ UIGestureRecognizerDelegate
 - (UICollectionViewLayoutAttributes*) layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *attributes;
     id rect;
+    
+    attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:elementKind withIndexPath:indexPath];
     if(elementKind == PYCollectionViewLayoutDecorationViewKind) {
         rect = self.bookShelfRects[indexPath];
+        attributes.zIndex = -1;
     }
     else if (elementKind == PYCollectionViewLayoutDecorationBackgroundViewKind) {
-        rect = self.bookShelfBgRects[indexPath];PrintCGRect([rect CGRectValue]);
+        rect = self.bookShelfBgRects[indexPath];
+        attributes.zIndex = -2;
     }
     
     if(!rect) {
         return nil;
     }
-    attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:elementKind withIndexPath:indexPath];
     attributes.frame = [rect CGRectValue];
-    attributes.zIndex = -1;
     
     return  attributes;
 }

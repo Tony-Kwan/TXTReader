@@ -8,6 +8,8 @@
 
 #import "MenuViewController.h"
 #import "MenuTableViewCell.h"
+#import "PYUtils.h"
+#import "BookSource.h"
 
 static NSString* MenuTableViewCellIndentifier = @"mtvcid";
 
@@ -17,7 +19,8 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property (nonatomic, strong) UITableView *bookmarksView, *chaptersView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, getter=isChapterMode) BOOL chapterMode;
 
 @end
 
@@ -29,17 +32,25 @@ UITableViewDataSource
     self.view.tintColor = [UIColor redColor];
     [self setupNavigationBar];
     
-    self.bookmarksView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    [self.bookmarksView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:MenuTableViewCellIndentifier];
-    self.bookmarksView.delegate = self;
-    self.bookmarksView.dataSource = self;
+    self.tableView = [UITableView createWithBlock:^(UITableViewBuilder *builder) {
+        builder.cellIndentifier = MenuTableViewCellIndentifier;
+        builder.cellClass = [MenuTableViewCell class];
+        builder.frame = self.view.bounds;
+        builder.delegate = self;
+        builder.dataSource = self;
+    }];
+    [self.view addSubview:self.tableView];
     
+    self.chapterMode = YES;
 }
 
 - (void) setupNavigationBar {
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"章节", @"书签"]];
+    segmentControl.tintColor = self.view.tintColor;
+    segmentControl.selectedSegmentIndex = 0;
+    [segmentControl addTarget:self action:@selector(segmentedControlValueDidChage:) forControlEvents:UIControlEventValueChanged];
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithCustomView:segmentControl];
-    self.navigationController.navigationItem.rightBarButtonItem = right;
+    self.navigationItem.rightBarButtonItem = right;
     
     UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeSystem];
     btnBack.titleLabel.font = [UIFont boldSystemFontOfSize:17];
@@ -61,18 +72,46 @@ UITableViewDataSource
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) segmentedControlValueDidChage:(UISegmentedControl*)segmentControl {
+    self.chapterMode = segmentControl.selectedSegmentIndex == 0;
+}
+
 #pragma mark - UITableView delegate && dataSource
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    Book* readingBook = [[BookSource shareInstance] readingBook];
+    if(readingBook) {
+        return readingBook.chaptersTitleRange.count;
+    }
+    else {
+        return 0;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MenuTableViewCell *cell = (MenuTableViewCell*)[tableView dequeueReusableCellWithIdentifier:MenuTableViewCellIndentifier];
+    
+    Book* readingBook = [[BookSource shareInstance] readingBook];
+    NSValue *r = [readingBook.chaptersTitleRange objectAtIndex:indexPath.item];
+    cell.textLabel.text = [readingBook.content substringWithRange:[r rangeValue]];
+//    NSLog(@"%@ %@ %@", r, readingBook.content, [readingBook.content substringWithRange:[r rangeValue]]);
+    
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    Book *readingBook = [[BookSource shareInstance] readingBook];
+    NSUInteger offset;
+    if(self.isChapterMode) {
+        NSValue *value = [readingBook.chaptersTitleRange objectAtIndex:indexPath.item];
+        offset = [value rangeValue].location;
+    }
+    else {
+        
+    }
+    WS(weakSelf);
+    [self dismissViewControllerAnimated:YES completion:^{
+        [weakSelf.delegate seekToOffset:offset];
+    }];
 }
 
 @end

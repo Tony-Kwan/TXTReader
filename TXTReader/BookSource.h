@@ -12,6 +12,7 @@
 @interface BookSource : NSObject
 
 @property (nonatomic, assign) NSInteger currentReadingBookIndex;
+@property (nonatomic, strong) Book *readingBook;
 
 + (id) shareInstance;
 

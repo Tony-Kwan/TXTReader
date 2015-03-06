@@ -10,6 +10,9 @@
 #import "FileUtils.h"
 #import "PYUtils.h"
 
+#define PAGINATE_DEVIATION 1
+#define PAGINATE_MIN_CHARS 100
+
 @interface Book() {
     int totalPages_;
     int charsPerPage_, textLength_, charsOfLastPage_;
@@ -29,7 +32,6 @@
         NSRange range = [path rangeOfString:@"/" options:NSBackwardsSearch];
         NSRange range2 = [path rangeOfString:@".txt" options:NSBackwardsSearch];
         self.name = [path substringWithRange:NSMakeRange(range.location+1, range2.location-range.location-1)];
-        self.length = 0;
         self.type = Book_TXT;
         self.pageCount = 0;
         self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -54,8 +56,11 @@
             _content = [[NSString alloc] initWithData:data encoding:self.encoding];
         }
     }
-    self.length = _content.length;
     return _content;
+}
+
+- (NSUInteger) length {
+    return self.content.length;
 }
 
 - (NSUInteger) pageCount {
@@ -102,8 +107,48 @@
     return [[self.chaptersTitleRange objectAtIndex:index] rangeValue].location;
 }
 
-#define PAGINATE_DEVIATION 1
-#define PAGINATE_MIN_CHARS 100
+- (NSAttributedString*) getStringWithOffset:(NSUInteger)offset {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    NSDictionary *attrs = [st attributes];
+    CGFloat width = [PYUtils screenWidth] - 2*TEXTVIEW_HORIZONTAL_INSET;
+    CGFloat height = [PYUtils screenHeight] - 2*TEXTVIEW_VERTICAL_INSET;
+    NSString *subText;
+    CGRect textRect;
+    NSUInteger length, left, mid, right;
+    CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+    length = 480;
+    if(offset + length > [self length]) {
+        length = [self length] - offset;
+    }
+    
+    left = 0;
+    right = length;
+    while (left < right - PAGINATE_DEVIATION) {
+        mid = left + (right - left) / 2;
+        subText = [self.content substringWithRange:NSMakeRange(offset, mid)];
+        textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+        if(textRect.size.height > height) {
+            right = mid - PAGINATE_DEVIATION;
+        }
+        else {
+            left = mid;
+        }
+    }
+
+    return [[NSAttributedString alloc] initWithString:[self.content substringWithRange:NSMakeRange(offset, left)] attributes:attrs];
+}
+
+- (NSInteger) getPageIndexByOffset:(NSUInteger)offset {
+    if(!self.pageIndexArray) {
+        return  -1;
+    }
+    for (NSNumber *pageIndex in self.pageIndexArray) {
+        if(offset >= [pageIndex unsignedIntegerValue]) {
+            return [self.pageIndexArray indexOfObject:pageIndex];
+        }
+    }
+    return -1;
+}
 
 - (void) paginate {
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
@@ -120,13 +165,13 @@
     CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
     NSUInteger currentChapterIndex = 0;
     
-    PYLog(@"start | self.length = %lu", self.length);
+    PYLog(@"start | [self length] = %lu", [self length]);
     
     [self parseBook];
-    while (offset < self.length) {
+    while (offset < [self length]) {
         length = 480;
-        if(offset + length >= self.length) {
-            length = self.length - offset;
+        if(offset + length >= [self length]) {
+            length = [self length] - offset;
             subText = [self.content substringWithRange:NSMakeRange(offset, length)];
             textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
             if(textRect.size.height <= height) {
@@ -184,11 +229,11 @@
     NSString* parten = @"(第.回)";
     
     NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *matchs = [reg matchesInString:self.content options:NSMatchingReportCompletion range:NSMakeRange(0, self.length)];
+    NSArray *matchs = [reg matchesInString:self.content options:NSMatchingReportCompletion range:NSMakeRange(0, [self length])];
     
     for (NSTextCheckingResult* result in matchs) {
         NSUInteger len = 0;
-        //        NSLog(@"%@", [text substringWithRange:NSMakeRange(result.range.location, result.range.length)]);
+//            NSLog(@"%@", [self.content substringWithRange:NSMakeRange(result.range.location, result.range.length)]);
         while (![[self.content substringWithRange:NSMakeRange(result.range.location+result.range.length+len, 1)] isEqualToString:@"\n"]) {
             len++;
         }

@@ -109,7 +109,7 @@
 }
 
 - (void) clickMenu {
-    
+    [self.delegate toolBarDidClickMenu];
 }
 
 - (void) clickLastReading {

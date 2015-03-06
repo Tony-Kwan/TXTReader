@@ -8,6 +8,8 @@
 #import "FMDB.h"
 #import "GlobalSettingAttrbutes.h"
 
+#import "UITableView+TXTReader.h"
+
 typedef unsigned long long ull;
 
 //MACRO
