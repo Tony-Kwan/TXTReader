@@ -42,7 +42,7 @@
         CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, labelWidth, CGFLOAT_MAX);
         CGRect textRect = [text boundingRectWithSize:frame.size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
 //        PrintCGRect(frame);
-//        PrintCGRect(textRect);
+        PrintCGRect(textRect);
 //        PYLog(@"=========");
         frame.size = textRect.size;
         self.textLabel.frame = frame;

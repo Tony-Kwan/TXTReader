@@ -18,7 +18,8 @@ UIPageViewControllerDataSource,
 UIPageViewControllerDelegate,
 ToolBarViewDelegate,
 SettingViewDelegate,
-MenuViewControllerDelegate
+MenuViewControllerDelegate,
+BookDelegate
 >
 {
     NSTimer *_barHideTimer;
@@ -32,6 +33,7 @@ MenuViewControllerDelegate
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) VEMessageView *messageView;
 @property (nonatomic, strong) UIView *tapView;
+@property (nonatomic, strong) UIButton *btnBookMark;
 
 @end
 
@@ -40,9 +42,9 @@ MenuViewControllerDelegate
 - (id) initWithBook:(Book *)book {
     if((self = [super init])) {
         self.book = book;
+        self.book.delegate = self;
         self.currentPageIndex = 1;
         self.currentPageOffset = 0;
-        
     }
     return self;
 }
@@ -58,7 +60,15 @@ MenuViewControllerDelegate
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
     
-    TextViewController *textVC = [self createTextViewControllerWithPage];
+    TextViewController *textVC;
+    if(self.book.pageIndexArray) {
+        textVC = [self createTextViewControllerWithPage];
+    }
+    else {
+        NSAttributedString *attrStr = [self.book getStringWithOffset:self.book.lastReadOffset];
+        self.currentPageOffset = self.book.lastReadOffset;
+        textVC = [self createTextViewControllerWithText:attrStr];
+    }
     [self.pageViewController setViewControllers:@[textVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
     [self addChildViewController:self.pageViewController];
@@ -79,6 +89,8 @@ MenuViewControllerDelegate
     self.toolBar.delegate = self;
     self.toolBar.slider.minimumValue = 1.0;
     self.toolBar.slider.maximumValue = (float)_book.pageCount;
+    self.toolBar.paginatingLabel.hidden = self.book.pageIndexArray ? YES : NO;
+    self.toolBar.progressLabel.hidden = self.toolBar.slider.hidden = !self.toolBar.paginatingLabel.hidden;
     [self.view addSubview:self.toolBar];
     
     self.settingView = [[SettingView alloc] initWithFrame:CGRectMake(0, h, w, h/2)];
@@ -93,9 +105,6 @@ MenuViewControllerDelegate
     self.messageView.layer.borderWidth = 1.0f;
     self.messageView.hidden = YES;
     [self.view addSubview:self.messageView];
-    
-    self.coverView = [[BookCoverView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.coverView];
     
     WS(weakSelf);
     [_messageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,20 +132,26 @@ MenuViewControllerDelegate
     self.navigationItem.leftBarButtonItem = backButtonItem;
     self.navigationItem.title = self.book.name;
     
-    UIButton *btnBookMark = [[UIButton alloc] init];
-    [btnBookMark setTitle:@"bm" forState:UIControlStateNormal];
-    [btnBookMark addTarget:self action:@selector(clickBookMark:) forControlEvents:UIControlEventTouchUpInside];
-    btnBookMark.backgroundColor = CLEAR_COLOR;
-    btnBookMark.tintColor = self.view.tintColor;
-    [btnBookMark sizeToFit];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:btnBookMark];
+    self.btnBookMark = [[UIButton alloc] init];
+    [_btnBookMark setImage:[UIImage imageNamed:@"bookmark_off"] forState:UIControlStateNormal];
+//    [_btnBookMark setImage:[UIImage imageNamed:@"bookmark_on"] forState:UIControlStateSelected];
+    [_btnBookMark addTarget:self action:@selector(clickBookMark:) forControlEvents:UIControlEventTouchUpInside];
+    _btnBookMark.backgroundColor = CLEAR_COLOR;
+    _btnBookMark.tintColor = self.view.tintColor;
+    _btnBookMark.selected = NO;
+    [_btnBookMark sizeToFit];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnBookMark];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void) updateToolBar {
+    if(_currentPageIndex <= 0 || _currentPageIndex > self.book.pageCount) {
+        return;
+    }
     self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @(_currentPageIndex), @(_book.pageCount)];
     self.toolBar.slider.value = (float)_currentPageIndex;
-    self.currentPageOffset = [[self.book.pageIndexArray objectAtIndex:self.currentPageIndex-1] unsignedIntegerValue];
+    self.currentPageOffset = [[self.book.pageIndexArray objectAtIndex:_currentPageIndex-1] unsignedIntegerValue];
+    self.btnBookMark.selected = ![self.book isOneOfBookmarkOffset:self.currentPageOffset];
 }
 
 - (void) dealloc {
@@ -145,27 +160,32 @@ MenuViewControllerDelegate
 
 #pragma mark - event
 - (void) clickBack:(id)sender {
+    self.book.lastReadOffset = self.currentPageOffset;
+    
     [self dismissViewControllerAnimated:YES completion:^{
         [[BookSource shareInstance] setReadingBook:nil];
+        [self.delegate didEndReadBook:self.book];
     }];
 }
 
 - (void) clickBookMark:(id)sender {
-    BOOL hasNewBookMark = YES;
-    if(self.book.bookMarksOffset && self.book.bookMarksOffset.count) {
-        for(NSNumber *bookMark in self.book.bookMarksOffset) {
-            if([bookMark unsignedIntegerValue] != self.currentPageOffset) {
-                hasNewBookMark = YES;
-                break;
-            }
+    if(self.btnBookMark.selected == NO) {
+        BOOL hasNewBookMark = YES;
+        if(self.book.bookMarksOffset && self.book.bookMarksOffset.count) {
+            hasNewBookMark = ![self.book isOneOfBookmarkOffset:self.currentPageOffset];
         }
-        hasNewBookMark = NO;
+        if(hasNewBookMark) {
+            [self.book addBookmarkWithOffset:self.currentPageOffset];
+            self.btnBookMark.selected = YES;
+        }
     }
-    if(hasNewBookMark) {
-        NSRange range = NSMakeRange(self.currentPageOffset, 5);
-        NSValue *value = [NSValue valueWithRange:range];
-        [self.book.bookMarksOffset addObject:value]; //TODO:bookmark
+    else {
+        if([self.book isOneOfBookmarkOffset:self.currentPageOffset]) {
+            [self.book deleteBookmarkWithOffset:self.currentPageOffset];
+            self.btnBookMark.selected = NO;
+        }
     }
+    [self updateTimer];
 }
 
 - (void) handleBarHideOnTap:(UITapGestureRecognizer*)tap {
@@ -175,10 +195,7 @@ MenuViewControllerDelegate
         return ;
     }
     if(self.navigationController.navigationBarHidden) {
-        if(_barHideTimer) {
-            [_barHideTimer invalidate];
-        }
-        _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
+        [self updateTimer];
     }
     [self showToolBar:self.navigationController.navigationBarHidden];
 }
@@ -229,6 +246,13 @@ MenuViewControllerDelegate
     return self.settingView.frame.origin.y >= [PYUtils screenHeight];
 }
 
+- (void) updateTimer {
+    if(_barHideTimer) {
+        [_barHideTimer invalidate];
+    }
+    _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
+}
+
 #pragma mark - UIPageViewControllerDataSource
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if(_currentPageIndex == 1) {
@@ -238,7 +262,12 @@ MenuViewControllerDelegate
     }
     _currentPageIndex --;
     _lastTimeIsBefore = YES;
-    return [self createTextViewControllerWithPage];
+    if(self.book.pageIndexArray) {
+        return [self createTextViewControllerWithPage];
+    }
+    else {
+        return nil;
+    }
 }
 
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
@@ -249,7 +278,14 @@ MenuViewControllerDelegate
     }
     _currentPageIndex ++;
     _lastTimeIsBefore = NO;
-    return [self createTextViewControllerWithPage];
+    if(self.book.pageIndexArray) {
+        return [self createTextViewControllerWithPage];
+    }
+    else {
+        TextViewController *tvc = [[self.pageViewController viewControllers] firstObject];
+        NSAttributedString *attrStr = [self.book getStringWithOffset:self.currentPageIndex + tvc.textLabel.attributedText.length];
+        return [self createTextViewControllerWithText:attrStr];
+    }
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
@@ -330,7 +366,20 @@ MenuViewControllerDelegate
     TextViewController *tvc = [self createTextViewControllerWithText:pageContent];
     [self.pageViewController setViewControllers:@[tvc] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     _currentPageIndex = [self.book getPageIndexByOffset:offset];
+//    NSLog(@"%@", @(_currentPageIndex));
     [self updateToolBar];
+}
+
+#pragma mark - BookDelegate
+- (void) bookDidPaginate {
+    self.currentPageIndex = [self.book getPageIndexByOffset:self.currentPageOffset];
+    [self updateToolBar];
+    self.toolBar.paginatingLabel.hidden = YES;
+    self.toolBar.progressLabel.hidden = self.toolBar.slider.hidden = NO;
+}
+
+- (void) paginatingPregress:(CGFloat)progress {
+    self.toolBar.paginatingLabel.text = [NSString stringWithFormat:@"分页中...(%.2f%%)", progress];
 }
 
 #pragma mark - private

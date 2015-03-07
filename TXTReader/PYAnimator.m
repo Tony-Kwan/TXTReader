@@ -33,9 +33,9 @@
 
 - (void) animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     UINavigationController *toVC = (UINavigationController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    ReadViewController *readVC = (ReadViewController*)toVC.viewControllers[0];
+//    ReadViewController *readVC = (ReadViewController*)toVC.viewControllers[0];
     
-    CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
+    CGRect finalFrame = UIScreenFrame;//[transitionContext finalFrameForViewController:toVC];
     
     toVC.view.frame = finalFrame;
     toVC.view.center = CGPointMake(self.originFrame.origin.x + self.originFrame.size.width/2, self.originFrame.origin.y+self.originFrame.size.height/2);
@@ -44,14 +44,18 @@
     UIView *containerView = [transitionContext containerView];
     [containerView addSubview:toVC.view];
     
+    BookCoverView* coverView = [[BookCoverView alloc] initWithFrame:UIScreenFrame];
+    [toVC.view addSubview:coverView];
+    
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-    readVC.coverView.animateDuration = duration;
-    [readVC.coverView startAnimation];
+    coverView.animateDuration = duration;
+    [coverView startAnimation];
     [UIView animateWithDuration:duration animations:^{
         toVC.view.center = UIScreenCenter;
         toVC.view.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
     } completion:^(BOOL finished) {
-        readVC.coverView.hidden = YES;
+        coverView.hidden = YES;
+        [coverView removeFromSuperview];
         [transitionContext completeTransition:YES];
     }];
 }

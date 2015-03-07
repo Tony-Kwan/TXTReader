@@ -12,11 +12,17 @@
 #import "PYUtils.h"
 #import "BookCoverView.h"
 
+@protocol ReadViewControllerDelegate <NSObject>
+@required
+- (void) didEndReadBook:(Book*)book;
+
+@end
+
 @interface ReadViewController : UIViewController
 
 @property (nonatomic, strong) Book* book;
 @property (nonatomic, assign) NSUInteger currentPageIndex, currentPageOffset;
-@property (nonatomic, strong) BookCoverView *coverView;
+@property (nonatomic, weak) id<ReadViewControllerDelegate> delegate;
 
 - (id) initWithBook:(Book*)book;
 

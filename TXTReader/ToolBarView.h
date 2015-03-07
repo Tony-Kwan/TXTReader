@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UIButton *btnSetting, *btnMenu;
 
 @property (nonatomic, strong) UIButton *btnLastReading;
-@property (nonatomic, strong) UILabel *progressLabel;
+@property (nonatomic, strong) UILabel *progressLabel, *paginatingLabel;
 @property (nonatomic, weak) id<ToolBarViewDelegate> delegate;
 
 @end

@@ -21,9 +21,12 @@ typedef unsigned long long ull;
 #define PYLog(...)
 #endif
 
+#define INF 1<<28
+
 #define UIScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define UIScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define UIScreenCenter CGPointMake(UIScreenWidth/2.f, UIScreenHeight/2.f)
+#define UIScreenFrame [[UIScreen mainScreen] bounds]
 
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
 #define DOCUMENTS_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]

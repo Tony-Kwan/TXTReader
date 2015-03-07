@@ -69,7 +69,7 @@
 #pragma mark - public
 - (void) configureCellWithBook:(Book *)book {
     self.titleLabel.text = book.name;
-    self.progressLabel.text = [NSString stringWithFormat:@"%.1f%%", 0.f];
+    self.progressLabel.text = [NSString stringWithFormat:@"%.1f%%", ((CGFloat)book.lastReadOffset / (CGFloat)(book.length))*100.f];
     self.charCountLabel.text = [NSString stringWithFormat:@"%@字", @(book.content.length)];
 }
 

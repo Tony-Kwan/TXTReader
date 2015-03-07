@@ -21,10 +21,13 @@
 @interface RootViewController()
 <
 BookShelfDelegate,
-UIViewControllerTransitioningDelegate
+UIViewControllerTransitioningDelegate,
+ReadViewControllerDelegate
 >
 {
     CGRect _openBookCellFrame;
+    PYAnimator *_animator;
+    ReadViewController *readVC;
 }
 
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;
@@ -101,9 +104,12 @@ UIViewControllerTransitioningDelegate
 - (void) openBook:(Book *)book {   
     NSLog(@"%s %@", __PRETTY_FUNCTION__, book);
     if(book.encoding != kUnknownStringEncoding) {
-        [book paginate];
-        
-        ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
+        readVC = [[ReadViewController alloc] initWithBook:book];
+        readVC.delegate = self;
+        if(!book.pageIndexArray) {
+            [book paginate];
+            [NSThread sleepForTimeInterval:0.5];
+        }
         
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
         if(self.collectionView.hidden == NO) {
@@ -123,10 +129,22 @@ UIViewControllerTransitioningDelegate
     }
 }
 
-#pragma mark - UIViewControllerTransitioningDelegate
-- (id<UIViewControllerAnimatedTransitioning>) animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return [[PYAnimator alloc] initWithOriginFrame:_openBookCellFrame];
+#pragma mark - ReadViewControllerDelegate
+- (void) didEndReadBook:(Book *)book {
+    NSUInteger idx = [[BookSource shareInstance] indexOfBook:book];
+    book.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    [self.tableView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:idx inSection:0]]];
 }
 
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id<UIViewControllerAnimatedTransitioning>) animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _animator = [[PYAnimator alloc] initWithOriginFrame:_openBookCellFrame];
+    return _animator;
+}
+
+//- (id<UIViewControllerAnimatedTransitioning>) animationControllerForDismissedController:(UIViewController *)dismissed {
+
+//}
 
 @end

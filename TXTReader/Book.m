@@ -19,6 +19,7 @@
     UIFont *preferredFont_;
     NSString *strForTest, *secondPageText;
     UILabel *label;
+    NSUInteger _accumulate;
 }
 
 @end
@@ -36,6 +37,7 @@
         self.pageCount = 0;
         self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
         self.encoding = 0;
+        self.lastReadOffset = 0;
         self.bookMarksOffset = [NSMutableArray array];
     }
     return self;
@@ -65,7 +67,11 @@
 }
 
 - (NSUInteger) pageCount {
-    return self.pageIndexArray.count;
+    if(self.pageIndexArray)
+        return self.pageIndexArray.count;
+    else {
+        return INF;
+    }
 }
 
 - (NSStringEncoding) encoding {
@@ -139,83 +145,130 @@
     return [[NSAttributedString alloc] initWithString:[self.content substringWithRange:NSMakeRange(offset, left)] attributes:attrs];
 }
 
+- (NSAttributedString*) getBeforeStringWithOffset:(NSUInteger)offset {
+    return nil;//TODO:...
+}
+
 - (NSInteger) getPageIndexByOffset:(NSUInteger)offset {
     if(!self.pageIndexArray) {
         return  -1;
     }
     for (NSNumber *pageIndex in self.pageIndexArray) {
-        if(offset >= [pageIndex unsignedIntegerValue]) {
-            return [self.pageIndexArray indexOfObject:pageIndex];
+        if(offset <= [pageIndex unsignedIntegerValue]) {
+            NSUInteger ret = [self.pageIndexArray indexOfObject:pageIndex]+1;
+//            PYLog(@"%@", @(ret));
+            return ret;
         }
     }
     return -1;
 }
 
-- (void) paginate {
-    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
-    NSDictionary *attrs = [st attributes];
-    
-    CGFloat width = [PYUtils screenWidth] - 2*TEXTVIEW_HORIZONTAL_INSET;
-    CGFloat height = [PYUtils screenHeight] - 2*TEXTVIEW_VERTICAL_INSET;
-    CGRect textRect;
-    NSString *subText = self.content;
-    self.pageIndexArray = [NSMutableArray array];
-    NSUInteger length;
-    NSUInteger offset = 0;
-    NSUInteger left, right, mid;
-    CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
-    NSUInteger currentChapterIndex = 0;
-    
-    PYLog(@"start | [self length] = %lu", [self length]);
-    
-    [self parseBook];
-    while (offset < [self length]) {
-        length = 480;
-        if(offset + length >= [self length]) {
-            length = [self length] - offset;
-            subText = [self.content substringWithRange:NSMakeRange(offset, length)];
-            textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
-            if(textRect.size.height <= height) {
-                [self.pageIndexArray addObject:@(offset)];
-                break;
-            }
+- (BOOL) isOneOfBookmarkOffset:(NSUInteger)offset {
+    for (NSValue *v in self.bookMarksOffset) {
+        if([v rangeValue].location == offset) {
+            return YES;
         }
-        if(self.chaptersTitleRange && currentChapterIndex < self.chaptersTitleRange.count) {
-            NSRange range = [[self.chaptersTitleRange objectAtIndex:currentChapterIndex] rangeValue];
-            if(offset + length >= range.location) {
-                length = range.location - offset;
-//                NSLog(@"%lu %lu %lu", offset, length, range.location);
+    }
+    return NO;
+}
+
+- (void) addBookmarkWithOffset:(NSUInteger)offset {
+    NSRange range = NSMakeRange(offset, 5);
+    NSValue *value = [NSValue valueWithRange:range];
+    [self.bookMarksOffset addObject:value]; //TODO:bookmark
+}
+
+- (void) deleteBookmarkWithOffset:(NSInteger)offset {
+    NSValue *tmp;
+    for (NSValue *v in self.bookMarksOffset) {
+        if([v rangeValue].location == offset) {
+            tmp = v;
+            break;
+        }
+    }
+    [self.bookMarksOffset removeObject:tmp];
+}
+
+- (void) paginate {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+        NSDictionary *attrs = [st attributes];
+        
+        CGFloat width = [PYUtils screenWidth] - 2*TEXTVIEW_HORIZONTAL_INSET;
+        CGFloat height = [PYUtils screenHeight] - 2*TEXTVIEW_VERTICAL_INSET;
+        CGRect textRect;
+        NSString *subText = self.content;
+        NSMutableArray *pageIndexArray = [NSMutableArray array];
+        NSUInteger length;
+        NSUInteger offset = 0;
+        NSUInteger left, right, mid;
+        CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+        NSUInteger currentChapterIndex = 0;
+        
+        PYLog(@"start | [self length] = %lu", [self length]);
+        
+        [self parseBook];
+        while (offset < [self length]) {
+            length = 480;
+            if(offset + length >= [self length]) {
+                length = [self length] - offset;
                 subText = [self.content substringWithRange:NSMakeRange(offset, length)];
                 textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
                 if(textRect.size.height <= height) {
-                    [self.pageIndexArray addObject:@(offset)];
-                    offset += length;
-                    currentChapterIndex ++;
-                    continue;
+                    [pageIndexArray addObject:@(offset)];
+                    break;
                 }
             }
-        }
-        left = PAGINATE_MIN_CHARS;
-        right = length;
-        while (left < right - PAGINATE_DEVIATION) {
-            mid = left + (right - left) / 2;
-            subText = [self.content substringWithRange:NSMakeRange(offset, mid)];
-            textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
-            if(textRect.size.height > height) {
-                right = mid - PAGINATE_DEVIATION;
+            if(self.chaptersTitleRange && currentChapterIndex < self.chaptersTitleRange.count) {
+                NSRange range = [[self.chaptersTitleRange objectAtIndex:currentChapterIndex] rangeValue];
+                if(offset + length >= range.location) {
+                    length = range.location - offset;
+                    //                NSLog(@"%lu %lu %lu", offset, length, range.location);
+                    subText = [self.content substringWithRange:NSMakeRange(offset, length)];
+                    textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+                    if(textRect.size.height <= height) {
+                        [pageIndexArray addObject:@(offset)];
+                        offset += length;
+                        currentChapterIndex ++;
+                        continue;
+                    }
+                }
             }
-            else {
-                left = mid;
+            left = PAGINATE_MIN_CHARS;
+            right = length;
+            while (left < right - PAGINATE_DEVIATION) {
+                mid = left + (right - left) / 2;
+                subText = [self.content substringWithRange:NSMakeRange(offset, mid)];
+                textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+                if(textRect.size.height > height) {
+                    right = mid - PAGINATE_DEVIATION;
+                }
+                else {
+                    left = mid;
+                }
+                //            NSLog(@"%u %u %u", left, right, mid);
             }
-//            NSLog(@"%u %u %u", left, right, mid);
+            [pageIndexArray addObject:@(offset)];
+            offset += left;
+            //        if(left == PAGINATE_MIN_CHARS)
+            //            NSLog(@"offset = %lu, left = %lu | %f %f | index = %lu", offset, left, height, textRect.size.height, self.pageCount);
+            _accumulate += left;
+            if(_accumulate > 10000 && self.delegate && [self.delegate respondsToSelector:@selector(paginatingPregress:)]) {
+                _accumulate = 0;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate paginatingPregress:(CGFloat)offset * 100.f / (CGFloat)self.content.length];
+                });
+            }
         }
-        [self.pageIndexArray addObject:@(offset)];
-        offset += left;
-//        if(left == PAGINATE_MIN_CHARS)
-//            NSLog(@"offset = %lu, left = %lu | %f %f | index = %lu", offset, left, height, textRect.size.height, self.pageCount);
-    }
-    
-    PYLog(@"end | self.pageCount = %lu", self.pageCount);
+        self.pageIndexArray = [NSMutableArray arrayWithArray:pageIndexArray];
+        
+        PYLog(@"end | self.pageCount = %lu", self.pageCount);
+        if(self.delegate && [self.delegate respondsToSelector:@selector(bookDidPaginate)]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate bookDidPaginate];
+            });
+        }
+    });
 }
 
 - (void) parseBook {

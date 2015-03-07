@@ -67,6 +67,13 @@
     self.progressLabel.textColor = WHITE_COLOR;
     [self addSubview:self.progressLabel];
     
+    self.paginatingLabel = [[UILabel alloc] init];
+    self.paginatingLabel.text = @"分页中...";
+    self.paginatingLabel.textColor = WHITE_COLOR;
+    self.paginatingLabel.textAlignment = NSTextAlignmentCenter;
+    self.paginatingLabel.hidden = YES;
+    [self addSubview:self.paginatingLabel];
+    
     WS(weakSelf);
 //    [_btnLastReading mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.top.equalTo(weakSelf);
@@ -81,6 +88,10 @@
     }];
     [_progressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.top.equalTo(weakSelf);
+        make.height.equalTo(weakSelf).multipliedBy(0.5);
+    }];
+    [_paginatingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.left.equalTo(weakSelf);
         make.height.equalTo(weakSelf).multipliedBy(0.5);
     }];
     [_btnSetting mas_makeConstraints:^(MASConstraintMaker *make) {

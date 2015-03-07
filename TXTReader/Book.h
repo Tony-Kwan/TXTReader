@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@protocol BookDelegate <NSObject>
+@optional
+- (void) bookDidPaginate;
+- (void) paginatingPregress:(CGFloat)progress;
+
+@end
+
 typedef enum {
     Book_TXT
 }BookType;
@@ -25,12 +32,18 @@ typedef enum {
 @property (nonatomic, assign) BOOL isPaginate;
 @property (nonatomic, assign) NSStringEncoding encoding;
 @property (nonatomic, assign) NSUInteger lastReadOffset;
+@property (nonatomic, weak) id<BookDelegate> delegate;
 
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
 - (void) paginate;
 - (NSUInteger) offsetOfChapterIndex:(NSUInteger)index;
 - (NSAttributedString*) getStringWithOffset:(NSUInteger)offset;
+- (NSAttributedString*) getBeforeStringWithOffset:(NSUInteger)offset;
 - (NSInteger) getPageIndexByOffset:(NSUInteger)offset;
+- (NSUInteger) length;
+- (void) addBookmarkWithOffset:(NSUInteger)offset;
+- (void) deleteBookmarkWithOffset:(NSInteger)offset;
+- (BOOL) isOneOfBookmarkOffset:(NSUInteger)offset;
 
 @end

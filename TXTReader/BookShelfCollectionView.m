@@ -36,11 +36,11 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[BookSource shareInstance] count]*3;
+    return [[BookSource shareInstance] count];
 }
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {    
-    Book* book = [[BookSource shareInstance] bookAtIndex:(indexPath.item%8)];
+    Book* book = [[BookSource shareInstance] bookAtIndex:(indexPath.item)];
     
     BookCell *cell = (BookCell*)[collectionView dequeueReusableCellWithReuseIdentifier:bookCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
