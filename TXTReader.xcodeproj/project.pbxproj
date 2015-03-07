@@ -32,6 +32,8 @@
 		E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA4D1A94EA2500D30017 /* BookShelfTableView.m */; };
 		E95FAA571A96023300D30017 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FAA561A96023300D30017 /* FileUtils.m */; };
 		E96815E41AA8C41200C863B9 /* UITableView+TXTReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815E31AA8C41200C863B9 /* UITableView+TXTReader.m */; };
+		E96815E71AAB39E800C863B9 /* PYAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815E61AAB39E800C863B9 /* PYAnimator.m */; };
+		E96815EA1AAB4B8800C863B9 /* UIColor+TXTReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815E91AAB4B8800C863B9 /* UIColor+TXTReader.m */; };
 		E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */; };
 		E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EBDE91AA55A0B0060E25D /* BookCoverView.m */; };
 		E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */; };
@@ -110,6 +112,10 @@
 		E95FAA561A96023300D30017 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
 		E96815E21AA8C41200C863B9 /* UITableView+TXTReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+TXTReader.h"; sourceTree = "<group>"; };
 		E96815E31AA8C41200C863B9 /* UITableView+TXTReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TXTReader.m"; sourceTree = "<group>"; };
+		E96815E51AAB39E800C863B9 /* PYAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAnimator.h; sourceTree = "<group>"; };
+		E96815E61AAB39E800C863B9 /* PYAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAnimator.m; sourceTree = "<group>"; };
+		E96815E81AAB4B8800C863B9 /* UIColor+TXTReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TXTReader.h"; sourceTree = "<group>"; };
+		E96815E91AAB4B8800C863B9 /* UIColor+TXTReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TXTReader.m"; sourceTree = "<group>"; };
 		E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYBookShelfBackgroundView.xib; sourceTree = "<group>"; };
 		E97EBDE81AA55A0B0060E25D /* BookCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCoverView.h; sourceTree = "<group>"; };
 		E97EBDE91AA55A0B0060E25D /* BookCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCoverView.m; sourceTree = "<group>"; };
@@ -245,7 +251,9 @@
 		E945064D1A94B4260017FDD1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				E96815E11AA8C37900C863B9 /* Catelog */,
+				E96815E11AA8C37900C863B9 /* Category */,
+				E96815E51AAB39E800C863B9 /* PYAnimator.h */,
+				E96815E61AAB39E800C863B9 /* PYAnimator.m */,
 				E95FAA551A96023300D30017 /* FileUtils.h */,
 				E95FAA561A96023300D30017 /* FileUtils.m */,
 				E945064E1A94B48B0017FDD1 /* PYUtils.h */,
@@ -323,13 +331,15 @@
 			name = TableView;
 			sourceTree = "<group>";
 		};
-		E96815E11AA8C37900C863B9 /* Catelog */ = {
+		E96815E11AA8C37900C863B9 /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				E96815E21AA8C41200C863B9 /* UITableView+TXTReader.h */,
 				E96815E31AA8C41200C863B9 /* UITableView+TXTReader.m */,
+				E96815E81AAB4B8800C863B9 /* UIColor+TXTReader.h */,
+				E96815E91AAB4B8800C863B9 /* UIColor+TXTReader.m */,
 			);
-			name = Catelog;
+			name = Category;
 			sourceTree = "<group>";
 		};
 		E97EBDEB1AA55A8D0060E25D /* Read */ = {
@@ -565,6 +575,7 @@
 				E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */,
 				E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */,
 				E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */,
+				E96815E71AAB39E800C863B9 /* PYAnimator.m in Sources */,
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,
 				E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */,
 				E95FAA571A96023300D30017 /* FileUtils.m in Sources */,
@@ -577,6 +588,7 @@
 				E94506291A94A96E0017FDD1 /* TXTReader.xcdatamodeld in Sources */,
 				E9EB223B1AA070F500DC01C0 /* GlobalSettingAttrbutes.m in Sources */,
 				E945065C1A94B71D0017FDD1 /* PYCollectionViewFlowLayout.m in Sources */,
+				E96815EA1AAB4B8800C863B9 /* UIColor+TXTReader.m in Sources */,
 				E94506561A94B48B0017FDD1 /* PYUtils.m in Sources */,
 				E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */,
 				E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */,

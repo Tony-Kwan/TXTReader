@@ -19,6 +19,7 @@
 - (void) loadBooks;
 - (void) clearCache;
 - (NSInteger) count;
+- (NSUInteger) indexOfBook:(Book*)book;
 - (Book*) bookAtIndex:(NSUInteger)index;
 - (Book*) currentReadingBook;
 

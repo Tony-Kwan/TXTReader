@@ -9,6 +9,7 @@
 #import "GlobalSettingAttrbutes.h"
 
 #import "UITableView+TXTReader.h"
+#import "UIColor+TXTReader.h"
 
 typedef unsigned long long ull;
 
@@ -22,6 +23,8 @@ typedef unsigned long long ull;
 
 #define UIScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define UIScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define UIScreenCenter CGPointMake(UIScreenWidth/2.f, UIScreenHeight/2.f)
+
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
 #define DOCUMENTS_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
@@ -64,6 +67,7 @@ CG_INLINE CGRect CGRectMultiplied(CGRect rect, CGFloat m) {
 + (CGFloat) screenWidth;
 
 + (UIButton*) customButtonWith:(NSString*)title target:(id)obj andAction:(SEL)selector;
++ (UIButton*) customButtonWithImage:(UIImage *)image target:(id)obj andAction:(SEL)selector;
 + (UILabel *)customLabelWithText:(NSString *)text fontSize:(CGFloat)fontSize color:(UIColor *)color;
 
 + (NSLayoutConstraint *)centerYConstraintWithItem:(id)item toItem:(id)item2;

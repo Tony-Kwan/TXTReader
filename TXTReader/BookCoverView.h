@@ -11,7 +11,7 @@
 @interface BookCoverView : UIView
 
 @property (nonatomic, strong) UIImageView *coverView;
-
+@property (nonatomic, assign) CGFloat animateDuration;
 
 - (void) startAnimation;
 

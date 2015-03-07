@@ -36,6 +36,14 @@
     return btn;
 }
 
++ (UIButton*) customButtonWithImage:(UIImage *)image target:(id)obj andAction:(SEL)selector {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btn.backgroundColor = [UIColor blackColor];
+    [btn setImage:image forState:UIControlStateNormal];
+    [btn addTarget:obj action:selector forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
 + (UILabel *)customLabelWithText:(NSString *)text fontSize:(CGFloat)fontSize color:(UIColor *)color
 {
     UILabel *label = [[UILabel alloc] init];

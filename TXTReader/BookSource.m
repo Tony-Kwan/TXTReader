@@ -65,6 +65,10 @@
     return (Book*)[self.books objectAtIndex:index];
 }
 
+- (NSUInteger) indexOfBook:(Book *)book {
+    return [self.books indexOfObject:book];
+}
+
 - (Book*) currentReadingBook {
     if(_currentReadingBookIndex < 0 || _currentReadingBookIndex >= _books.count) {
         return nil;

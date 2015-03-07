@@ -41,6 +41,8 @@ MenuViewControllerDelegate
     if((self = [super init])) {
         self.book = book;
         self.currentPageIndex = 1;
+        self.currentPageOffset = 0;
+        
     }
     return self;
 }
@@ -48,8 +50,9 @@ MenuViewControllerDelegate
 - (void) viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationItem];
-    
+
     self.view.backgroundColor = WHITE_COLOR;
+    self.view.layer.masksToBounds = self.view.clipsToBounds = NO;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
@@ -91,6 +94,9 @@ MenuViewControllerDelegate
     self.messageView.hidden = YES;
     [self.view addSubview:self.messageView];
     
+    self.coverView = [[BookCoverView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.coverView];
+    
     WS(weakSelf);
     [_messageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(weakSelf.view);
@@ -116,11 +122,21 @@ MenuViewControllerDelegate
     backButtonItem.tintColor = WHITE_COLOR;
     self.navigationItem.leftBarButtonItem = backButtonItem;
     self.navigationItem.title = self.book.name;
+    
+    UIButton *btnBookMark = [[UIButton alloc] init];
+    [btnBookMark setTitle:@"bm" forState:UIControlStateNormal];
+    [btnBookMark addTarget:self action:@selector(clickBookMark:) forControlEvents:UIControlEventTouchUpInside];
+    btnBookMark.backgroundColor = CLEAR_COLOR;
+    btnBookMark.tintColor = self.view.tintColor;
+    [btnBookMark sizeToFit];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:btnBookMark];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void) updateToolBar {
     self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @(_currentPageIndex), @(_book.pageCount)];
     self.toolBar.slider.value = (float)_currentPageIndex;
+    self.currentPageOffset = [[self.book.pageIndexArray objectAtIndex:self.currentPageIndex-1] unsignedIntegerValue];
 }
 
 - (void) dealloc {
@@ -132,6 +148,24 @@ MenuViewControllerDelegate
     [self dismissViewControllerAnimated:YES completion:^{
         [[BookSource shareInstance] setReadingBook:nil];
     }];
+}
+
+- (void) clickBookMark:(id)sender {
+    BOOL hasNewBookMark = YES;
+    if(self.book.bookMarksOffset && self.book.bookMarksOffset.count) {
+        for(NSNumber *bookMark in self.book.bookMarksOffset) {
+            if([bookMark unsignedIntegerValue] != self.currentPageOffset) {
+                hasNewBookMark = YES;
+                break;
+            }
+        }
+        hasNewBookMark = NO;
+    }
+    if(hasNewBookMark) {
+        NSRange range = NSMakeRange(self.currentPageOffset, 5);
+        NSValue *value = [NSValue valueWithRange:range];
+        [self.book.bookMarksOffset addObject:value]; //TODO:bookmark
+    }
 }
 
 - (void) handleBarHideOnTap:(UITapGestureRecognizer*)tap {

@@ -10,11 +10,13 @@
 #import "BookSource.h"
 #import "TextViewController.h"
 #import "PYUtils.h"
+#import "BookCoverView.h"
 
 @interface ReadViewController : UIViewController
 
 @property (nonatomic, strong) Book* book;
-@property (nonatomic, assign) NSUInteger currentPageIndex;
+@property (nonatomic, assign) NSUInteger currentPageIndex, currentPageOffset;
+@property (nonatomic, strong) BookCoverView *coverView;
 
 - (id) initWithBook:(Book*)book;
 

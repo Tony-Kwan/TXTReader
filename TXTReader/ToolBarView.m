@@ -56,25 +56,26 @@
     self.btnSetting = [PYUtils customButtonWith:@"Aa" target:self andAction:@selector(clickSetting)];
     [self addSubview:self.btnSetting];
     
+//    self.btnMenu = [PYUtils customButtonWithImage:[UIImage imageNamed:@"menu"] target:self andAction:@selector(clickMenu)];
     self.btnMenu = [PYUtils customButtonWith:@"Menu" target:self andAction:@selector(clickMenu)];
     [self addSubview:self.btnMenu];
     
-    self.btnLastReading = [PYUtils customButtonWith:@"B" target:self andAction:@selector(clickLastReading)];
-    [self addSubview:self.btnLastReading];
+//    self.btnLastReading = [PYUtils customButtonWith:@"B" target:self andAction:@selector(clickLastReading)];
+//    [self addSubview:self.btnLastReading];
     
     self.progressLabel = [[UILabel alloc] init];
     self.progressLabel.textColor = WHITE_COLOR;
     [self addSubview:self.progressLabel];
     
     WS(weakSelf);
-    [_btnLastReading mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(weakSelf);
-        make.height.equalTo(weakSelf).multipliedBy(0.5);
-        make.width.equalTo(weakSelf.btnLastReading.mas_height);
-    }];
+//    [_btnLastReading mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.equalTo(weakSelf);
+//        make.height.equalTo(weakSelf).multipliedBy(0.5);
+//        make.width.equalTo(weakSelf.btnLastReading.mas_height);
+//    }];
     [_slider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf);
-        make.left.equalTo(weakSelf.btnLastReading.mas_right).offset(5);
+        make.left.equalTo(weakSelf).offset(5);
         make.right.equalTo(weakSelf.progressLabel.mas_left).offset(-5);
         make.height.equalTo(weakSelf).multipliedBy(0.5);
     }];

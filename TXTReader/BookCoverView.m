@@ -7,6 +7,7 @@
 //
 
 #import "BookCoverView.h"
+#import "PYUtils.h"
 
 @interface BookCoverView() {
     CAGradientLayer *shadowLayer;
@@ -19,6 +20,7 @@
 - (id) initWithFrame:(CGRect)frame {
     if((self = [super initWithFrame:frame])) {
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.animateDuration = 3.f;
         
         shadowLayer = [CAGradientLayer layer];
         shadowLayer.frame = self.bounds;
@@ -33,10 +35,14 @@
         self.coverView.frame = self.bounds;
         self.coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.coverView.layer.transform = [self transform3D];
-        self.coverView.layer.contents = (id)[UIImage imageNamed:@"bookCover"].CGImage;
-        self.coverView.layer.contentsGravity = kCAGravityResizeAspect;
+//        self.coverView.layer.contents = (id)[UIImage imageNamed:@"bookCover"].CGImage;
+//        self.coverView.layer.contentsGravity = kCAGravityResizeAspect;
+        self.coverView.image = [UIImage imageNamed:@"bookCover"];
+        self.coverView.contentMode = UIViewContentModeScaleToFill;
         [self.coverView.layer addSublayer:shadowLayer];
         [self addSubview:self.coverView];
+        
+        self.layer.masksToBounds = self.clipsToBounds = self.coverView.clipsToBounds = self.coverView.layer.masksToBounds = shadowLayer.masksToBounds = NO;
     }
     return self;
 }
@@ -50,8 +56,8 @@
 
 - (void) startAnimation {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    animation.toValue = @(-M_PI);
-    animation.duration = 3.f;
+    animation.toValue = @(-DegreesToRadians(100));
+    animation.duration = self.animateDuration;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     animation.fillMode = kCAFillModeForwards;
     animation.removedOnCompletion = NO;

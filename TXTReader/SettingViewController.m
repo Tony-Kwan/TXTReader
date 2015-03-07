@@ -36,9 +36,11 @@ static NSString* tableViewCellIndentifier = @"tcid";
     
     UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeSystem];
     btnBack.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    [btnBack setTitle:@"Back" forState:UIControlStateNormal];
+//    [btnBack setTitle:@"Back" forState:UIControlStateNormal];
+//    [btnBack setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    [btnBack setImage:[UIImage imageNamed:@"done"] forState:UIControlStateNormal];
     [btnBack addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
-    [btnBack setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    btnBack.tintColor = self.view.tintColor;
     btnBack.backgroundColor = [UIColor clearColor];
     [btnBack sizeToFit];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:btnBack];

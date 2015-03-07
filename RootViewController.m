@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "PYUtils.h"
 #import "FileUtils.h"
+#import "PYAnimator.h"
 
 #import "SettingViewController.h"
 #import "ReadViewController.h"
@@ -19,9 +20,11 @@
 
 @interface RootViewController()
 <
-BookShelfDelegate
+BookShelfDelegate,
+UIViewControllerTransitioningDelegate
 >
 {
+    CGRect _openBookCellFrame;
 }
 
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;
@@ -101,7 +104,17 @@ BookShelfDelegate
         [book paginate];
         
         ReadViewController *readVC = [[ReadViewController alloc] initWithBook:book];
+        
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
+        if(self.collectionView.hidden == NO) {
+            naviC.transitioningDelegate = self;
+            NSUInteger idx = [[BookSource shareInstance] indexOfBook:book];
+            CGRect cellFrame = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]].frame;
+            _openBookCellFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y - self.collectionView.contentOffset.y, cellFrame.size.width, cellFrame.size.height);
+//            UIView *v = [[UIView alloc] initWithFrame:_openBookCellFrame];
+//            v.backgroundColor = [UIColor randomColor];
+//            [self.view addSubview:v];
+        }
         [self.navigationController presentViewController:naviC animated:YES completion:nil];
         [[BookSource shareInstance] setReadingBook:book];
     }
@@ -110,7 +123,10 @@ BookShelfDelegate
     }
 }
 
-
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id<UIViewControllerAnimatedTransitioning>) animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return [[PYAnimator alloc] initWithOriginFrame:_openBookCellFrame];
+}
 
 
 @end

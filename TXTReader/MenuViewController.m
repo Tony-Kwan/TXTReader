@@ -45,12 +45,11 @@ UITableViewDataSource
 }
 
 - (void) setupNavigationBar {
-    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"章节", @"书签"]];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"章 节", @"书 签"]];
     segmentControl.tintColor = self.view.tintColor;
     segmentControl.selectedSegmentIndex = 0;
     [segmentControl addTarget:self action:@selector(segmentedControlValueDidChage:) forControlEvents:UIControlEventValueChanged];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithCustomView:segmentControl];
-    self.navigationItem.rightBarButtonItem = right;
+    self.navigationItem.titleView = segmentControl;
     
     UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeSystem];
     btnBack.titleLabel.font = [UIFont boldSystemFontOfSize:17];
@@ -74,13 +73,19 @@ UITableViewDataSource
 
 - (void) segmentedControlValueDidChage:(UISegmentedControl*)segmentControl {
     self.chapterMode = segmentControl.selectedSegmentIndex == 0;
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView delegate && dataSource
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     Book* readingBook = [[BookSource shareInstance] readingBook];
     if(readingBook) {
-        return readingBook.chaptersTitleRange.count;
+        if(self.isChapterMode) {
+            return readingBook.chaptersTitleRange.count;
+        }
+        else {
+            return readingBook.bookMarksOffset.count;
+        }
     }
     else {
         return 0;
@@ -91,8 +96,14 @@ UITableViewDataSource
     MenuTableViewCell *cell = (MenuTableViewCell*)[tableView dequeueReusableCellWithIdentifier:MenuTableViewCellIndentifier];
     
     Book* readingBook = [[BookSource shareInstance] readingBook];
-    NSValue *r = [readingBook.chaptersTitleRange objectAtIndex:indexPath.item];
-    cell.textLabel.text = [readingBook.content substringWithRange:[r rangeValue]];
+    if(self.isChapterMode) {
+        NSValue *value = [readingBook.chaptersTitleRange objectAtIndex:indexPath.item];
+        cell.textLabel.text = [readingBook.content substringWithRange:[value rangeValue]];
+    }
+    else {
+        NSValue *value = [readingBook.bookMarksOffset objectAtIndex:indexPath.item];
+        cell.textLabel.text = [readingBook.content substringWithRange:[value rangeValue]];
+    }
 //    NSLog(@"%@ %@ %@", r, readingBook.content, [readingBook.content substringWithRange:[r rangeValue]]);
     
     return cell;
@@ -106,7 +117,8 @@ UITableViewDataSource
         offset = [value rangeValue].location;
     }
     else {
-        
+        NSValue *value = [readingBook.bookMarksOffset objectAtIndex:indexPath.item];
+        offset = [value rangeValue].location;
     }
     WS(weakSelf);
     [self dismissViewControllerAnimated:YES completion:^{

@@ -36,6 +36,7 @@
         self.pageCount = 0;
         self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
         self.encoding = 0;
+        self.bookMarksOffset = [NSMutableArray array];
     }
     return self;
 }

@@ -24,6 +24,7 @@ typedef enum {
 @property (nonatomic, retain) NSMutableArray *pageIndexArray/*NSNumber*/, *chaptersTitleRange, *bookMarksOffset;
 @property (nonatomic, assign) BOOL isPaginate;
 @property (nonatomic, assign) NSStringEncoding encoding;
+@property (nonatomic, assign) NSUInteger lastReadOffset;
 
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
