@@ -14,6 +14,7 @@
 #define GLOBAL_FONT_SIZE @"FONT_SIZE"
 #define GLOBAL_ROW_SPACE @"GLOBAL_ROW_SPACE"
 #define GLOBAL_NIGHT @"GLOBAL_NIGHT"
+#define GLOBAL_SCROLLMODE @"GLOBAL_SCROLLMODE"
 
 #define TEXTVIEW_VERTICAL_INSET 20
 #define TEXTVIEW_HORIZONTAL_INSET 10
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) NSArray *skins;
 @property (nonatomic, assign) NSInteger rowSpaceIndex;
 @property (nonatomic, assign) BOOL isNight;
+@property (nonatomic, assign) NSInteger scrollMode;
 
 + (id) shareSetting;
 

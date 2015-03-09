@@ -54,6 +54,12 @@
         else {
             self.isNight = NO;
         }
+        if([USER_DEFAULTS objectForKey:GLOBAL_SCROLLMODE]) {
+            self.scrollMode = [[USER_DEFAULTS objectForKey:GLOBAL_SCROLLMODE] integerValue];
+        }
+        else {
+            self.scrollMode = 0;
+        }
         
     }
     return self;

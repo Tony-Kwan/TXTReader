@@ -7,6 +7,7 @@
 #import "Masonry.h"
 #import "FMDB.h"
 #import "GlobalSettingAttrbutes.h"
+#import "DBUtils.h"
 
 #import "UITableView+TXTReader.h"
 #import "UIColor+TXTReader.h"
@@ -29,7 +30,8 @@ typedef unsigned long long ull;
 #define UIScreenFrame [[UIScreen mainScreen] bounds]
 
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
-#define DOCUMENTS_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
+#define DOCUMENTATION_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
+#define DOCUMENTS_PATH [NSHomeDirectory() stringByAppendingPathComponent:  @"Documents"]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
 #define PrintCGRect(rect) NSLog(@"%s %f %f %f %f", __PRETTY_FUNCTION__, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
 #define PrintCGPoint(point) NSLog(@"%s %f %f", __PRETTY_FUNCTION__, point.x, point.y)
@@ -72,6 +74,9 @@ CG_INLINE CGRect CGRectMultiplied(CGRect rect, CGFloat m) {
 + (UIButton*) customButtonWith:(NSString*)title target:(id)obj andAction:(SEL)selector;
 + (UIButton*) customButtonWithImage:(UIImage *)image target:(id)obj andAction:(SEL)selector;
 + (UILabel *)customLabelWithText:(NSString *)text fontSize:(CGFloat)fontSize color:(UIColor *)color;
+
++ (NSDate*)string2Date:(NSString*)string;
++ (NSString*)date2String:(NSDate*)date shortDate:(BOOL)flag;
 
 + (NSLayoutConstraint *)centerYConstraintWithItem:(id)item toItem:(id)item2;
 + (NSLayoutConstraint *)centerXConstraintWithItem:(id)item toItem:(id)item2;

@@ -28,12 +28,12 @@
 }
 
 - (NSTimeInterval) transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 3.f;
+    return 2.f;
 }
 
 - (void) animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     UINavigationController *toVC = (UINavigationController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-//    ReadViewController *readVC = (ReadViewController*)toVC.viewControllers[0];
+    ReadViewController *readVC = (ReadViewController*)toVC.viewControllers[0];
     
     CGRect finalFrame = UIScreenFrame;//[transitionContext finalFrameForViewController:toVC];
     
@@ -49,6 +49,9 @@
     
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     coverView.animateDuration = duration;
+    if(readVC.coverImage) {
+        coverView.coverView.image = readVC.coverImage;
+    }
     [coverView startAnimation];
     [UIView animateWithDuration:duration animations:^{
         toVC.view.center = UIScreenCenter;

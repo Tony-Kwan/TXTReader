@@ -146,7 +146,34 @@
 }
 
 - (NSAttributedString*) getBeforeStringWithOffset:(NSUInteger)offset {
-    return nil;//TODO:...
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    NSDictionary *attrs = [st attributes];
+    CGFloat width = [PYUtils screenWidth] - 2*TEXTVIEW_HORIZONTAL_INSET;
+    CGFloat height = [PYUtils screenHeight] - 2*TEXTVIEW_VERTICAL_INSET;
+    NSString *subText;
+    CGRect textRect;
+    NSUInteger length, left, mid, right;
+    CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+    length = 480;
+    if(offset < length) {
+        length = offset;
+    }
+    
+    left = 0;
+    right = length;
+    while (left < right - PAGINATE_DEVIATION) {
+        mid = left + (right - left) / 2;
+        subText = [self.content substringWithRange:NSMakeRange(offset - mid, mid)];
+        textRect = [subText boundingRectWithSize:boundingSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrs context:nil];
+        if(textRect.size.height > height) {
+            right = mid - PAGINATE_DEVIATION;
+        }
+        else {
+            left = mid;
+        }
+    }
+    
+    return [[NSAttributedString alloc] initWithString:[self.content substringWithRange:NSMakeRange(offset-left, left)] attributes:attrs];
 }
 
 - (NSInteger) getPageIndexByOffset:(NSUInteger)offset {
@@ -207,8 +234,12 @@
         
         PYLog(@"start | [self length] = %lu", [self length]);
         
-        [self parseBook];
+//        [self parseBook];
         while (offset < [self length]) {
+            if(!_canPaginate) {
+                PYLog(@"%s CANCEL paginate", __PRETTY_FUNCTION__);
+                return ;
+            }
             length = 480;
             if(offset + length >= [self length]) {
                 length = [self length] - offset;

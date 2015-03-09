@@ -106,16 +106,22 @@ ReadViewControllerDelegate
     if(book.encoding != kUnknownStringEncoding) {
         readVC = [[ReadViewController alloc] initWithBook:book];
         readVC.delegate = self;
-        if(!book.pageIndexArray) {
+        [book parseBook];
+
+        if(![DBUtils queryBook:book]) {
+            book.canPaginate = YES;
             [book paginate];
             [NSThread sleepForTimeInterval:0.5];
         }
         
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
         if(self.collectionView.hidden == NO) {
-            naviC.transitioningDelegate = self;
             NSUInteger idx = [[BookSource shareInstance] indexOfBook:book];
-            CGRect cellFrame = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]].frame;
+            BookCell *cell = (BookCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]];
+            readVC.coverImage = [cell getCoverImage];
+            
+            naviC.transitioningDelegate = self;
+            CGRect cellFrame = cell.frame;
             _openBookCellFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y - self.collectionView.contentOffset.y, cellFrame.size.width, cellFrame.size.height);
 //            UIView *v = [[UIView alloc] initWithFrame:_openBookCellFrame];
 //            v.backgroundColor = [UIColor randomColor];
@@ -135,6 +141,13 @@ ReadViewControllerDelegate
     book.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:0];
     
     [self.tableView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:idx inSection:0]]];
+    
+    if(![DBUtils isBookInDB:book]) {
+        [DBUtils addBook:book];
+    }
+    else {
+        [DBUtils updateWithBook:book];
+    }
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

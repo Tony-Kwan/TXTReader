@@ -55,6 +55,26 @@
     return label;
 }
 
+// only yy-MM-dd to date
+static NSString* dateFormatter = @"yyyy-MM-dd";
++ (NSDate*)string2Date:(NSString*)string {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
+    [formatter setDateFormat:dateFormatter];
+    return [formatter dateFromString:string];
+}
+
++ (NSString*)date2String:(NSDate*)date shortDate:(BOOL)flag {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    if(flag) {
+        [formatter setDateFormat:dateFormatter];
+    }
+    else {
+        [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    }
+    return [formatter stringFromDate:date];
+}
+
 + (NSLayoutConstraint *)centerYConstraintWithItem:(id)item toItem:(id)item2
 {
     return [NSLayoutConstraint constraintWithItem:item attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:item2 attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];

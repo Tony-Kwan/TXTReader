@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "BookSource.h"
+#import "PYUtils.h"
 
 @interface DBUtils : NSObject
 
++ (BOOL) queryBook:(Book*)book;
 + (void) updateWithBook:(Book*)book;
++ (void) addBook:(Book*)book;
++ (BOOL) isBookInDB:(Book*)book;
 
 @end

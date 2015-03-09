@@ -18,6 +18,7 @@ static NSString* tableViewCellIndentifier = @"tcid";
 @property (weak, nonatomic) IBOutlet UILabel *fontSizeLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *fontSizeStepper;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *rowSpaceControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *scrollMode;
 
 @end
 
@@ -57,6 +58,9 @@ static NSString* tableViewCellIndentifier = @"tcid";
     
     num = [USER_DEFAULTS objectForKey:GLOBAL_ROW_SPACE];
     self.rowSpaceControl.selectedSegmentIndex = num ? [num integerValue] : 1;
+    
+    num = [USER_DEFAULTS objectForKey:GLOBAL_SCROLLMODE];
+    self.scrollMode.selectedSegmentIndex = num ? [num integerValue] : 0;
 }
 
 #pragma mark - event
@@ -81,6 +85,12 @@ static NSString* tableViewCellIndentifier = @"tcid";
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     st.rowSpaceIndex = sender.selectedSegmentIndex;
     [USER_DEFAULTS setObject:@(sender.selectedSegmentIndex) forKey:GLOBAL_ROW_SPACE];
+}
+
+- (IBAction)scrollModeValueDidChange:(UISegmentedControl*)sender {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    st.scrollMode = sender.selectedSegmentIndex;
+    [USER_DEFAULTS setObject:@(sender.selectedSegmentIndex) forKey:GLOBAL_SCROLLMODE];
 }
 
 @end

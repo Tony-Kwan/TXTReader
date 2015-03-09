@@ -23,6 +23,7 @@
 @property (nonatomic, strong) Book* book;
 @property (nonatomic, assign) NSUInteger currentPageIndex, currentPageOffset;
 @property (nonatomic, weak) id<ReadViewControllerDelegate> delegate;
+@property (nonatomic, strong) UIImage* coverImage;
 
 - (id) initWithBook:(Book*)book;
 

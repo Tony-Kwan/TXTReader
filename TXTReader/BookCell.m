@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 Tony-Kwan. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "BookCell.h"
 #import "PYUtils.h"
 
@@ -39,6 +40,16 @@
         [self addSubview:self.titleLabel];
     }
     return self;
+}
+
+- (UIImage*) getCoverImage {
+    UIGraphicsBeginImageContext(self.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return theImage;
 }
 
 @end

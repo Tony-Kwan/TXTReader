@@ -28,7 +28,7 @@
     [self.window setBackgroundColor:[UIColor clearColor]];
     [self.window makeKeyAndVisible];
     
-    [KMCGeigerCounter sharedGeigerCounter].enabled = YES;
+//    [KMCGeigerCounter sharedGeigerCounter].enabled = YES;
     
     return YES;
 }

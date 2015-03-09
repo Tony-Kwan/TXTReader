@@ -34,9 +34,12 @@ typedef enum {
 @property (nonatomic, assign) NSUInteger lastReadOffset;
 @property (nonatomic, weak) id<BookDelegate> delegate;
 
+@property (nonatomic, assign) BOOL canPaginate;
+
 - (id) initWithPath:(NSString*)path;
 - (NSAttributedString*) textAtPage:(NSInteger)index;
 - (void) paginate;
+- (void) parseBook;
 - (NSUInteger) offsetOfChapterIndex:(NSUInteger)index;
 - (NSAttributedString*) getStringWithOffset:(NSUInteger)offset;
 - (NSAttributedString*) getBeforeStringWithOffset:(NSUInteger)offset;

@@ -13,4 +13,6 @@
 //@property (nonatomic, strong) UIImageView* bookCover;
 @property (nonatomic, strong) UILabel *titleLabel;
 
+- (UIImage*) getCoverImage;
+
 @end

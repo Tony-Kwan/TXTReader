@@ -64,6 +64,7 @@
 //    [self addSubview:self.btnLastReading];
     
     self.progressLabel = [[UILabel alloc] init];
+    self.progressLabel.text = @"进 度";
     self.progressLabel.textColor = WHITE_COLOR;
     [self addSubview:self.progressLabel];
     

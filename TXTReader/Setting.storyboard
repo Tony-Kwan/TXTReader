@@ -96,6 +96,33 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pfR-sk-7zA">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pfR-sk-7zA" id="HcM-zF-D4n">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="换页方式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d58-N8-rby">
+                                                    <rect key="frame" x="8" y="11" width="144" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="mKe-41-L81">
+                                                    <rect key="frame" x="113" y="8" width="199" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <segments>
+                                                        <segment title="仿真"/>
+                                                        <segment title="滑动"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="scrollModeValueDidChange:" destination="eLQ-Kt-8ls" eventType="valueChanged" id="fYt-aI-SNh"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -110,6 +137,7 @@
                         <outlet property="fontSizeStepper" destination="uXY-Ng-0iw" id="hsO-WA-oBv"/>
                         <outlet property="nightSwitch" destination="eoi-cj-7Ni" id="dbR-mV-Qht"/>
                         <outlet property="rowSpaceControl" destination="ffP-3z-Yf8" id="l1X-Zs-LTI"/>
+                        <outlet property="scrollMode" destination="mKe-41-L81" id="Uk0-cg-dBW"/>
                         <outlet property="tableView" destination="alb-VY-asG" id="X0c-YP-Rf1"/>
                     </connections>
                 </tableViewController>

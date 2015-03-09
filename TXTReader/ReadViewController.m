@@ -56,18 +56,22 @@ BookDelegate
     self.view.backgroundColor = WHITE_COLOR;
     self.view.layer.masksToBounds = self.view.clipsToBounds = NO;
     
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    UIPageViewControllerTransitionStyle style = st.scrollMode == 0 ? UIPageViewControllerTransitionStylePageCurl : UIPageViewControllerTransitionStyleScroll;
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:style navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
     
     TextViewController *textVC;
     if(self.book.pageIndexArray) {
         textVC = [self createTextViewControllerWithPage];
+        PYLog(@"%s 已经分页", __PRETTY_FUNCTION__);
     }
     else {
         NSAttributedString *attrStr = [self.book getStringWithOffset:self.book.lastReadOffset];
         self.currentPageOffset = self.book.lastReadOffset;
         textVC = [self createTextViewControllerWithText:attrStr];
+        PYLog(@"%s 未分页", __PRETTY_FUNCTION__);
     }
     [self.pageViewController setViewControllers:@[textVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
@@ -97,7 +101,6 @@ BookDelegate
     self.settingView.delegate = self;
     [self.view addSubview:self.settingView];
     
-    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     self.messageView = [[VEMessageView alloc] initWithMessage:@"" andOtherMessage:nil];
     self.messageView.backgroundColor = [st skin][1];
     self.messageView.messageLabel.textColor = [st skin][0];
@@ -145,7 +148,7 @@ BookDelegate
 }
 
 - (void) updateToolBar {
-    if(_currentPageIndex <= 0 || _currentPageIndex > self.book.pageCount) {
+    if(!self.book.pageIndexArray || _currentPageIndex <= 0 || _currentPageIndex > self.book.pageCount) {
         return;
     }
     self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @(_currentPageIndex), @(_book.pageCount)];
@@ -162,6 +165,7 @@ BookDelegate
 - (void) clickBack:(id)sender {
     self.book.lastReadOffset = self.currentPageOffset;
     
+    self.book.canPaginate = NO;
     [self dismissViewControllerAnimated:YES completion:^{
         [[BookSource shareInstance] setReadingBook:nil];
         [self.delegate didEndReadBook:self.book];
@@ -255,7 +259,8 @@ BookDelegate
 
 #pragma mark - UIPageViewControllerDataSource
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    if(_currentPageIndex == 1) {
+    NSLog(@"%@ %@ %@", self.book.pageIndexArray, @(_currentPageIndex), @(self.currentPageOffset));
+    if((self.book.pageIndexArray && _currentPageIndex == 1) || self.currentPageOffset == 0) {
         [self.messageView setMessageLabelText:@"已翻到第一页"];
         [self.messageView show];
         return nil;
@@ -266,12 +271,14 @@ BookDelegate
         return [self createTextViewControllerWithPage];
     }
     else {
-        return nil;
+        NSAttributedString *attrStr = [self.book getBeforeStringWithOffset:self.currentPageOffset-1];
+        self.currentPageOffset -= attrStr.length - 1;
+        return [self createTextViewControllerWithText:attrStr];
     }
 }
 
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    if(_currentPageIndex >= _book.pageCount) {
+    if(self.book.pageIndexArray && _currentPageIndex >= _book.pageCount) {
         [self.messageView setMessageLabelText:@"已翻到最后一页"];
         [self.messageView show];
         return nil;
@@ -283,7 +290,9 @@ BookDelegate
     }
     else {
         TextViewController *tvc = [[self.pageViewController viewControllers] firstObject];
-        NSAttributedString *attrStr = [self.book getStringWithOffset:self.currentPageIndex + tvc.textLabel.attributedText.length];
+        PYLog(@"%s %@ %@", __PRETTY_FUNCTION__, @(self.currentPageOffset), @(tvc.textLabel.attributedText.length));
+        self.currentPageOffset += tvc.textLabel.attributedText.length;
+        NSAttributedString *attrStr = [self.book getStringWithOffset:self.currentPageOffset];
         return [self createTextViewControllerWithText:attrStr];
     }
 }
@@ -373,13 +382,14 @@ BookDelegate
 #pragma mark - BookDelegate
 - (void) bookDidPaginate {
     self.currentPageIndex = [self.book getPageIndexByOffset:self.currentPageOffset];
+    self.toolBar.slider.maximumValue = self.book.pageIndexArray.count;
     [self updateToolBar];
     self.toolBar.paginatingLabel.hidden = YES;
     self.toolBar.progressLabel.hidden = self.toolBar.slider.hidden = NO;
 }
 
 - (void) paginatingPregress:(CGFloat)progress {
-    self.toolBar.paginatingLabel.text = [NSString stringWithFormat:@"分页中...(%.2f%%)", progress];
+    self.toolBar.paginatingLabel.text = [NSString stringWithFormat:@"分页中...(%.1f%%)", progress];
 }
 
 #pragma mark - private
