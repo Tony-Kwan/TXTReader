@@ -259,7 +259,7 @@ BookDelegate
 
 #pragma mark - UIPageViewControllerDataSource
 - (UIViewController*) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    NSLog(@"%@ %@ %@", self.book.pageIndexArray, @(_currentPageIndex), @(self.currentPageOffset));
+//    NSLog(@"%@ %@ %@", self.book.pageIndexArray, @(_currentPageIndex), @(self.currentPageOffset));
     if((self.book.pageIndexArray && _currentPageIndex == 1) || self.currentPageOffset == 0) {
         [self.messageView setMessageLabelText:@"已翻到第一页"];
         [self.messageView show];
@@ -290,7 +290,7 @@ BookDelegate
     }
     else {
         TextViewController *tvc = [[self.pageViewController viewControllers] firstObject];
-        PYLog(@"%s %@ %@", __PRETTY_FUNCTION__, @(self.currentPageOffset), @(tvc.textLabel.attributedText.length));
+//        PYLog(@"%s %@ %@", __PRETTY_FUNCTION__, @(self.currentPageOffset), @(tvc.textLabel.attributedText.length));
         self.currentPageOffset += tvc.textLabel.attributedText.length;
         NSAttributedString *attrStr = [self.book getStringWithOffset:self.currentPageOffset];
         return [self createTextViewControllerWithText:attrStr];
@@ -386,6 +386,13 @@ BookDelegate
     [self updateToolBar];
     self.toolBar.paginatingLabel.hidden = YES;
     self.toolBar.progressLabel.hidden = self.toolBar.slider.hidden = NO;
+    
+    if(![DBUtils isBookInDB:self.book]) {
+        [DBUtils addBook:self.book];
+    }
+    else {
+        [DBUtils updateWithBook:self.book];
+    }
 }
 
 - (void) paginatingPregress:(CGFloat)progress {

@@ -82,7 +82,7 @@ UIGestureRecognizerDelegate
 
 - (void) _setupCollectionView {
     self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    _longPress.minimumPressDuration = 0.1;
+    _longPress.minimumPressDuration = 0.3;
     _longPress.delegate = self;
     for (UIGestureRecognizer *gestureRecognizer in self.collectionView.gestureRecognizers) {
         if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {

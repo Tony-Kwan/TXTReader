@@ -142,12 +142,12 @@ ReadViewControllerDelegate
     
     [self.tableView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:idx inSection:0]]];
     
-    if(![DBUtils isBookInDB:book]) {
-        [DBUtils addBook:book];
-    }
-    else {
-        [DBUtils updateWithBook:book];
-    }
+//    if(![DBUtils isBookInDB:book]) {
+//        [DBUtils addBook:book];
+//    }
+//    else {
+//        [DBUtils updateWithBook:book];
+//    }
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

@@ -56,4 +56,21 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
     return CGSizeMake(self.frame.size.width, 30);
 }
 
+- (BOOL) collectionView:(UICollectionView*)collectionView canMoveIndexPath:(NSIndexPath*)indexPath {
+    return YES;
+}
+
+- (BOOL) collectionView:(UICollectionView*)collectionView canMoveIndexPathFrom:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath {
+    return YES;
+}
+
+- (void) collectionView:(UICollectionView*)collectionView itemAtIndexPath:(NSIndexPath*)fromeIndexPath willMoveToIndexPath:(NSIndexPath*)toIndexPath {
+    
+}
+
+- (void) collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath {
+//    BookSource *bs = [BookSource shareInstance];
+    
+}
+
 @end

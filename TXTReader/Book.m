@@ -287,6 +287,7 @@
             if(_accumulate > 10000 && self.delegate && [self.delegate respondsToSelector:@selector(paginatingPregress:)]) {
                 _accumulate = 0;
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"progress : %.2f%%", (CGFloat)offset * 100.f / (CGFloat)self.content.length);
                     [self.delegate paginatingPregress:(CGFloat)offset * 100.f / (CGFloat)self.content.length];
                 });
             }
