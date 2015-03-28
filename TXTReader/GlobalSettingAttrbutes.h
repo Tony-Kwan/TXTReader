@@ -20,6 +20,7 @@
 #define TEXTVIEW_HORIZONTAL_INSET 10
 
 #define APP_COLOR UIColorFromRGB(0x282b35)
+#define APP_TINTCOLOR UIColorFromRGB(0x89BC26)
 
 
 @interface GlobalSettingAttrbutes : NSObject

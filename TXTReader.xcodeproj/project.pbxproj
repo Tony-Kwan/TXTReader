@@ -37,6 +37,9 @@
 		E96815ED1AAB84D300C863B9 /* DBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815EC1AAB84D300C863B9 /* DBUtils.m */; };
 		E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */; };
 		E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EBDE91AA55A0B0060E25D /* BookCoverView.m */; };
+		E99385861AC6B58A00A50DDA /* PYStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = E99385841AC6B58A00A50DDA /* PYStepper.m */; };
+		E99385C31AC7284A00A50DDA /* PYPATHButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E99385C01AC7284A00A50DDA /* PYPATHButtonItem.m */; };
+		E99385C41AC7284A00A50DDA /* PYPATHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E99385C11AC7284A00A50DDA /* PYPATHButton.m */; };
 		E9AA4B7F1AA156EB0068A147 /* VEMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */; };
 		E9ACD3EA1A9EFA360084E28A /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3E91A9EFA360084E28A /* SettingView.m */; };
 		E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */; };
@@ -122,6 +125,12 @@
 		E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYBookShelfBackgroundView.xib; sourceTree = "<group>"; };
 		E97EBDE81AA55A0B0060E25D /* BookCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCoverView.h; sourceTree = "<group>"; };
 		E97EBDE91AA55A0B0060E25D /* BookCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCoverView.m; sourceTree = "<group>"; };
+		E99385841AC6B58A00A50DDA /* PYStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYStepper.m; sourceTree = "<group>"; };
+		E99385851AC6B58A00A50DDA /* PYStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYStepper.h; sourceTree = "<group>"; };
+		E99385BF1AC7284A00A50DDA /* PYPATHButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPATHButton.h; sourceTree = "<group>"; };
+		E99385C01AC7284A00A50DDA /* PYPATHButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPATHButtonItem.m; sourceTree = "<group>"; };
+		E99385C11AC7284A00A50DDA /* PYPATHButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPATHButton.m; sourceTree = "<group>"; };
+		E99385C21AC7284A00A50DDA /* PYPATHButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPATHButtonItem.h; sourceTree = "<group>"; };
 		E9AA4B7D1AA156EB0068A147 /* VEMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEMessageView.h; sourceTree = "<group>"; };
 		E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEMessageView.m; sourceTree = "<group>"; };
 		E9ACD3E81A9EFA360084E28A /* SettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingView.h; sourceTree = "<group>"; };
@@ -388,6 +397,17 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
+		E99385C51AC7285000A50DDA /* Path style button */ = {
+			isa = PBXGroup;
+			children = (
+				E99385BF1AC7284A00A50DDA /* PYPATHButton.h */,
+				E99385C11AC7284A00A50DDA /* PYPATHButton.m */,
+				E99385C21AC7284A00A50DDA /* PYPATHButtonItem.h */,
+				E99385C01AC7284A00A50DDA /* PYPATHButtonItem.m */,
+			);
+			name = "Path style button";
+			sourceTree = "<group>";
+		};
 		E9ACD3E61A9EF9FB0084E28A /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +429,9 @@
 				E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */,
 				E9AA4B7D1AA156EB0068A147 /* VEMessageView.h */,
 				E9AA4B7E1AA156EB0068A147 /* VEMessageView.m */,
+				E99385851AC6B58A00A50DDA /* PYStepper.h */,
+				E99385841AC6B58A00A50DDA /* PYStepper.m */,
+				E99385C51AC7285000A50DDA /* Path style button */,
 			);
 			name = ToolView;
 			sourceTree = "<group>";
@@ -577,11 +600,14 @@
 				E945066D1A94C1D50017FDD1 /* Book.m in Sources */,
 				E9ACD3F21A9F25DF0084E28A /* SkinSelectorCell.m in Sources */,
 				E95D48551A977E9200CB1723 /* ReadViewController.m in Sources */,
+				E99385861AC6B58A00A50DDA /* PYStepper.m in Sources */,
 				E94506261A94A96E0017FDD1 /* AppDelegate.m in Sources */,
 				E9ACD3ED1A9F0D0C0084E28A /* ToolBarView.m in Sources */,
 				E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */,
+				E99385C41AC7284A00A50DDA /* PYPATHButton.m in Sources */,
 				E94506791A94D8240017FDD1 /* SettingViewController.m in Sources */,
 				E96815E71AAB39E800C863B9 /* PYAnimator.m in Sources */,
+				E99385C31AC7284A00A50DDA /* PYPATHButtonItem.m in Sources */,
 				E94506231A94A96E0017FDD1 /* main.m in Sources */,
 				E95FAA4E1A94EA2500D30017 /* BookShelfTableView.m in Sources */,
 				E95FAA571A96023300D30017 /* FileUtils.m in Sources */,

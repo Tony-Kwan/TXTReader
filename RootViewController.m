@@ -17,12 +17,14 @@
 #import "BookShelfCollectionView.h"
 #import "BookShelfTableView.h"
 #import "BookShelfDelegate.h"
+#import "PYPATHButton.h"
 
 @interface RootViewController()
 <
 BookShelfDelegate,
 UIViewControllerTransitioningDelegate,
-ReadViewControllerDelegate
+ReadViewControllerDelegate,
+PYPATHButtonDelegate
 >
 {
     CGRect _openBookCellFrame;
@@ -33,6 +35,7 @@ ReadViewControllerDelegate
 @property (nonatomic, strong) BookShelfCollectionView *collectionView;
 @property (nonatomic, strong) BookShelfTableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
+@property (nonatomic, strong) PYPATHButton *btnSort;
 
 @end
 
@@ -51,6 +54,12 @@ ReadViewControllerDelegate
     [self.view addSubview:self.tableView];
     
     self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
+    
+    UIImage *image = [UIImage imageNamed:@"btn-sort"];
+    NSArray *items = @[[UIImage imageNamed:@"btn-count"],[UIImage imageNamed:@"btn-date"],[UIImage imageNamed:@"btn-name"]];
+    self.btnSort = [[PYPATHButton alloc] initWithMainImage:image buttonItems:items];
+    self.btnSort.delegate = self;
+    [self.view addSubview:self.btnSort];
 }
 
 - (void) setupNavigationItem {
@@ -148,6 +157,11 @@ ReadViewControllerDelegate
 //    else {
 //        [DBUtils updateWithBook:book];
 //    }
+}
+
+#pragma mark - PYPATHButtonDelegate
+- (void) PYPATHButtonDidClickAtIndex:(NSUInteger)index {
+    NSLog(@"%@", @(index));
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

@@ -16,28 +16,6 @@
                         <sections>
                             <tableViewSection headerTitle="基本" id="4nb-iy-cJr">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1NU-Ba-twH">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1NU-Ba-twH" id="yC1-5D-rwz">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="夜间模式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hx0-8n-7LS">
-                                                    <rect key="frame" x="8" y="11" width="151" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="eoi-cj-7Ni">
-                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <connections>
-                                                        <action selector="switchNightMode:" destination="eLQ-Kt-8ls" eventType="valueChanged" id="6bL-1h-99L"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xQB-CF-5bs">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -135,7 +113,6 @@
                     <connections>
                         <outlet property="fontSizeLabel" destination="WFg-61-7c9" id="hFw-l3-7F6"/>
                         <outlet property="fontSizeStepper" destination="uXY-Ng-0iw" id="hsO-WA-oBv"/>
-                        <outlet property="nightSwitch" destination="eoi-cj-7Ni" id="dbR-mV-Qht"/>
                         <outlet property="rowSpaceControl" destination="ffP-3z-Yf8" id="l1X-Zs-LTI"/>
                         <outlet property="scrollMode" destination="mKe-41-L81" id="Uk0-cg-dBW"/>
                         <outlet property="tableView" destination="alb-VY-asG" id="X0c-YP-Rf1"/>

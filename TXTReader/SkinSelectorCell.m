@@ -7,6 +7,7 @@
 //
 
 #import "SkinSelectorCell.h"
+#import "GlobalSettingAttrbutes.h"
 
 @implementation SkinSelectorCell
 
@@ -18,7 +19,7 @@
         [self.contentView addSubview:self.imageView];
         
         self.textLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        self.textLabel.text = @"文";
+        self.textLabel.text = @"文字";
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.textLabel];
         
@@ -31,7 +32,7 @@
 - (void) setSelected:(BOOL)selected {
     [super setSelected:selected];
     self.layer.borderWidth = 5;
-    self.layer.borderColor = selected ? [UIColor lightGrayColor].CGColor : [UIColor clearColor].CGColor;
+    self.layer.borderColor = selected ? APP_TINTCOLOR.CGColor : [UIColor clearColor].CGColor;
 }
 
 @end

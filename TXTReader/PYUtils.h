@@ -33,9 +33,11 @@ typedef unsigned long long ull;
 #define DOCUMENTATION_PATH NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)[0]
 #define DOCUMENTS_PATH [NSHomeDirectory() stringByAppendingPathComponent:  @"Documents"]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self
+
 #define PrintCGRect(rect) NSLog(@"%s %f %f %f %f", __PRETTY_FUNCTION__, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
 #define PrintCGPoint(point) NSLog(@"%s %f %f", __PRETTY_FUNCTION__, point.x, point.y)
 #define PrintCGSize(size) NSLog(@"%s %f %f", __PRETTY_FUNCTION__, size.width, size.height)
+
 #define DegreesToRadians(x) (M_PI*(x)/180.0)
 #define AUTORESIZING_WIDTH_AND_HEIGHT UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
 #define BLACK_COLOR [UIColor blackColor]

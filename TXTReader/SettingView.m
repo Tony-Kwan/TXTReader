@@ -9,6 +9,7 @@
 #import "SettingView.h"
 #import "PYUtils.h"
 #import "SkinSelectorCell.h"
+#import "PYStepper.h"
 
 #define SUBVIEW_HEIGHT_FACTOR 0.25f
 
@@ -22,10 +23,9 @@ UICollectionViewDelegate
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UISlider *slider;
-@property (nonatomic, strong) UIButton *btnNight;
+//@property (nonatomic, strong) UIButton *btnNight;
 @property (nonatomic, strong) UISegmentedControl *rowSpaceControl;
-@property (nonatomic, strong) UIStepper *fontSizeStepper;
-@property (nonatomic, strong) UILabel *fontSizeLabel;
+@property (nonatomic, strong) PYStepper *fontSizeStepper;
 @property (nonatomic, strong) UICollectionView *skinSelector;
 
 @end
@@ -50,37 +50,34 @@ UICollectionViewDelegate
     self.slider.minimumValue = 0;
     self.slider.maximumValue = 1.f;
     self.slider.value = [[UIScreen mainScreen] brightness];
+//    self.slider.minimumTrackTintColor = [UIColor blackColor];
+//    self.slider.maximumTrackTintColor = [UIColor whiteColor];
+    [self.slider setMinimumTrackImage:[UIImage imageNamed:@"slider-black-track"] forState:UIControlStateNormal];
+    [self.slider setMaximumTrackImage:[UIImage imageNamed:@"slider-white-track"] forState:UIControlStateNormal];
+    [self.slider setThumbImage:[UIImage imageNamed:@"slider-thumb"] forState:UIControlStateNormal];
     [self.slider addTarget:self action:@selector(sliderValueChange:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.slider];
     
-    self.btnNight = [PYUtils customButtonWith:@"夜" target:self andAction:@selector(clickNight:)];
-    [self.btnNight setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-    [self.contentView addSubview:self.btnNight];
+//    self.btnNight = [PYUtils customButtonWith:@"夜" target:self andAction:@selector(clickNight:)];
+//    [self.btnNight setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+//    [self.contentView addSubview:self.btnNight];
     
-    self.fontSizeStepper = [[UIStepper alloc] init];
-    self.fontSizeStepper.backgroundColor = [UIColor whiteColor];
-    self.fontSizeStepper.tintColor = [UIColor redColor];
+    self.fontSizeStepper = [[PYStepper alloc] init];
     self.fontSizeStepper.minimumValue = 15;
     self.fontSizeStepper.maximumValue = 22;
     self.fontSizeStepper.value = 17;
+    self.fontSizeStepper.tintColor = APP_TINTCOLOR;
     [self.fontSizeStepper addTarget:self action:@selector(fontSizeDidChange:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.fontSizeStepper];
     
-    self.fontSizeLabel = [[UILabel alloc] init];
-    self.fontSizeLabel.backgroundColor = BLACK_COLOR;
-    self.fontSizeLabel.text = [NSString stringWithFormat:@"%ld", (long)self.fontSizeStepper.value];
-    self.fontSizeLabel.textColor = [UIColor lightTextColor];
-    self.fontSizeLabel.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:self.fontSizeLabel];
-    
-    CGFloat collectionViewHeight = self.bounds.size.height / 4;
+    CGFloat collectionViewHeight = self.bounds.size.height * SUBVIEW_HEIGHT_FACTOR - 10;
     CGFloat inset = 2;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(collectionViewHeight - inset * 2, collectionViewHeight - inset * 2);
     layout.sectionInset = UIEdgeInsetsMake(inset, inset*2, inset, inset*2);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    self.skinSelector = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, collectionViewHeight) collectionViewLayout:layout];
+    self.skinSelector = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.skinSelector.delegate = self;
     self.skinSelector.dataSource = self;
     self.skinSelector.userInteractionEnabled = YES;
@@ -93,7 +90,7 @@ UICollectionViewDelegate
     [self.contentView addSubview:self.skinSelector];
     
     self.rowSpaceControl = [[UISegmentedControl alloc] initWithItems:@[@"小", @"中", @"大"]];
-    self.rowSpaceControl.tintColor = [UIColor redColor];
+    self.rowSpaceControl.tintColor = APP_TINTCOLOR;
     self.rowSpaceControl.selectedSegmentIndex = 1;
     [self.rowSpaceControl addTarget:self action:@selector(rowSpaceValueDidChange:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.rowSpaceControl];
@@ -103,34 +100,25 @@ UICollectionViewDelegate
         make.edges.equalTo(weakSelf);
     }];
     [_slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(weakSelf.contentView);
-        make.right.equalTo(weakSelf.btnNight.mas_left);
-        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
-    }];
-    [_btnNight mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.equalTo(weakSelf.contentView);
+        make.top.equalTo(weakSelf.contentView);
+        make.left.equalTo(weakSelf.contentView).offset(20);
+        make.right.equalTo(weakSelf.contentView).offset(-20);
         make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
     }];
     [_fontSizeStepper mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView);
-        make.top.equalTo(weakSelf.btnNight.mas_bottom);
-        make.right.equalTo(weakSelf.fontSizeLabel.mas_left);
-        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
-    }];
-    [_fontSizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.contentView);
-        make.top.equalTo(weakSelf.btnNight.mas_bottom);
-        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
-        make.width.equalTo(weakSelf.fontSizeLabel.mas_height);
+        make.top.equalTo(weakSelf.slider.mas_bottom).offset(5);
+        make.left.right.equalTo(weakSelf.slider);
+        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR).offset(-10);
     }];
     [_skinSelector mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(weakSelf);
-        make.top.equalTo(weakSelf.fontSizeStepper.mas_bottom);
-        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR);
+        make.left.right.equalTo(weakSelf.slider);
+        make.top.equalTo(weakSelf.fontSizeStepper.mas_bottom).offset(5);
+        make.height.equalTo(weakSelf.contentView).multipliedBy(SUBVIEW_HEIGHT_FACTOR).offset(-10);
     }];
     [_rowSpaceControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.equalTo(weakSelf.contentView);
-        make.top.equalTo(weakSelf.skinSelector.mas_bottom);
+        make.bottom.equalTo(weakSelf.contentView).offset(-5);
+        make.left.right.equalTo(weakSelf.slider);
+        make.top.equalTo(weakSelf.skinSelector.mas_bottom).offset(5);
     }];
 }
 
@@ -144,14 +132,13 @@ UICollectionViewDelegate
     [[UIScreen mainScreen] setBrightness:slider.value];
 }
 
-- (void) clickNight:(UIButton*)btn {
-    if(btn.state != UIControlStateNormal) {
-        
-    }
-}
+//- (void) clickNight:(UIButton*)btn {
+//    if(btn.state != UIControlStateNormal) {
+//        
+//    }
+//}
 
 - (void) fontSizeDidChange:(UIStepper*)stepper {
-    self.fontSizeLabel.text = [NSString stringWithFormat:@"%ld", (long)self.fontSizeStepper.value];
     [self.delegate changeFontSizeTo:self.fontSizeStepper.value];
 }
 

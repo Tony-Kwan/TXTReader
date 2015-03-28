@@ -27,7 +27,7 @@ static NSString* tableViewCellIndentifier = @"tcid";
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    self.view.tintColor = [UIColor redColor];
+    self.view.tintColor = APP_TINTCOLOR;
     [self setupNavigationBar];
     [self configure];
 }

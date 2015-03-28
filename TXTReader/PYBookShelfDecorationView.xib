@@ -16,16 +16,12 @@
                 </imageView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="H0s-rd-4Fa" secondAttribute="bottom" id="Gn7-bu-Kqa"/>
-                <constraint firstAttribute="bottom" secondItem="H0s-rd-4Fa" secondAttribute="bottom" id="Jf1-0h-pFp"/>
-                <constraint firstItem="H0s-rd-4Fa" firstAttribute="top" secondItem="l4n-l6-Ie6" secondAttribute="top" id="JvA-g4-q7G"/>
-                <constraint firstAttribute="trailing" secondItem="H0s-rd-4Fa" secondAttribute="trailing" id="MJi-rt-A99"/>
-                <constraint firstItem="H0s-rd-4Fa" firstAttribute="leading" secondItem="l4n-l6-Ie6" secondAttribute="leading" id="SEk-H7-cCJ"/>
-                <constraint firstItem="H0s-rd-4Fa" firstAttribute="leading" secondItem="l4n-l6-Ie6" secondAttribute="leading" id="T7g-3R-aKW"/>
-                <constraint firstItem="H0s-rd-4Fa" firstAttribute="top" secondItem="l4n-l6-Ie6" secondAttribute="top" id="kMZ-G9-Sf8"/>
-                <constraint firstAttribute="trailing" secondItem="H0s-rd-4Fa" secondAttribute="trailing" id="yjy-SB-WZm"/>
+                <constraint firstItem="H0s-rd-4Fa" firstAttribute="leading" secondItem="l4n-l6-Ie6" secondAttribute="leading" id="GXb-zX-vo4"/>
+                <constraint firstAttribute="bottom" secondItem="H0s-rd-4Fa" secondAttribute="bottom" id="OhJ-Zy-9Mf"/>
+                <constraint firstAttribute="trailing" secondItem="H0s-rd-4Fa" secondAttribute="trailing" id="cr7-Ec-niw"/>
+                <constraint firstItem="H0s-rd-4Fa" firstAttribute="top" secondItem="l4n-l6-Ie6" secondAttribute="top" id="r1E-NM-3HQ"/>
             </constraints>
-            <point key="canvasLocation" x="749.5" y="347"/>
+            <point key="canvasLocation" x="749" y="347"/>
         </collectionReusableView>
     </objects>
     <resources>
