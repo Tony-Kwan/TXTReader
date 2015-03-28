@@ -18,7 +18,9 @@
 
 - (id) initWithText:(NSAttributedString*)text color:(UIColor *)color andFont:(UIFont *)font {
     if((self = [super init])) {
-        self.view.backgroundColor = [[GlobalSettingAttrbutes shareSetting] skin][1];
+        self.bgImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.bgImageView.contentMode = UIViewContentModeScaleToFill;
+        [self.view addSubview:self.bgImageView];
         
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textColor = [[GlobalSettingAttrbutes shareSetting] skin][0];
@@ -42,7 +44,7 @@
         CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, labelWidth, CGFLOAT_MAX);
         CGRect textRect = [text boundingRectWithSize:frame.size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
 //        PrintCGRect(frame);
-        PrintCGRect(textRect);
+//        PrintCGRect(textRect);
 //        PYLog(@"=========");
         frame.size = textRect.size;
         self.textLabel.frame = frame;
@@ -58,7 +60,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = self.textLabel.backgroundColor;
+    
+    [self setSkin:[[GlobalSettingAttrbutes shareSetting] skin]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,11 +69,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) setTextColor:(UIColor *)textColor andBackgoundColor:(UIColor *)bgColor {
-    [UIView animateWithDuration:1.5 animations:^{
-        self.textLabel.textColor = textColor;
-        self.view.backgroundColor = bgColor;
-    }];
+//- (void) setTextColor:(UIColor *)textColor andBackgoundColor:(UIColor *)bgColor {
+//    [UIView animateWithDuration:1.5 animations:^{
+//        self.textLabel.textColor = textColor;
+//        self.view.backgroundColor = bgColor;
+//    }];
+//}
+
+- (void) setSkin:(NSArray *)skin {
+    self.textLabel.textColor = skin[0];
+    if([skin[1] isKindOfClass:[UIColor class]]) {
+        self.bgImageView.backgroundColor = skin[1];
+        self.bgImageView.image = nil;
+    }
+    else {
+        self.bgImageView.image = skin[1];
+    }
 }
 
 @end

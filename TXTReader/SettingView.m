@@ -170,8 +170,17 @@ UICollectionViewDelegate
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SkinSelectorCell *cell = (SkinSelectorCell*)[collectionView dequeueReusableCellWithReuseIdentifier:skinSelectorCellIndentifier forIndexPath:indexPath];
-    cell.textLabel.textColor = [[[GlobalSettingAttrbutes shareSetting] skins] objectAtIndex:indexPath.item][0];
-    cell.textLabel.backgroundColor = [[[GlobalSettingAttrbutes shareSetting] skins] objectAtIndex:indexPath.item][1];
+    
+    NSArray *skin = [[[GlobalSettingAttrbutes shareSetting] skins] objectAtIndex:indexPath.item];
+    cell.textLabel.textColor = skin[0];
+    if([skin[1] isKindOfClass:[UIColor class]]) {
+        cell.textLabel.backgroundColor = skin[1];
+    }
+    else {
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.imageView.image = skin[1];
+    }
+    
     return cell;
 }
 

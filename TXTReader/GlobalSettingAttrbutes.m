@@ -21,14 +21,18 @@
 
 - (id) init {
     if((self = [super init])) {
-        self.skins = @[@[[UIColor lightTextColor], APP_COLOR],
+        self.skins = @[@[[UIColor blackColor], [UIImage imageNamed:@"karft-1"]],
+                       @[[UIColor blackColor], [UIImage imageNamed:@"karft-2"]],
+                       @[[UIColor whiteColor], [UIImage imageNamed:@"karft-3"]],
+                       @[[UIColor lightTextColor], APP_COLOR],
                        @[BLACK_COLOR, WHITE_COLOR],
                        @[WHITE_COLOR, BLACK_COLOR],
                        @[[UIColor greenColor], APP_COLOR],
                        @[[UIColor blueColor], [UIColor yellowColor]],
                        @[[UIColor cyanColor], APP_COLOR],
                        @[[UIColor yellowColor], [UIColor redColor]],
-                       @[[UIColor redColor], [UIColor whiteColor]]];
+                       @[[UIColor redColor], [UIColor whiteColor]]
+                       ];
         
         if([USER_DEFAULTS objectForKey:GLOBAL_SKIN_INDEX]) {
             self.skinIndex = [[USER_DEFAULTS objectForKey:GLOBAL_SKIN_INDEX] integerValue];

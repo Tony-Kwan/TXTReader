@@ -401,10 +401,10 @@
 		E9ACD3E71A9EFA100084E28A /* ToolView */ = {
 			isa = PBXGroup;
 			children = (
-				E9ACD3E81A9EFA360084E28A /* SettingView.h */,
-				E9ACD3E91A9EFA360084E28A /* SettingView.m */,
 				E9ACD3EB1A9F0D0C0084E28A /* ToolBarView.h */,
 				E9ACD3EC1A9F0D0C0084E28A /* ToolBarView.m */,
+				E9ACD3E81A9EFA360084E28A /* SettingView.h */,
+				E9ACD3E91A9EFA360084E28A /* SettingView.m */,
 				E9ACD3F01A9F25DF0084E28A /* SkinSelectorCell.h */,
 				E9ACD3F11A9F25DF0084E28A /* SkinSelectorCell.m */,
 				E9AA4B7D1AA156EB0068A147 /* VEMessageView.h */,

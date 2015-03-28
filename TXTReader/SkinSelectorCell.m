@@ -12,6 +12,11 @@
 
 - (id) initWithFrame:(CGRect)frame {
     if((self = [super initWithFrame:frame])) {
+        self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        self.imageView.backgroundColor = [UIColor clearColor];
+        self.imageView.contentMode = UIViewContentModeCenter;
+        [self.contentView addSubview:self.imageView];
+        
         self.textLabel = [[UILabel alloc] initWithFrame:self.bounds];
         self.textLabel.text = @"文";
         self.textLabel.textAlignment = NSTextAlignmentCenter;

@@ -77,6 +77,7 @@ BookDelegate
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
+    [self.pageViewController didMoveToParentViewController:self];
     
     tapViewFrame = self.view.bounds;
     tapViewFrame.origin.x = self.view.bounds.size.width/3;
@@ -102,8 +103,8 @@ BookDelegate
     [self.view addSubview:self.settingView];
     
     self.messageView = [[VEMessageView alloc] initWithMessage:@"" andOtherMessage:nil];
-    self.messageView.backgroundColor = [st skin][1];
-    self.messageView.messageLabel.textColor = [st skin][0];
+    self.messageView.backgroundColor = [UIColor blackColor];
+    self.messageView.messageLabel.textColor = [UIColor whiteColor];
     self.messageView.layer.borderColor = self.messageView.messageLabel.textColor.CGColor;
     self.messageView.layer.borderWidth = 1.0f;
     self.messageView.hidden = YES;
@@ -360,11 +361,12 @@ BookDelegate
     TextViewController *currentVC = (TextViewController*)[[self.pageViewController viewControllers] firstObject];
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     [st setSkinIndex:index];
-    self.messageView.backgroundColor = [st skin][1];
-    self.messageView.messageLabel.textColor = [st skin][0];
+    self.messageView.backgroundColor = [UIColor blackColor];
+    self.messageView.messageLabel.textColor = [UIColor whiteColor];
     self.messageView.layer.borderColor = self.messageView.messageLabel.textColor.CGColor;
     
-    [currentVC setTextColor:[st skin][0] andBackgoundColor:[st skin][1]];
+//    [currentVC setTextColor:[st skin][0] andBackgoundColor:[st skin][1]];
+    [currentVC setSkin:[st skin]];
     [USER_DEFAULTS setObject:@(index) forKey:GLOBAL_SKIN_INDEX];
     
 }
