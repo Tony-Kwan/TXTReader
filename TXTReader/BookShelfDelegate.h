@@ -13,4 +13,7 @@
 @required
 - (void) openBook:(Book*)book;
 
+@optional
+- (void) collectionViewDidChangeToDeleteMode:(BOOL)isDeleteMode;
+
 @end

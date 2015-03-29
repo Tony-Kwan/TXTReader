@@ -351,6 +351,9 @@ UIGestureRecognizerDelegate
                 }
             }];
             [self invalidateLayout];
+            if([self.delegate respondsToSelector:@selector(longPressBegin)]) {
+                [self.delegate longPressBegin];
+            }
         }
             break;
         case UIGestureRecognizerStateCancelled:

@@ -43,5 +43,6 @@ typedef void(^SortCompleteBlock)(void);
 - (Book*) currentReadingBook;
 - (void) sortBooksWithType:(BookSortType)type completeBlock:(SortCompleteBlock)block;
 - (void) moveBookFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex;
+- (void) removeBookAtIndex:(NSUInteger)index;
 
 @end

@@ -53,6 +53,8 @@ UIGestureRecognizerDelegate
 
 - (UIOffset)collectionView:(UICollectionView*)collectionView layout:(PYCollectionViewFlowLayout*)layout decorationViewAdjustmentForRow:(NSInteger)row inSection:(NSInteger)section;
 
+- (void) longPressBegin;
+
 @required
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(PYCollectionViewFlowLayout*)layout referenceSizeForDecorationViewForRow:(NSInteger)row inSection:(NSInteger)section;
 

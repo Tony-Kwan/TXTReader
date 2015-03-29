@@ -126,4 +126,17 @@
     }
 }
 
+- (void) removeBookAtIndex:(NSUInteger)index {
+    if(index >= self.books.count) {
+        return;
+    }
+    
+    [self.books removeObjectAtIndex:index];
+    //TODO:delete txt file
+    
+    if(self.deleaget && [self.deleaget respondsToSelector:@selector(bookSourceDidChange)]) {
+        [self.deleaget bookSourceDidChange];
+    }
+}
+
 @end

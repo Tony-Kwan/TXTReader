@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@class BookCell;
+
+@protocol BookCellDelegate <NSObject>
+
+- (void) bookCellDeleteButtonDidClick:(BookCell*)cell;
+
+@end
+
 @interface BookCell : UICollectionViewCell
 
-//@property (nonatomic, strong) UIImageView* bookCover;
+@property (nonatomic, weak) id<BookCellDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *btnDelete;
 
 - (UIImage*) getCoverImage;
+- (void) startAnimating;
+- (void) stopAnimating;
 
 @end

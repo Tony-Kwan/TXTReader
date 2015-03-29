@@ -52,6 +52,10 @@ BookSourceDelegate
     self.bookSource.deleaget = self;
     [self.bookSource loadBooks];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navibg"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.navigationController.navigationBar setAlpha:0.2];
+    [self.navigationController.navigationBar setTranslucent:YES];
     [self setupNavigationItem];
     
     self.collectionView = [[BookShelfCollectionView alloc] init];
@@ -71,11 +75,6 @@ BookSourceDelegate
 }
 
 - (void) setupNavigationItem {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navibg"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self.navigationController.navigationBar setAlpha:0.2];
-    [self.navigationController.navigationBar setTranslucent:YES];
-    
     self.navigationItem.title = @"TXT Reader";
     
     UIButton *btnSetting = [[UIButton alloc] init];
@@ -84,10 +83,7 @@ BookSourceDelegate
     btnSetting.tintColor = self.view.tintColor;
     UIImage *settingImage = [UIImage imageNamed:@"setting_btn"];
     [btnSetting setImage:settingImage forState:UIControlStateNormal];
-//    [btnSetting setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [btnSetting setTitle:@"setting" forState:UIControlStateNormal];
     [btnSetting sizeToFit];
-//    btnSetting.layer.cornerRadius = 3.0f;
     UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnSetting];
     self.navigationItem.leftBarButtonItem = leftButtonItem;
     
@@ -97,6 +93,21 @@ BookSourceDelegate
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.tintColor = WHITE_COLOR;
     UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.segmentControl];
+    self.navigationItem.rightBarButtonItem = rightButtonItem;
+}
+
+- (void) setupNavigationItemToDeleteMode {
+    self.navigationItem.title = @"Delete Book";
+    
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    UIButton *btnSetting = [[UIButton alloc] init];
+    [btnSetting addTarget:self action:@selector(clickDeleteDone:) forControlEvents:UIControlEventTouchUpInside];
+    btnSetting.backgroundColor = CLEAR_COLOR;
+    btnSetting.tintColor = self.view.tintColor;
+    [btnSetting setTitle:(@"Done") forState:UIControlStateNormal];
+    [btnSetting sizeToFit];
+    UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnSetting];
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 }
 
@@ -110,6 +121,11 @@ BookSourceDelegate
     UIStoryboard *tableViewStoryboard = [UIStoryboard storyboardWithName:@"Setting" bundle:nil];
     SettingViewController* settingVC = [tableViewStoryboard instantiateViewControllerWithIdentifier:@"sss"];
     [self.navigationController presentViewController:settingVC animated:YES completion:nil];
+}
+
+- (void) clickDeleteDone:(id)sender {
+    [self setupNavigationItem];
+    self.collectionView.deleteMode = NO;
 }
 
 - (void) segmentControlValueDidChange:(UISegmentedControl*)segmentControl {
@@ -150,6 +166,10 @@ BookSourceDelegate
     else {
         PYLog(@"nuknowencoding");
     }
+}
+
+- (void) collectionViewDidChangeToDeleteMode:(BOOL)isDeleteMode {
+    [self setupNavigationItemToDeleteMode];
 }
 
 #pragma mark - ReadViewControllerDelegate

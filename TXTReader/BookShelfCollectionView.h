@@ -17,9 +17,11 @@
 <
 UICollectionViewDelegate,
 PYCollectionVieDelegateFlowLayout,
-PYCollectionViewDateSource
+PYCollectionViewDateSource,
+BookCellDelegate
 >
 
 @property (nonatomic, weak) id<BookShelfDelegate> bookShelfDelegate;
+@property (nonatomic, assign) BOOL deleteMode;
 
 @end

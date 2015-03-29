@@ -30,6 +30,12 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
     return self;
 }
 
+#pragma mark - perporty
+- (void) setDeleteMode:(BOOL)deleteMode {
+    _deleteMode = deleteMode;
+    [self reloadData];
+}
+
 #pragma mark - collectionview delegate & datasource
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -44,6 +50,17 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
     
     BookCell *cell = (BookCell*)[collectionView dequeueReusableCellWithReuseIdentifier:bookCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
+    cell.delegate = self;
+    
+    if(self.deleteMode) {
+        [cell startAnimating];
+        cell.btnDelete.hidden = NO;
+    }
+    else {
+        [cell stopAnimating];
+        cell.btnDelete.hidden = YES;
+    }
+    
     return cell;
 }
 
@@ -70,6 +87,19 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 - (void) collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath {
     [[BookSource shareInstance] moveBookFromIndex:fromIndexPath.item toIndex:toIndexPath.item];
     
+}
+
+- (void) longPressBegin {
+    self.deleteMode = YES;
+    if(self.bookShelfDelegate && [self.bookShelfDelegate respondsToSelector:@selector(collectionViewDidChangeToDeleteMode:)]) {
+        [self.bookShelfDelegate collectionViewDidChangeToDeleteMode:YES];
+    }
+}
+
+#pragma mark - BookCellDelegate
+- (void) bookCellDeleteButtonDidClick:(BookCell *)cell {
+    NSIndexPath *indexPath = [self indexPathForCell:cell];
+    [[BookSource shareInstance] removeBookAtIndex:indexPath.item];
 }
 
 @end
