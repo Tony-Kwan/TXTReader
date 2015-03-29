@@ -65,11 +65,10 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (void) collectionView:(UICollectionView*)collectionView itemAtIndexPath:(NSIndexPath*)fromeIndexPath willMoveToIndexPath:(NSIndexPath*)toIndexPath {
-    
 }
 
 - (void) collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath {
-//    BookSource *bs = [BookSource shareInstance];
+    [[BookSource shareInstance] moveBookFromIndex:fromIndexPath.item toIndex:toIndexPath.item];
     
 }
 

@@ -22,7 +22,7 @@
     static BookSource* source;
     dispatch_once(&once, ^{
         source = [BookSource new];
-        [source loadBooks];
+//        [source loadBooks];
     });
     return source;
 }
@@ -59,6 +59,9 @@
 //            [self.books addObject:book];
 //        }
 //    }
+    if(self.deleaget && [self.deleaget respondsToSelector:@selector(bookSourceDidChange)]) {
+        [self.deleaget bookSourceDidChange];
+    }
 }
 
 - (void) clearCache {
@@ -86,6 +89,40 @@
     }
     else {
         return [_books objectAtIndex:_currentReadingBookIndex];
+    }
+}
+
+- (void) sortBooksWithType:(BookSortType)type completeBlock:(SortCompleteBlock)block {
+    NSArray *sortArray = [self.books sortedArrayUsingComparator:^NSComparisonResult(Book* obj1, Book* obj2) {
+        if(type == kSort_name) {
+            return [obj1.name compare:obj2.name];
+        }
+        else if (type == kSort_count) {
+            return [[NSNumber numberWithUnsignedInteger:[obj2 length]] compare:[NSNumber numberWithUnsignedInteger:[obj1 length]]];
+        }
+        else if (type == kSort_date) {
+            return [[obj1 lastUpdate] compare:[obj2 lastUpdate]];
+        }
+        else {
+            return [[NSNumber numberWithFloat:((CGFloat)obj2.lastReadOffset / (CGFloat)(obj2.length))] compare:[NSNumber numberWithFloat:((CGFloat)obj1.lastReadOffset / (CGFloat)(obj1.length))]];
+        }
+    }];
+    self.books = [NSMutableArray arrayWithArray:sortArray];
+    
+    if(block) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block();
+        });
+    }
+}
+
+- (void) moveBookFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    Book* book = [self.books objectAtIndex:fromIndex];
+    [self.books removeObject:book];
+    [self.books insertObject:book atIndex:toIndex];
+    
+    if(self.deleaget && [self.deleaget respondsToSelector:@selector(bookSourceDidChange)]) {
+        [self.deleaget bookSourceDidChange];
     }
 }
 

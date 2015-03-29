@@ -12,7 +12,7 @@
 
 #define START_RADIUS (0)
 #define END_RADIUS (M_PI/2)
-#define FARTHEST_DISTANCE (80)
+#define FARTHEST_DISTANCE (100)
 
 
 static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float angle)
@@ -61,6 +61,7 @@ CG_INLINE CGPoint CGPointAdd(CGPoint p1, CGPoint p2) {
 - (id) initWithMainImage:(UIImage *)mainImage buttonItems:(NSArray *)items {
     if(self = [super init]) {
         _hiddenButtonItems = YES;
+        
         
         self.frame = [[UIScreen mainScreen] bounds];
         self.backgroundColor = [UIColor clearColor];
@@ -113,6 +114,13 @@ CG_INLINE CGPoint CGPointAdd(CGPoint p1, CGPoint p2) {
 
 #pragma mark - property
 - (void) setHiddenButtonItems:(BOOL)hiddenButtonItems {
+    BOOL flag = NO;
+    for (PYPATHButtonItem* item  in self.buttonItems) {
+        flag |= item.isAnimating;
+    }
+    if(flag) {
+        return;
+    }
     _hiddenButtonItems = hiddenButtonItems;
     [self hideButtonItems:_hiddenButtonItems];
 }
@@ -134,18 +142,18 @@ CG_INLINE CGPoint CGPointAdd(CGPoint p1, CGPoint p2) {
 }
 
 #pragma mark - private
-- (void) hideButtonItems:(BOOL)hidden {
+- (void) hideButtonItems:(BOOL)hidden {    
     for (PYPATHButtonItem *btnItem in self.buttonItems) {
         NSUInteger idx = [self.buttonItems indexOfObject:btnItem];
         if(!hidden) {
-            [btnItem startShowAnimationWithdelay:0.2f*idx];
+            [btnItem startShowAnimationWithdelay:ITEM_ANIMATION_DELAY*idx];
         }
         else {
-            [btnItem startHideAnimationWithdelay:0.2*(self.buttonItems.count-idx)];
+            [btnItem startHideAnimationWithdelay:ITEM_ANIMATION_DELAY*(self.buttonItems.count-idx)];
         }
     }
     
-    [UIView animateWithDuration:0.5 + (self.buttonItems.count - 1)*.2f animations:^{
+    [UIView animateWithDuration:0.5 + (self.buttonItems.count - 1)*ITEM_ANIMATION_DELAY animations:^{
         self.shadowView.alpha = (CGFloat)!hidden;
     }];
     

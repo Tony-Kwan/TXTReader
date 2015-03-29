@@ -8,15 +8,11 @@
 
 #import "PYPATHButtonItem.h"
 
-#define POINT_1_FACTOR 0.5f
-#define POINT_2_FACTOR 1.4f
-#define POINT_3_FACTOR 0.9f
-#define ANIMATION_DURATION 0.5f
-
 @implementation PYPATHButtonItem
 
 - (id) initWithImage:(UIImage *)image startPoint:(CGPoint)startPoint endPoitn:(CGPoint)endPoint {
     if(self = [super init]) {
+        _isAnimating = NO;
         self.startPoint = startPoint;
         self.endPoint = endPoint;
         
@@ -75,6 +71,7 @@
     
     [self.layer addAnimation:animationgroup forKey:@"show"];
     self.center = _endPoint;
+    _isAnimating = YES;
 }
 
 - (void) startHideAnimationWithdelay:(CGFloat)delay {
@@ -109,6 +106,11 @@
     
     [self.layer addAnimation:animationgroup forKey:@"hide"];
     self.center = _startPoint;
+    _isAnimating = YES;
+}
+
+- (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    _isAnimating = NO;
 }
 
 @end

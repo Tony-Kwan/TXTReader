@@ -18,13 +18,15 @@
 #import "BookShelfTableView.h"
 #import "BookShelfDelegate.h"
 #import "PYPATHButton.h"
+#import "BookSource.h"
 
 @interface RootViewController()
 <
 BookShelfDelegate,
 UIViewControllerTransitioningDelegate,
 ReadViewControllerDelegate,
-PYPATHButtonDelegate
+PYPATHButtonDelegate,
+BookSourceDelegate
 >
 {
     CGRect _openBookCellFrame;
@@ -37,12 +39,18 @@ PYPATHButtonDelegate
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) PYPATHButton *btnSort;
 
+@property (nonatomic, strong) BookSource *bookSource;
+
 @end
 
 @implementation RootViewController
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.bookSource = [BookSource shareInstance];
+    self.bookSource.deleaget = self;
+    [self.bookSource loadBooks];
     
     [self setupNavigationItem];
     
@@ -56,7 +64,7 @@ PYPATHButtonDelegate
     self.tableView.bookShelfDelegate = self.collectionView.bookShelfDelegate = self;
     
     UIImage *image = [UIImage imageNamed:@"btn-sort"];
-    NSArray *items = @[[UIImage imageNamed:@"btn-count"],[UIImage imageNamed:@"btn-date"],[UIImage imageNamed:@"btn-name"]];
+    NSArray *items = @[[UIImage imageNamed:@"btn-count"],[UIImage imageNamed:@"btn-date"],[UIImage imageNamed:@"btn-name"], [UIImage imageNamed:@"btn-progress"]];
     self.btnSort = [[PYPATHButton alloc] initWithMainImage:image buttonItems:items];
     self.btnSort.delegate = self;
     [self.view addSubview:self.btnSort];
@@ -161,7 +169,19 @@ PYPATHButtonDelegate
 
 #pragma mark - PYPATHButtonDelegate
 - (void) PYPATHButtonDidClickAtIndex:(NSUInteger)index {
-    NSLog(@"%@", @(index));
+    WS(weakSelf);
+    //TODO:use BookSourceDelegate method to reloaddata
+    [[BookSource shareInstance] sortBooksWithType:(BookSortType)index completeBlock:^{
+        __strong typeof(*&self) ss = weakSelf;
+        [ss.collectionView reloadData];
+        [ss.tableView reloadData];
+    }];
+}
+
+#pragma mark - BookSourceDelegate
+- (void) bookSourceDidChange {
+    [self.collectionView reloadData];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
