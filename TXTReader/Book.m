@@ -44,7 +44,7 @@
 }
 
 - (NSString*) description {
-    return [NSString stringWithFormat:@"name: %@ count: %@", self.name, @(self.pageCount)];
+    return [NSString stringWithFormat:@"<Book> name: %@ | pageCount: %@ | lastReadOffset: %zd | lastUpdate: %@", self.name, @(self.pageCount), self.lastReadOffset, [PYUtils date2String:self.lastUpdate shortDate:NO]];
 }
 
 #pragma mark - property
@@ -191,6 +191,9 @@
 }
 
 - (BOOL) isOneOfBookmarkOffset:(NSUInteger)offset {
+    if(!self.bookMarksOffset || self.bookMarksOffset.count ==0) {
+        return NO;
+    }
     for (NSValue *v in self.bookMarksOffset) {
         if([v rangeValue].location == offset) {
             return YES;

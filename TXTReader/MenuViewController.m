@@ -10,6 +10,7 @@
 #import "MenuTableViewCell.h"
 #import "PYUtils.h"
 #import "BookSource.h"
+#import "GlobalSettingAttrbutes.h"
 
 static NSString* MenuTableViewCellIndentifier = @"mtvcid";
 
@@ -29,7 +30,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.tintColor = [UIColor redColor];
+    self.view.tintColor = APP_TINTCOLOR;
     [self setupNavigationBar];
     
     self.tableView = [UITableView createWithBlock:^(UITableViewBuilder *builder) {

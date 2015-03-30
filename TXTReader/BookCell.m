@@ -64,8 +64,8 @@
 }
 
 - (void) startAnimating {
-    CGFloat radius = M_PI/120.f;
-    CGFloat duration = 0.3;
+    CGFloat radius = M_PI/150.f * pow(-1.f, (double)(arc4random()%10));
+    CGFloat duration = 0.25;
     
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnimation.values = @[
@@ -78,7 +78,7 @@
     rotateAnimation.duration = duration;
     
     CGPoint center = self.center;
-    CGFloat offsetX = arc4random()%2;
+    CGFloat offsetX = arc4random()%2 * pow(-1.f, (double)(arc4random()%10));
     CGFloat offsetY = arc4random()%2;
     CAKeyframeAnimation *pos = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     pos.duration = duration;

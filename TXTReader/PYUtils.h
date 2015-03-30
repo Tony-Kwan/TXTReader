@@ -24,6 +24,8 @@ typedef unsigned long long ull;
 
 #define INF 1<<28
 
+#define APP_FONT(fontSize) [UIFont fontWithName:@"Helvetica-Light" size:fontSize]
+
 #define UIScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define UIScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define UIScreenCenter CGPointMake(UIScreenWidth/2.f, UIScreenHeight/2.f)

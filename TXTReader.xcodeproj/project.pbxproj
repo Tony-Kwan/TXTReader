@@ -266,6 +266,8 @@
 				E96815E11AA8C37900C863B9 /* Category */,
 				E96815E51AAB39E800C863B9 /* PYAnimator.h */,
 				E96815E61AAB39E800C863B9 /* PYAnimator.m */,
+				E96815EB1AAB84D300C863B9 /* DBUtils.h */,
+				E96815EC1AAB84D300C863B9 /* DBUtils.m */,
 				E95FAA551A96023300D30017 /* FileUtils.h */,
 				E95FAA561A96023300D30017 /* FileUtils.m */,
 				E945064E1A94B48B0017FDD1 /* PYUtils.h */,
@@ -274,8 +276,6 @@
 				E94506511A94B48B0017FDD1 /* UIImage+ImageEffects.m */,
 				E94506521A94B48B0017FDD1 /* ImageCache.h */,
 				E94506531A94B48B0017FDD1 /* ImageCache.m */,
-				E96815EB1AAB84D300C863B9 /* DBUtils.h */,
-				E96815EC1AAB84D300C863B9 /* DBUtils.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";

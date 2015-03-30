@@ -33,6 +33,7 @@
 //    btn.backgroundColor = [UIColor blackColor];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn addTarget:obj action:selector forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.font = APP_FONT(17);
     return btn;
 }
 

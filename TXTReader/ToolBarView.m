@@ -57,7 +57,7 @@
     [self addSubview:self.btnSetting];
     
 //    self.btnMenu = [PYUtils customButtonWithImage:[UIImage imageNamed:@"menu"] target:self andAction:@selector(clickMenu)];
-    self.btnMenu = [PYUtils customButtonWith:@"Menu" target:self andAction:@selector(clickMenu)];
+    self.btnMenu = [PYUtils customButtonWith:@"菜单" target:self andAction:@selector(clickMenu)];
     [self addSubview:self.btnMenu];
     
 //    self.btnLastReading = [PYUtils customButtonWith:@"B" target:self andAction:@selector(clickLastReading)];
@@ -104,7 +104,7 @@
     [_btnMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.equalTo(weakSelf);
         make.top.equalTo(weakSelf.slider.mas_bottom);
-        make.width.equalTo(weakSelf.btnMenu.mas_height).multipliedBy(2);
+        make.width.equalTo(weakSelf.btnMenu.mas_height).multipliedBy(1.4);
     }];
 }
 

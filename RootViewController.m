@@ -106,6 +106,7 @@ BookSourceDelegate
     btnSetting.backgroundColor = CLEAR_COLOR;
     btnSetting.tintColor = self.view.tintColor;
     [btnSetting setTitle:(@"Done") forState:UIControlStateNormal];
+    btnSetting.titleLabel.font = APP_FONT(15);
     [btnSetting sizeToFit];
     UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnSetting];
     self.navigationItem.rightBarButtonItem = rightButtonItem;
@@ -179,12 +180,12 @@ BookSourceDelegate
     
     [self.tableView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:idx inSection:0]]];
     
-//    if(![DBUtils isBookInDB:book]) {
-//        [DBUtils addBook:book];
-//    }
-//    else {
-//        [DBUtils updateWithBook:book];
-//    }
+    if(![DBUtils isBookInDB:book]) {
+        [DBUtils addBook:book];
+    }
+    else {
+        [DBUtils updateWithBook:book];
+    }
 }
 
 #pragma mark - PYPATHButtonDelegate

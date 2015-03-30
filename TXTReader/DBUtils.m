@@ -41,7 +41,7 @@
             NSString *name = [rs stringForColumn:NAME];
             int fontSize = [rs intForColumn:PAGINATEFONTSIZE];
             int rowSpace = [rs intForColumn:PAGINATEROWSPACE];
-            NSUInteger lastOffset = [rs unsignedLongLongIntForColumn:LASTREADOFFSET];
+            NSUInteger lastOffset = (NSUInteger)[rs unsignedLongLongIntForColumn:LASTREADOFFSET];
             NSString *pageIndex = [rs stringForColumn:PAGEINDEXS];
             NSString *bms = [rs stringForColumn:BOOKMARKOFFSETS];
             NSString *date = [rs stringForColumn:LASTREADDATE];
@@ -51,6 +51,15 @@
             NSString *tmp;
             
             book.lastUpdate = [PYUtils string2Date:date];
+            book.lastReadOffset = lastOffset;
+            
+            NSArray *bmsArray = [bms componentsSeparatedByString:@" "];
+            book.bookMarksOffset = [NSMutableArray arrayWithCapacity:bmsArray.count];
+            for (NSUInteger i = 0; i < bmsArray.count-1; i++) {
+                tmp = [bmsArray objectAtIndex:i];
+                [book.bookMarksOffset addObject:[NSValue valueWithRange:NSMakeRange([tmp integerValue], 5)]];
+            }
+            PYLog(@"bookMarksOffset: %@", book.bookMarksOffset);
             
             GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
             PYLog(@"%s fontsize: %@ %@ rowspace: %@ %@", __PRETTY_FUNCTION__, @(fontSize), @(st.fontSize), @(rowSpace), @(st.rowSpaceIndex));
@@ -60,7 +69,7 @@
                     tmp = [pis objectAtIndex:i];
                     [book.pageIndexArray addObject:@([tmp integerValue])];
                 }
-                NSLog(@"%@", book.pageIndexArray);
+                PYLog(@"pageIndexArray: %@", book.pageIndexArray);
             }
             else {
                 book.pageIndexArray = nil;
@@ -71,6 +80,7 @@
             book.lastReadOffset = lastOffset;
             [rs close];
             [db close];
+            PYLog(@"%s: %@", __PRETTY_FUNCTION__, book);
             return YES;
         }
     }
@@ -108,6 +118,7 @@
         BOOL addSuccess = [db executeUpdate:sql, book.name, [NSNumber numberWithInteger:st.fontSize], [NSNumber numberWithInteger:st.rowSpaceIndex], [NSString stringWithString:pageIndexsString], [NSString stringWithString:bookmarkIndexString], [PYUtils date2String:book.lastUpdate shortDate:YES], [NSNumber numberWithUnsignedInteger:book.lastReadOffset]];
 //        NSLog(@"====");
         PYLog(@"%s %d", __PRETTY_FUNCTION__, addSuccess);
+        PYLog(@"%s: %@", __PRETTY_FUNCTION__, book);
     }
     else {
     }
@@ -139,6 +150,7 @@
         NSString *sql = [NSString stringWithFormat:@"UPDATE book SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", PAGINATEFONTSIZE, PAGINATEROWSPACE, PAGEINDEXS, BOOKMARKOFFSETS, LASTREADDATE, LASTREADOFFSET, NAME];
         BOOL updateSuccess = [db executeUpdate:sql, @(st.fontSize), @(st.rowSpaceIndex), [NSString stringWithString:pageIndexsString], [NSString stringWithString:bookmarkIndexString], [PYUtils date2String:book.lastUpdate shortDate:YES], @(book.lastReadOffset), book.name];
         PYLog(@"%s %d | %@ %@", __PRETTY_FUNCTION__, updateSuccess, @(st.fontSize), @(st.rowSpaceIndex));
+        PYLog(@"%s: %@", __PRETTY_FUNCTION__, book);
     }
 }
 

@@ -99,7 +99,18 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 #pragma mark - BookCellDelegate
 - (void) bookCellDeleteButtonDidClick:(BookCell *)cell {
     NSIndexPath *indexPath = [self indexPathForCell:cell];
-    [[BookSource shareInstance] removeBookAtIndex:indexPath.item];
+    
+    CGPoint center = cell.center;
+    center.y += CGRectGetHeight(cell.frame)/2;
+    [UIView animateWithDuration:0.5 animations:^{
+        cell.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        cell.center = center;
+    } completion:^(BOOL finished) {
+        cell.transform = CGAffineTransformMakeScale(1.f, 1.f);
+        [[BookSource shareInstance] removeBookAtIndex:indexPath.item];
+    }];
+    
+    
 }
 
 @end

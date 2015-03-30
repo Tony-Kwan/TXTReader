@@ -21,7 +21,7 @@
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
         self.titleLabel.textColor = [UIColor blackColor];
-        self.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:21];
+        self.titleLabel.font = APP_FONT(21);
         [self.contentView addSubview:self.titleLabel];
         
         self.typeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"txt_indicate"]];
@@ -30,7 +30,7 @@
         [self.contentView addSubview:self.typeImageView];
         
         self.progressLabel = [[UILabel alloc] init];
-        self.progressLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+        self.progressLabel.font = APP_FONT(15);
         self.progressLabel.textColor = [UIColor grayColor];
         self.progressLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:self.progressLabel];
@@ -38,7 +38,7 @@
         self.charCountLabel = [[UILabel alloc] init];
         self.charCountLabel.textAlignment = NSTextAlignmentLeft;
         self.charCountLabel.textColor = [UIColor grayColor];
-        self.charCountLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+        self.charCountLabel.font = APP_FONT(15);
         [self.contentView addSubview:self.charCountLabel];
         
         WS(weakSelf);

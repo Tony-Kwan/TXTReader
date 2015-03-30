@@ -85,7 +85,7 @@
 #pragma mark - property
 - (void) setValue:(double)value {
     _value = value;
-    lbCount.text = [NSString stringWithFormat:@"Font Size: %.0f", _value];
+    lbCount.text = [NSString stringWithFormat:@"字 号: %.0f", _value];
     lbCount.font = [UIFont fontWithName:@"HelveticaNeue" size:_value];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     

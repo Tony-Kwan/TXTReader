@@ -11,6 +11,7 @@
 #import "SettingView.h"
 #import "VEMessageView.h"
 #import "MenuViewController.h"
+#import "PYUtils.h"
 
 @interface ReadViewController()
 <
@@ -55,6 +56,7 @@ BookDelegate
 
     self.view.backgroundColor = WHITE_COLOR;
     self.view.layer.masksToBounds = self.view.clipsToBounds = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO; // gg:uipageviewcontroller UIPageViewControllerTransitionStyleScroll uinavigationcontroller
     
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     UIPageViewControllerTransitionStyle style = st.scrollMode == 0 ? UIPageViewControllerTransitionStylePageCurl : UIPageViewControllerTransitionStyleScroll;
@@ -131,19 +133,23 @@ BookDelegate
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBarHideOnTap:)]; //TODO:optimization
 //    [self.view addGestureRecognizer:_tap];
     
-    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(clickBack:)];
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickBack:)];
     backButtonItem.tintColor = WHITE_COLOR;
     self.navigationItem.leftBarButtonItem = backButtonItem;
     self.navigationItem.title = self.book.name;
     
     self.btnBookMark = [[UIButton alloc] init];
-    [_btnBookMark setImage:[UIImage imageNamed:@"bookmark_off"] forState:UIControlStateNormal];
-//    [_btnBookMark setImage:[UIImage imageNamed:@"bookmark_on"] forState:UIControlStateSelected];
+    [_btnBookMark setTitle:@"存为书签" forState:UIControlStateNormal];
+    [_btnBookMark setTitle:@"删除该书签" forState:UIControlStateSelected];
+    [_btnBookMark setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_btnBookMark setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    _btnBookMark.titleLabel.font = APP_FONT(15);
     [_btnBookMark addTarget:self action:@selector(clickBookMark:) forControlEvents:UIControlEventTouchUpInside];
     _btnBookMark.backgroundColor = CLEAR_COLOR;
     _btnBookMark.tintColor = self.view.tintColor;
     _btnBookMark.selected = NO;
-    [_btnBookMark sizeToFit];
+    _btnBookMark.frame = CGRectMake(0, 0, UIScreenWidth/4, 44);
+//    [_btnBookMark sizeToFit];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnBookMark];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
@@ -155,7 +161,7 @@ BookDelegate
     self.toolBar.progressLabel.text = [NSString stringWithFormat:@"%@ / %@", @(_currentPageIndex), @(_book.pageCount)];
     self.toolBar.slider.value = (float)_currentPageIndex;
     self.currentPageOffset = [[self.book.pageIndexArray objectAtIndex:_currentPageIndex-1] unsignedIntegerValue];
-    self.btnBookMark.selected = ![self.book isOneOfBookmarkOffset:self.currentPageOffset];
+    self.btnBookMark.selected = [self.book isOneOfBookmarkOffset:self.currentPageOffset];
 }
 
 - (void) dealloc {
@@ -175,20 +181,12 @@ BookDelegate
 
 - (void) clickBookMark:(id)sender {
     if(self.btnBookMark.selected == NO) {
-        BOOL hasNewBookMark = YES;
-        if(self.book.bookMarksOffset && self.book.bookMarksOffset.count) {
-            hasNewBookMark = ![self.book isOneOfBookmarkOffset:self.currentPageOffset];
-        }
-        if(hasNewBookMark) {
-            [self.book addBookmarkWithOffset:self.currentPageOffset];
-            self.btnBookMark.selected = YES;
-        }
+        [self.book addBookmarkWithOffset:self.currentPageOffset];
+        self.btnBookMark.selected = YES;
     }
     else {
-        if([self.book isOneOfBookmarkOffset:self.currentPageOffset]) {
-            [self.book deleteBookmarkWithOffset:self.currentPageOffset];
-            self.btnBookMark.selected = NO;
-        }
+        [self.book deleteBookmarkWithOffset:self.currentPageOffset];
+        self.btnBookMark.selected = NO;
     }
     [self updateTimer];
 }

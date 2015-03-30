@@ -18,6 +18,7 @@
 
 - (id) initWithText:(NSAttributedString*)text color:(UIColor *)color andFont:(UIFont *)font {
     if((self = [super init])) {
+        
         self.bgImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         self.bgImageView.contentMode = UIViewContentModeScaleToFill;
         [self.view addSubview:self.bgImageView];
