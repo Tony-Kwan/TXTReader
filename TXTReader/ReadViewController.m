@@ -26,6 +26,8 @@ BookDelegate
     NSTimer *_barHideTimer;
     CGRect tapViewFrame;
     BOOL _lastTimeIsBefore;
+    
+    NSInteger _oldFontSize, _oldRowSpaceIndex;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -234,6 +236,10 @@ BookDelegate
     if(flag) {
         frame.origin.y = [PYUtils screenHeight] - frame.size.height;
         [self showToolBar:NO];
+        
+        GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+        _oldFontSize = st.fontSize;
+        _oldRowSpaceIndex = st.rowSpaceIndex;
     }
     else {
         frame.origin.y = [PYUtils screenHeight];
@@ -242,6 +248,10 @@ BookDelegate
     self.tapView.frame = flag ? self.view.bounds : tapViewFrame;
     [UIView animateWithDuration:0.3 animations:^{
         self.settingView.frame = frame;
+    } completion:^(BOOL finished) {
+        if(!flag) {
+            [self rePaginateIfAttributeChangedFinally];
+        }
     }];
 }
 
@@ -254,6 +264,24 @@ BookDelegate
         [_barHideTimer invalidate];
     }
     _barHideTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(hideNavigationBar) userInfo:nil repeats:NO];
+}
+
+- (void) rePaginateIfAttributeChangedFinally {
+    GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
+    if(_oldRowSpaceIndex != st.rowSpaceIndex || _oldFontSize != st.fontSize) {
+        self.book.canPaginate = YES;
+        [self.book paginate];
+        self.toolBar.paginatingLabel.hidden = self.book.pageIndexArray ? YES : NO;
+        self.toolBar.progressLabel.hidden = self.toolBar.slider.hidden = !self.toolBar.paginatingLabel.hidden;
+    }
+}
+
+- (void) globalAttributeDidChanged {
+    self.book.canPaginate = NO;
+    
+    NSAttributedString *attrStr = [self.book getStringWithOffset:self.currentPageOffset];
+    TextViewController* tvc = (TextViewController*)[self.pageViewController viewControllers][0];
+    [tvc.textLabel setAttributedText:attrStr];
 }
 
 #pragma mark - UIPageViewControllerDataSource
@@ -341,6 +369,7 @@ BookDelegate
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     st.rowSpaceIndex = rowSpaceIndex;
     [USER_DEFAULTS setObject:@(rowSpaceIndex) forKey:GLOBAL_ROW_SPACE];
+    [self globalAttributeDidChanged];
 }
 
 - (void) changeToNight:(BOOL)isNight {
@@ -353,6 +382,7 @@ BookDelegate
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     st.fontSize = fontSize;
     [USER_DEFAULTS setObject:@(fontSize) forKey:GLOBAL_FONT_SIZE];
+    [self globalAttributeDidChanged];
 }
 
 - (void) changeSkinTo:(NSInteger)index {
@@ -393,6 +423,8 @@ BookDelegate
     else {
         [DBUtils updateWithBook:self.book];
     }
+    
+    [self updateToolBar];
 }
 
 - (void) paginatingPregress:(CGFloat)progress {

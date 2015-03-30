@@ -70,7 +70,7 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
 }
 
 - (CGSize) collectionView:(UICollectionView *)collectionView layout:(PYCollectionViewFlowLayout *)layout referenceSizeForDecorationViewForRow:(NSInteger)row inSection:(NSInteger)section {
-    return CGSizeMake(self.frame.size.width, 20);
+    return CGSizeMake(self.frame.size.width-40, 25);
 }
 
 - (BOOL) collectionView:(UICollectionView*)collectionView canMoveIndexPath:(NSIndexPath*)indexPath {

@@ -103,9 +103,14 @@ UITableViewDataSource
     }
     else {
         NSValue *value = [readingBook.bookMarksOffset objectAtIndex:indexPath.item];
-        cell.textLabel.text = [readingBook.content substringWithRange:[value rangeValue]];
+        NSUInteger max = [value rangeValue].length + [value rangeValue].location;
+        if(max < [readingBook length]) {
+            cell.textLabel.text = [readingBook.content substringWithRange:[value rangeValue]];
+        }
+        else {
+            cell.textLabel.text = [readingBook.content substringFromIndex:[value rangeValue].location];
+        }
     }
-//    NSLog(@"%@ %@ %@", r, readingBook.content, [readingBook.content substringWithRange:[r rangeValue]]);
     
     return cell;
 }

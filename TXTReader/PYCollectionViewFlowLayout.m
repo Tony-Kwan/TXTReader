@@ -190,7 +190,7 @@ UIGestureRecognizerDelegate
             
             CGSize bookShelfSize = [self.delegate collectionView:self.collectionView layout:self referenceSizeForDecorationViewForRow:row inSection:section];
             
-            dict[[NSIndexPath indexPathForItem:row inSection:section]] = [NSValue valueWithCGRect:CGRectMake(adjustment.horizontal, adjustment.vertical + y, bookShelfSize.width, bookShelfSize.height)];
+            dict[[NSIndexPath indexPathForItem:row inSection:section]] = [NSValue valueWithCGRect:CGRectMake(adjustment.horizontal+20, adjustment.vertical + y, bookShelfSize.width, bookShelfSize.height)];
             
             if(row < rows - 1) {
                 y += self.minimumLineSpacing;

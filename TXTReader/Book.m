@@ -203,7 +203,7 @@
 }
 
 - (void) addBookmarkWithOffset:(NSUInteger)offset {
-    NSRange range = NSMakeRange(offset, 5);
+    NSRange range = NSMakeRange(offset, 50);
     NSValue *value = [NSValue valueWithRange:range];
     [self.bookMarksOffset addObject:value]; //TODO:bookmark
 }
@@ -220,6 +220,8 @@
 }
 
 - (void) paginate {
+    self.pageIndexArray = nil; //== nil == 未分页
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
         NSDictionary *attrs = [st attributes];

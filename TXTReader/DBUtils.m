@@ -57,7 +57,7 @@
             book.bookMarksOffset = [NSMutableArray arrayWithCapacity:bmsArray.count];
             for (NSUInteger i = 0; i < bmsArray.count-1; i++) {
                 tmp = [bmsArray objectAtIndex:i];
-                [book.bookMarksOffset addObject:[NSValue valueWithRange:NSMakeRange([tmp integerValue], 5)]];
+                [book.bookMarksOffset addObject:[NSValue valueWithRange:NSMakeRange([tmp integerValue], 50)]];
             }
             PYLog(@"bookMarksOffset: %@", book.bookMarksOffset);
             
