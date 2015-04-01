@@ -28,6 +28,8 @@ BookDelegate
     BOOL _lastTimeIsBefore;
     
     NSInteger _oldFontSize, _oldRowSpaceIndex;
+    
+    CGFloat _lastScale, _currentFontSize, _currentScale;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -120,6 +122,9 @@ BookDelegate
         make.width.equalTo(weakSelf.view).multipliedBy(0.55);
         make.height.mas_equalTo(80);
     }];
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+    [self.tapView addGestureRecognizer:pinch];
 }
 
 - (void) setupNavigationItem {
@@ -210,6 +215,34 @@ BookDelegate
     _barHideTimer = nil;
     if(!self.navigationController.navigationBarHidden) {
         [self showToolBar:NO];
+    }
+}
+
+- (void) handlePinch:(UIPinchGestureRecognizer*)pinch {
+    switch (pinch.state) {
+        case UIGestureRecognizerStateBegan:
+            _oldFontSize = [[GlobalSettingAttrbutes shareSetting] fontSize];
+            _oldRowSpaceIndex = [[GlobalSettingAttrbutes shareSetting] rowSpaceIndex];
+            _lastScale = _currentScale = 1.f;
+            _currentFontSize = [[GlobalSettingAttrbutes shareSetting] fontSize];
+            break;
+        case UIGestureRecognizerStateChanged:
+            pinch.scale = pinch.scale - _lastScale + 1;
+            _lastScale = pinch.scale;
+            _currentScale *= _lastScale;
+            NSInteger size = (_currentFontSize * _currentScale);
+//            NSLog(@"%zd %zd | %f %f %f", size, [GlobalSettingAttrbutes shareSetting].fontSize, _lastScale, _currentScale, _currentFontSize);
+            if(size>=15 && size<=22 && size != [GlobalSettingAttrbutes shareSetting].fontSize) {
+                [self changeFontSizeTo:size];
+            }
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+            [self rePaginateIfAttributeChangedFinally];
+            break;
+        default:
+            break;
     }
 }
 
@@ -389,9 +422,6 @@ BookDelegate
     TextViewController *currentVC = (TextViewController*)[[self.pageViewController viewControllers] firstObject];
     GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
     [st setSkinIndex:index];
-    self.messageView.backgroundColor = [UIColor blackColor];
-    self.messageView.messageLabel.textColor = [UIColor whiteColor];
-    self.messageView.layer.borderColor = self.messageView.messageLabel.textColor.CGColor;
     
 //    [currentVC setTextColor:[st skin][0] andBackgoundColor:[st skin][1]];
     [currentVC setSkin:[st skin]];

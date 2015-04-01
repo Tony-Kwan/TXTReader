@@ -31,7 +31,7 @@
 @property (nonatomic, assign) BOOL isNight;
 @property (nonatomic, assign) NSInteger scrollMode;
 
-+ (id) shareSetting;
++ (instancetype) shareSetting;
 
 - (NSArray*) skin;
 - (UIColor*) textColor;

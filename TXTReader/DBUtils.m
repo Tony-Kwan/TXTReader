@@ -59,7 +59,7 @@
                 tmp = [bmsArray objectAtIndex:i];
                 [book.bookMarksOffset addObject:[NSValue valueWithRange:NSMakeRange([tmp integerValue], 50)]];
             }
-            PYLog(@"bookMarksOffset: %@", book.bookMarksOffset);
+//            PYLog(@"bookMarksOffset: %@", book.bookMarksOffset);
             
             GlobalSettingAttrbutes *st = [GlobalSettingAttrbutes shareSetting];
             PYLog(@"%s fontsize: %@ %@ rowspace: %@ %@", __PRETTY_FUNCTION__, @(fontSize), @(st.fontSize), @(rowSpace), @(st.rowSpaceIndex));
@@ -69,7 +69,7 @@
                     tmp = [pis objectAtIndex:i];
                     [book.pageIndexArray addObject:@([tmp integerValue])];
                 }
-                PYLog(@"pageIndexArray: %@", book.pageIndexArray);
+//                PYLog(@"pageIndexArray: %@", book.pageIndexArray);
             }
             else {
                 book.pageIndexArray = nil;

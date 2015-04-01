@@ -10,7 +10,7 @@
 
 @implementation GlobalSettingAttrbutes
 
-+ (id) shareSetting {
++ (instancetype) shareSetting {
     static GlobalSettingAttrbutes *shareInstance;
     static dispatch_once_t once;
     dispatch_once(&once, ^{

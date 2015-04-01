@@ -50,7 +50,8 @@
     UILabel *label = [[UILabel alloc] init];
     label.text = text;
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
-    label.font = [UIFont systemFontOfSize:fontSize];
+//    label.font = [UIFont systemFontOfSize:fontSize];
+    label.font = APP_FONT(fontSize);
     label.textColor = color;
     label.textAlignment = NSTextAlignmentCenter;
     return label;

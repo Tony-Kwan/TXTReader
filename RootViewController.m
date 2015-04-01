@@ -51,6 +51,7 @@ BookSourceDelegate
     self.bookSource = [BookSource shareInstance];
     self.bookSource.deleaget = self;
     [self.bookSource loadBooks];
+    [self.bookSource updateBooksFromDB];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navibg"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
@@ -114,7 +115,7 @@ BookSourceDelegate
 
 - (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [[GlobalSettingAttrbutes shareSetting] clearCache];
+    [[BookSource shareInstance] clearCache];
 }
 
 #pragma mark - event
@@ -147,7 +148,7 @@ BookSourceDelegate
             [book paginate];
             [NSThread sleepForTimeInterval:0.5];
         }
-        
+    
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];
         if(self.collectionView.hidden == NO) {
             NSUInteger idx = [[BookSource shareInstance] indexOfBook:book];

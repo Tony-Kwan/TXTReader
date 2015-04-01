@@ -8,6 +8,7 @@
 
 #import "BookSource.h"
 #import "PYUtils.h"
+#import "DBUtils.h"
 
 @interface BookSource()
 
@@ -17,7 +18,7 @@
 
 @implementation BookSource
 
-+ (id) shareInstance {
++ (instancetype) shareInstance {
     static dispatch_once_t once;
     static BookSource* source;
     dispatch_once(&once, ^{
@@ -136,6 +137,12 @@
     
     if(self.deleaget && [self.deleaget respondsToSelector:@selector(bookSourceDidChange)]) {
         [self.deleaget bookSourceDidChange];
+    }
+}
+
+- (void) updateBooksFromDB {
+    for (Book* book in self.books) {
+        [DBUtils queryBook:book];
     }
 }
 

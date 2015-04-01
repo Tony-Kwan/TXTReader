@@ -33,7 +33,7 @@ typedef void(^SortCompleteBlock)(void);
 @property (nonatomic, strong) Book *readingBook;
 @property (nonatomic, weak) id<BookSourceDelegate> deleaget;
 
-+ (id) shareInstance;
++ (instancetype) shareInstance;
 
 - (void) loadBooks;
 - (void) clearCache;
@@ -44,5 +44,6 @@ typedef void(^SortCompleteBlock)(void);
 - (void) sortBooksWithType:(BookSortType)type completeBlock:(SortCompleteBlock)block;
 - (void) moveBookFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex;
 - (void) removeBookAtIndex:(NSUInteger)index;
+- (void) updateBooksFromDB;
 
 @end

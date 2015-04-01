@@ -32,21 +32,14 @@
         self.textLabel.clipsToBounds = NO;
         self.textLabel.layer.masksToBounds = NO;
         self.textLabel.adjustsFontSizeToFitWidth = YES;
+//        self.textLabel.userInteractionEnabled = YES;
         [self.view addSubview:self.textLabel];
         
-//        WS(weakSelf);
-//        [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(weakSelf.view).offset(TEXTVIEW_HORIZONTAL_INSET);
-//            make.right.equalTo(weakSelf.view).offset(-TEXTVIEW_HORIZONTAL_INSET);
-//            make.top.equalTo(weakSelf.view).offset(TEXTVIEW_VERTICAL_INSET);
-//            make.bottom.equalTo(weakSelf.view).offset(-TEXTVIEW_VERTICAL_INSET);
-//        }];
         CGFloat labelWidth = [PYUtils screenWidth]-2*TEXTVIEW_HORIZONTAL_INSET;
+        CGFloat labelHeight = [PYUtils screenHeight]-2*TEXTVIEW_VERTICAL_INSET;
         CGRect frame = CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, labelWidth, CGFLOAT_MAX);
         CGRect textRect = [text boundingRectWithSize:frame.size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
-//        PrintCGRect(frame);
-//        PrintCGRect(textRect);
-//        PYLog(@"=========");
+//
         frame.size = textRect.size;
         self.textLabel.frame = frame;
         if(frame.size.width < labelWidth-TEXTVIEW_HORIZONTAL_INSET) {
@@ -55,6 +48,8 @@
             self.textLabel.center = CGPointMake(self.view.center.x, self.textLabel.center.y);
         }
         self.textLabel.attributedText = text;
+//        self.textLabel.frame= CGRectMake(TEXTVIEW_HORIZONTAL_INSET, TEXTVIEW_VERTICAL_INSET, labelWidth, labelHeight);
+
     }
     return self;
 }
