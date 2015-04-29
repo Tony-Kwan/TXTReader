@@ -42,24 +42,24 @@
     
     [self.books removeAllObjects];
     
-    const int bookCount = 8;
-    for(int i = 0; i < bookCount; i++) {
-        str = [NSString stringWithFormat:@"%d", i%bookCount];
-        NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
-        Book *book = [[Book alloc] initWithPath:bookPath];
-        [self.books addObject:book];
-    }
-    
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSArray *fileNames = [fileManager contentsOfDirectoryAtPath:DOCUMENTS_PATH error:nil];
-//    for (NSString *name in fileNames) {
-//        if([name hasSuffix:@".txt"]) {
-//            str = [DOCUMENTS_PATH stringByAppendingPathComponent:name];
-//            NSLog(@"%@", str);
-//            Book *book = [[Book alloc] initWithPath:str];
-//            [self.books addObject:book];
-//        }
+//    const int bookCount = 8;
+//    for(int i = 0; i < bookCount; i++) {
+//        str = [NSString stringWithFormat:@"%d", i%bookCount];
+//        NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
+//        Book *book = [[Book alloc] initWithPath:bookPath];
+//        [self.books addObject:book];
 //    }
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *fileNames = [fileManager contentsOfDirectoryAtPath:DOCUMENTS_PATH error:nil];
+    for (NSString *name in fileNames) {
+        if([name hasSuffix:@".txt"]) {
+            str = [DOCUMENTS_PATH stringByAppendingPathComponent:name];
+            NSLog(@"%@", str);
+            Book *book = [[Book alloc] initWithPath:str];
+            [self.books addObject:book];
+        }
+    }
     if(self.deleaget && [self.deleaget respondsToSelector:@selector(bookSourceDidChange)]) {
         [self.deleaget bookSourceDidChange];
     }

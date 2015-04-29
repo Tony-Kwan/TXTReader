@@ -166,7 +166,8 @@ BookSourceDelegate
         [[BookSource shareInstance] setReadingBook:book];
     }
     else {
-        PYLog(@"nuknowencoding");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"打开TXT文件错误" message:@"不支持该文件编码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
     }
 }
 
