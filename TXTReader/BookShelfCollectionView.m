@@ -50,6 +50,7 @@ static NSString *bookCellIndentifier = @"bookCellIndentifier";
     
     BookCell *cell = (BookCell*)[collectionView dequeueReusableCellWithReuseIdentifier:bookCellIndentifier forIndexPath:indexPath];
     cell.titleLabel.text = book.name;
+    [cell.titleLabel sizeToFit];
     cell.delegate = self;
     
     if(self.deleteMode) {

@@ -29,25 +29,32 @@
         self.coverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookCover"]];
         self.coverImageView.frame = self.bounds;
         self.coverImageView.contentMode = UIViewContentModeScaleToFill;
-        [self addSubview:self.coverImageView];
+        [self.contentView addSubview:self.coverImageView];
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/7, frame.size.width, 16)];
+        self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.text = @"no name";
         self.titleLabel.numberOfLines = 0;
         self.titleLabel.clipsToBounds = NO;
         self.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
         self.titleLabel.font = [UIFont systemFontOfSize:14];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:self.titleLabel];
+        [self.contentView addSubview:self.titleLabel];
         
         self.btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.btnDelete setImage:[UIImage imageNamed:@"btn-remove"] forState:UIControlStateNormal];
         [self.btnDelete addTarget:self action:@selector(clickDelete) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.btnDelete];
+        [self.contentView addSubview:self.btnDelete];
         [self.btnDelete sizeToFit];
         
         self.btnDelete.frame = CGRectMake(CGRectGetMaxX(self.bounds)-CGRectGetWidth(self.btnDelete.frame), 0, CGRectGetWidth(self.btnDelete.frame), CGRectGetHeight(self.btnDelete.frame));
         
+        
+        WS(weakSelf);
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(weakSelf).offset(5);
+            make.right.equalTo(weakSelf).offset(-5);
+            make.centerY.equalTo(weakSelf.contentView).offset(-10);
+        }];
     }
     return self;
 }
