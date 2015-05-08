@@ -146,7 +146,7 @@ BookSourceDelegate
         if(![DBUtils queryBook:book]) {
             book.canPaginate = YES;
             [book paginate];
-            [NSThread sleepForTimeInterval:0.5];
+            [NSThread sleepForTimeInterval:0.1];
         }
     
         UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:readVC];

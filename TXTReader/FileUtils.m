@@ -36,7 +36,7 @@
         encoding = NSUTF8StringEncoding;
     }
     else {
-        encoding = kUnknownStringEncoding;
+        encoding = NSUTF8StringEncoding;
     }
     
     return encoding;

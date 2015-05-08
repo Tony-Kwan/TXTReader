@@ -36,6 +36,7 @@
 		E96815E71AAB39E800C863B9 /* PYAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815E61AAB39E800C863B9 /* PYAnimator.m */; };
 		E96815EA1AAB4B8800C863B9 /* UIColor+TXTReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815E91AAB4B8800C863B9 /* UIColor+TXTReader.m */; };
 		E96815ED1AAB84D300C863B9 /* DBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E96815EC1AAB84D300C863B9 /* DBUtils.m */; };
+		E9695CCF1AFC89D900DA0B29 /* 碧血剑.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9695CCE1AFC89D900DA0B29 /* 碧血剑.txt */; };
 		E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */; };
 		E97EBDEA1AA55A0B0060E25D /* BookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EBDE91AA55A0B0060E25D /* BookCoverView.m */; };
 		E99385861AC6B58A00A50DDA /* PYStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = E99385841AC6B58A00A50DDA /* PYStepper.m */; };
@@ -51,7 +52,6 @@
 		E9B854EF1A9D6588003855D1 /* 倚天屠龙记.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854ED1A9D6588003855D1 /* 倚天屠龙记.txt */; };
 		E9B854F11A9D68C6003855D1 /* 达芬奇密码.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9B854F01A9D68C6003855D1 /* 达芬奇密码.txt */; };
 		E9B854F41A9D73AF003855D1 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B854F31A9D73AF003855D1 /* TextViewController.m */; };
-		E9E9C9031AA4062A00495116 /* 碧血剑.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9021AA4062A00495116 /* 碧血剑.txt */; };
 		E9E9C9421AA452AE00495116 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E9C9411AA452AE00495116 /* Setting.storyboard */; };
 		E9E9C94A1AA47B0000495116 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C9491AA47B0000495116 /* MenuViewController.m */; };
 		E9E9C94E1AA47CED00495116 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E9C94D1AA47CED00495116 /* MenuTableViewCell.m */; };
@@ -124,6 +124,7 @@
 		E96815E91AAB4B8800C863B9 /* UIColor+TXTReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TXTReader.m"; sourceTree = "<group>"; };
 		E96815EB1AAB84D300C863B9 /* DBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtils.h; sourceTree = "<group>"; };
 		E96815EC1AAB84D300C863B9 /* DBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBUtils.m; sourceTree = "<group>"; };
+		E9695CCE1AFC89D900DA0B29 /* 碧血剑.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "碧血剑.txt"; sourceTree = "<group>"; };
 		E96AD8C31AA852EE00400AFA /* PYBookShelfBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYBookShelfBackgroundView.xib; sourceTree = "<group>"; };
 		E97EBDE81AA55A0B0060E25D /* BookCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCoverView.h; sourceTree = "<group>"; };
 		E97EBDE91AA55A0B0060E25D /* BookCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCoverView.m; sourceTree = "<group>"; };
@@ -148,7 +149,6 @@
 		E9B854F01A9D68C6003855D1 /* 达芬奇密码.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "达芬奇密码.txt"; sourceTree = "<group>"; };
 		E9B854F21A9D73AF003855D1 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		E9B854F31A9D73AF003855D1 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
-		E9E9C9021AA4062A00495116 /* 碧血剑.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "碧血剑.txt"; sourceTree = "<group>"; };
 		E9E9C9411AA452AE00495116 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		E9E9C9481AA47B0000495116 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		E9E9C9491AA47B0000495116 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -304,8 +304,8 @@
 				E9B854ED1A9D6588003855D1 /* 倚天屠龙记.txt */,
 				E9B854F01A9D68C6003855D1 /* 达芬奇密码.txt */,
 				E9EB223C1AA0821100DC01C0 /* 数字城堡.txt */,
-				E9E9C9021AA4062A00495116 /* 碧血剑.txt */,
 				E9B004501AA6EAE900120431 /* 失落的秘符.txt */,
+				E9695CCE1AFC89D900DA0B29 /* 碧血剑.txt */,
 			);
 			name = TXT;
 			sourceTree = "<group>";
@@ -537,8 +537,8 @@
 				E94506661A94B86E0017FDD1 /* 天使与魔鬼.txt in Resources */,
 				E9B004511AA6EAE900120431 /* 失落的秘符.txt in Resources */,
 				E9B854F11A9D68C6003855D1 /* 达芬奇密码.txt in Resources */,
-				E9E9C9031AA4062A00495116 /* 碧血剑.txt in Resources */,
 				E96AD8C41AA852EE00400AFA /* PYBookShelfBackgroundView.xib in Resources */,
+				E9695CCF1AFC89D900DA0B29 /* 碧血剑.txt in Resources */,
 				E94506671A94B86E0017FDD1 /* 地狱.txt in Resources */,
 				E9EB223D1AA0821100DC01C0 /* 数字城堡.txt in Resources */,
 				E94506341A94A96E0017FDD1 /* LaunchScreen.xib in Resources */,

@@ -45,7 +45,7 @@
 //    const int bookCount = 8;
 //    for(int i = 0; i < bookCount; i++) {
 //        str = [NSString stringWithFormat:@"%d", i%bookCount];
-//        NSString *bookPath = [[NSBundle mainBundle] pathForResource:str ofType:@"txt"];
+//        NSString *bookPath = [[NSBundle mainBundle] pathForResource:@"碧血剑2" ofType:@"txt"];
 //        Book *book = [[Book alloc] initWithPath:bookPath];
 //        [self.books addObject:book];
 //    }
